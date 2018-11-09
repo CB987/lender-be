@@ -1,0 +1,3 @@
+A "social lending" site. Users can list any items they have that they are willing to lend. Friends, family, and neighbors can connect and you can search to see if they have something you need, from a cup of sugar to a power tool. 
+Good idea to have rating?
+People can request to borrow and then there is a record of who has the item and a field where the borrower puts how long they need it and another where the lender can put when they need it back and the app can send reminders of the "due date." 
