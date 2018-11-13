@@ -22,7 +22,7 @@ People can request to borrow and then there is a record of who has the item and 
 
 <h3>Future Innovations</h3>
 <ul>
-  <li>Good idea to have rating for users? <-- stretch goal</li>
+  <li>Have ability for users to rate each other.</li>
   <li>Make it more actually social-- connect with friends + family and be able to search within those connections. </li>
 </ul>
 
