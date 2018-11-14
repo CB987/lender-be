@@ -16,9 +16,7 @@ function categoryPage(){
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Source+Sans+Pro" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 </head>
-<header>
-    <h1>Lender-Be</h1>
-</header>
+${header()}
 
 <body>
     <h2>Books and Movies</h2>
@@ -30,7 +28,7 @@ function categoryPage(){
  </form>
 
 </body>
-<footer><i>"Lend me some sugar; I am your neighbor"</i> --Andre3000/Outkast</footer>
+${footer()}
 
 </html>
  `   
