@@ -1,0 +1,7 @@
+function page(content){
+    return `
+    
+    
+    
+    `
+}
