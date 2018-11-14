@@ -10,6 +10,7 @@ People can request to borrow and, if accepted, then there is a record of who has
   <li>Database of things that people want to borrow/lend. Includes table of users, categories of items, and a table for each category.   </li>
   <li>Can we make the menu on the landing page (where it says "book" now) a drop down menu representing the categories? First drop-down menu takes you to landing page of that category, and then can search on that page. Or browse?</li>
   <li>Search function looks through each item-category table </li>
+  <li>contact within the page once you find an item</li>
   <li>need to be able to search within x miles</li>
   <li>when matching item(s) found, show on map</li>
 </ul>
