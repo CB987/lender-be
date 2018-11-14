@@ -1,8 +1,8 @@
 <h1>Lender-be</h1>
 
-A "social lending" site. Users can list any items they have that they are willing to lend. Friends, family, and neighbors can connect and  can search to see if someone has something you they need, from a book to a power tool. 
+A "social lending" site. Users can list any items they have that they are willing to lend. Friends, family, and neighbors can connect and  can search to see if someone has something they need, from a book to a power tool. 
 <br>
-People can request to borrow and then there is a record of who has the item and a field where the borrower puts how long they need it and another where the lender can put when they need it back and the app can send reminders of the "due date." 
+People can request to borrow and, if accepted, then there is a record of who has the item, a field where the borrower puts how long they need it, another where the lender can put when they need it back, and the app can send reminders of the "due date." 
 <br>
 
 <h3>MVP</h3>
@@ -24,6 +24,7 @@ People can request to borrow and then there is a record of who has the item and 
 <ul>
   <li>Have ability for users to rate each other.</li>
   <li>Make it more actually social-- connect with friends + family and be able to search within those connections. </li>
+  <li>Users upload pictures of the item and those are browseable<li>
 </ul>
 
-Brought to you by Clare Barton, Steven Kim, and Amelia Schultz
+Brought to you by Amelia Schultz, Steven Kim, and Clare Barton
