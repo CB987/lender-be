@@ -5,11 +5,14 @@ values
     ('movies'),
     ('power tools'),
     ('hand tools'),
+    ('yard tools'),
     ('kitchen electric appliances'),
     ('kitchen gadgets, non-electric'),
-    ('craft items'), //subtable needed? for different craft genres?
-    ('yard tools'),
-    ('electronics'),
+    ('booze')
+    -- ('electronics'),
+    ('craft items'),
     ('halloween costumes'),
     ('decorations/ holiday items'),
-    ('booze')
+
+    insert into users
+        (name, 

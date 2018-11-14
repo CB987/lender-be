@@ -28,7 +28,7 @@ header, body, footer {
     text-align: center;
     color: white;
     justify-content: center;
-    outline: 1px solid orangered;
+    /* outline: 1px solid orangered; */
 }
 
 header {
