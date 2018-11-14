@@ -4,7 +4,7 @@ create table users (
     username varchar(20),
     email varchar(100),
     city text,
-    state varcchar(2)
+    state varchar(2)
 );
 
 create table categories (
@@ -14,6 +14,7 @@ create table categories (
 
 create table items (
     id serial primary key,
+    category_id integer references categories (id),
     name text,
     keyword text,
     owner integer references users (id),
