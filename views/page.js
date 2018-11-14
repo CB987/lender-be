@@ -1,3 +1,7 @@
+const {header, footer} = require('./helper');
+
+
+
 function categoryPage(){
     return `
     <!DOCTYPE html>
