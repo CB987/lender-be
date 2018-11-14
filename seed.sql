@@ -9,10 +9,10 @@ values
     ('yard tools'),
     ('kitchen electric appliances'),
     ('kitchen gadgets, non-electric'),
-    ('booze'),
+    ('booze')
     ('craft items'),
     ('halloween costumes'),
-    ('decorations/ holiday items');
+    ('decorations/ holiday items'),
 
     insert into users
         (name, username, email, city, state)
@@ -81,3 +81,4 @@ values
     (1, 'My Own Miraculous', 'Joshilyn Jackson 2013 southern georgia fiction family', true),
     (1, 'Genius: The Game', 'Leopoldo Gout 2016 YA sci-fi fiction adventure', true),
     (1, 'The Arrivals', 'Melissa Marr 2013 sci-fi alternate fiction western', true);
+
