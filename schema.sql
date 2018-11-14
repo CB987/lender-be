@@ -1,40 +1,23 @@
 create table users (
     id serial primary key,
+    name varchar(100),
+    username varchar(20),
+    email varchar(100),
+    city text,
+    state varchar(2)
+);
+
+create table categories (
+    id serial primary key,
+    categoryName text
+);
+
+create table items (
+    id serial primary key,
+    category_id integer references categories (id),
     name text,
-    preferred contact method text,
-    phone integer,
-    email email,
-    zipcode varchar(5),
-    location map plot(?),
-)
-
--- create table user-connections (
---     id serial primary key,
-
--- )
-
-create table lending-item-categories (
-    id serial primary key,
-    category-name text,
-
-)
-
-create table category-books (
-    id serial primary key,
-    title text,
-    author text,
-    user_id integer references user (id) on delete cascade
-)
-
-create table category-power-tools (
-    id serial primary key,
-    power-tool-name text,
-    power-tool-brand text,
-    user_id integer references user (id) on delete cascade
-)
-
-create table category-hand-tools (
-    id serial primary key,
-    hand-tool-name text,
-    user_id integer references user (id) on delete cascade
-)
+    keyword text,
+    owner integer references users (id),
+    available boolean,
+    borrower integer references users (id)
+);
