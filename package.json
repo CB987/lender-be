@@ -1,0 +1,33 @@
+{
+  "name": "lender-be",
+  "version": "1.0.0",
+  "description": "<h1>Lender-be</h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "node -- inspect-brk index.js",
+    "dev": "nodemon index.js",
+    "reset-db": "dropdb lender-be; createdb lender-be; psql -f schema.sql lender-be; psql -f seed.sql lender-be"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CB987/lender-be.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CB987/lender-be/issues"
+  },
+  "homepage": "https://github.com/CB987/lender-be#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "pg-promise": "^8.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}

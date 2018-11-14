@@ -1,3 +1,4 @@
+
 insert into categories
     (categoryName)
 values
