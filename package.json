@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "node -- inspect-brk index.js",
-    "dev": "nodemon index.js"
-  
+    "dev": "nodemon index.js",
+    "reset-db": "dropdb lender-be; createdb lender-be; psql -f schema.sql lender-be; psql -f seed.sql lender-be"
   },
   "repository": {
     "type": "git",
