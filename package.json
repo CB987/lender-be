@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/CB987/lender-be/issues"
   },
-  "homepage": "https://github.com/CB987/lender-be#readme"
+  "homepage": "https://github.com/CB987/lender-be#readme",
+  "dependencies": {
+    "nodemon": "^1.18.6"
+  }
 }
