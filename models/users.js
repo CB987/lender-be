@@ -56,11 +56,11 @@ static getUserById(id){
 };  
 
 
-getItem (){
+getItems() {
     return db.any(`
         SELECT * FROM items
             WHERE owner = $1
-    `, [owner]);
+    `, [this.id]);
     };
 
 // UPDATE
