@@ -10,12 +10,14 @@ app.use(bodyParser.json());
 
 const bcrypt = require('bcrypt');
 
-const users = require('./models/users');
+const User = require('./models/users');
 
-users.getUserById(20)
-    .then(result => {
-        console.log(result)
-    });
+
+const dummyUser = new User(2, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
+
+
+
+
 
 // *************************************************
 // USERS - CRUD
