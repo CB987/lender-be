@@ -12,7 +12,10 @@ const bcrypt = require('bcrypt');
 
 const users = require('./models/users');
 
-
+users.getUserById(20)
+    .then(result => {
+        console.log(result)
+    });
 
 // *************************************************
 // USERS - CRUD
