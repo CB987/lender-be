@@ -11,8 +11,9 @@ app.use(bodyParser.json());
 const bcrypt = require('bcrypt');
 
 const users = require('./models/users');
+const Categories = require('./models/categories');
 
-
+const books = new Categories(1, 'books');
 
 // *************************************************
 // USERS - CRUD
@@ -32,36 +33,28 @@ const users = require('./models/users');
 //         console.log(theUser);
 //     })
 
-// ###THINK ABOUT IT###
-// not sure if we will ever need to display the whole array of users
-// users.getAll()
-//     .then((userObject) =>{
-//         console.log(userObject);
-//     })
 
 // UPDATE 
 // =================
-// ## Update name,username,email,city,state or all/what is best way?##
 
 // DELETE
 // =================
-// ## Delete by name or id?/ I'm thinking by id since the user is logged in ##
-// ## OR should we not delete at all? ##
-// ## schema --> 'on delete cascade' to foreign key ##
 
 // *************************************************
 // ITEMS -CRUD
 // =================
 
-// CREATE
-// =================
-// ## add items ##
 
 // RETRIEVE
 // =================
-// users.getAll()
-//     .then((itemObject) =>{
-//         console.log(itemObject);
+books.getAllItems()
+    .then((allBooks) =>{
+        console.log(allBooks);
+    })
+
+// books.getFilteredItems('%ros%')
+//     .then((results) => {
+//         console.log(results);
 //     })
 
 // ## get items by item/names/keywords ##
