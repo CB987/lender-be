@@ -31,8 +31,17 @@ static add(name, username, email, city, state){
         })
     };
 
+addItem(category_id, name, keyword, available,){
+            return db.one(`
+            INSERT INTO items
+                (category_id, name, keyword, owner, available)
+            VALUES
+                ($1, $2, $3, $4, $5)
+            `, [category_id, name, keyword, this.id, available]);
+         };    
 
-// RETRIEVE
+
+    // RETRIEVE
 // =================
 static getUserById(id){
     return db.one(`
@@ -44,6 +53,14 @@ static getUserById(id){
         return u;
     })
 };  
+
+
+getItem (){
+    return db.any(`
+        SELECT * FROM items
+            WHERE owner = $1
+    `, [owner]);
+    };
 
 // UPDATE
 // =================
@@ -75,15 +92,6 @@ delete(){
 
 
 
-// UPDATE 
-// =================
-// ## Update name,username,email,city,state or all/what is best way?##
-
-// DELETE
-// =================
-// ## Delete by name or id?/ I'm thinking by id since the user is logged in ##
-// ## OR should we not delete at all? ##
-// ## schema --> 'on delete cascade' to foreign key ##
 
 // *************************************************
 // ITEMS -CRUD
