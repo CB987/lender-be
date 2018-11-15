@@ -1,17 +1,7 @@
-require('dotenv').config();
-
-const express = require('express'); 
-const app = express(); 
-app.use(express.static('public'));
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+const db = require('./db');
 
 const bcrypt = require('bcrypt');
-
-const users = require('./models/users');
-
+const saltRounds = 10;
 
 
 // *************************************************
@@ -20,24 +10,32 @@ const users = require('./models/users');
 
 // CREATE
 // =================
-// users.addUser('asdf', 'jk', 'asdf@email.com', 'asdf', 'qw')
-//     .then((newUser) =>{
-//         console.log(newUser);
-//     })
+// function addUser(name, username, email, city, state){
+//     return db.one(`
+//     INSERT INTO users
+// 	    (name, username, email, city, state)
+//     VALUES
+//         ($1, $2, $3, $4, $5)
+//     returning id
+//     `, [name, username, email, city, state]);
+// };
 
 // RETRIEVE
 // =================
-// users.getUserById(1)
-//     .then((theUser) =>{
-//         console.log(theUser);
-//     })
+// function getUserById(id){
+//     return db.one(`
+//         SELECT * FROM users
+// 	        WHERE id = $1
+//     `, [id]);
+// };
 
 // ###THINK ABOUT IT###
 // not sure if we will ever need to display the whole array of users
-// users.getAll()
-//     .then((userObject) =>{
-//         console.log(userObject);
-//     })
+// function getAll(){
+//     return db.any(`
+//         SELECT * FROM users;
+//     `);
+// };
 
 // UPDATE 
 // =================
@@ -59,10 +57,11 @@ const users = require('./models/users');
 
 // RETRIEVE
 // =================
-// users.getAll()
-//     .then((itemObject) =>{
-//         console.log(itemObject);
-//     })
+// function getAll(){
+//     return db.any(`
+//         SELECT * FROM items;
+//     `);
+// };
 
 // ## get items by item/names/keywords ##
 
@@ -74,3 +73,9 @@ const users = require('./models/users');
 // =================
 // ## delete items by id ##
 // ## 'on delete cascade'
+
+module.exports = {
+    // getAll,
+    // addUser,
+    getUserById
+}
