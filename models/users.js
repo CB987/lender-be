@@ -14,8 +14,6 @@ class User {
     }
 
 
-// CREATE
-// =================
 // Register
 static add(name, username, email, city, state){
         return db.one(`
