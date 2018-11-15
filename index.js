@@ -10,10 +10,34 @@ app.use(bodyParser.json());
 
 const bcrypt = require('bcrypt');
 
-const users = require('./models/users');
+const User = require('./models/users');
+const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
 
 
+// User.add('beyonce', 'queenb', 'queen@me.com', 'houston', 'TX')
+//     .then(result => {
+//         console.log(result)
+//     })
 
+
+// beyonce.addItem(1, 'Harry Potter and the Sorcerers Stone', 'JK Rowling fiction magic wizards', true) 
+//     .then(result => {
+//         console.log(result)
+//     });
+
+// beyonce.getItems()
+//     .then(result => {
+//         console.log(result)
+//     });
+
+// beyonce.updateItemStatus(2, 31)
+//     .then(result =>
+//         console.log(result));
+
+beyonce.updateItemInfo(31, 1, 'Harry Potter and the Goblet of Fire', 'JK Rowling fiction magic sci fi')
+    .then(result => {
+        console.log(result)
+    });
 // *************************************************
 // USERS - CRUD
 // =================
