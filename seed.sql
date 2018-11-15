@@ -59,7 +59,7 @@ values
     (1, 'The Bastard of Istanbul', 'Elif Shafak 2007 fiction family Turkey women', 6, true),
     (1, 'You Better Not Cry', 'Augusten Burroughs Christmas 2009 stories memoir', 7, true),
     (1, 'The Case of the Missing Books', 'Ian Sansom 2006 fiction mobile library mystery Ireland', 8, true),
-    (1, 'Irrepressible Reformer:A Biography of Melvil Dewey', 'Wayne Wiegand 1996 biography non-fiction Melville', 9, true),
+    (1, 'Irrepressible Reformer: A Biography of Melvil Dewey', 'Wayne Wiegand 1996 biography non-fiction Melville', 9, true),
     (1, 'Born on a Blue Day', 'Daniel Tammet 2007 memoir autistic autism savant', 10, true),
     (1, 'The Devil Wears Prada', 'Lauren Weisberger 2006 fiction fashion', 11, true),
     (1, 'The Final Frontiersman', 'James Campbell Heimo Korth Alaska Arctic Wilderness 2005 memoir', 12, true),
