@@ -22,6 +22,13 @@ const saltRounds = 10;
 
 // RETRIEVE
 // =================
+// function getUserById(id){
+//     return db.one(`
+//         SELECT * FROM users
+// 	        WHERE id = $1
+//     `, [id]);
+// };
+
 // ###THINK ABOUT IT###
 // not sure if we will ever need to display the whole array of users
 // function getAll(){
@@ -30,18 +37,15 @@ const saltRounds = 10;
 //     `);
 // };
 
-function getUserbyId(id){
-    return db.one(`
-        SELECT * FROM users
-	        WHERE id = $1
-    `, [id]);
-};
-
 // UPDATE 
 // =================
+// ## Update name,username,email,city,state or all/what is best way?##
 
 // DELETE
 // =================
+// ## Delete by name or id?/ I'm thinking by id since the user is logged in ##
+// ## OR should we not delete at all? ##
+// ## schema --> 'on delete cascade' to foreign key ##
 
 // *************************************************
 // ITEMS -CRUD
@@ -49,6 +53,7 @@ function getUserbyId(id){
 
 // CREATE
 // =================
+// ## add items ##
 
 // RETRIEVE
 // =================
@@ -58,15 +63,19 @@ function getUserbyId(id){
 //     `);
 // };
 
+// ## get items by item/names/keywords ##
+
 // UPDATE 
 // =================
+// ## update items by id ##
 
 // DELETE
 // =================
-
+// ## delete items by id ##
+// ## 'on delete cascade'
 
 module.exports = {
     // getAll,
     // addUser,
-    getUserbyId
+    getUserById
 }

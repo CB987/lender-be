@@ -27,6 +27,11 @@ const users = require('./models/users');
 
 // RETRIEVE
 // =================
+// users.getUserById(1)
+//     .then((theUser) =>{
+//         console.log(theUser);
+//     })
+
 // ###THINK ABOUT IT###
 // not sure if we will ever need to display the whole array of users
 // users.getAll()
@@ -34,16 +39,15 @@ const users = require('./models/users');
 //         console.log(userObject);
 //     })
 
-users.getUserbyId(1)
-    .then((theUser) =>{
-        console.log(theUser);
-    })
-
-    // UPDATE 
+// UPDATE 
 // =================
+// ## Update name,username,email,city,state or all/what is best way?##
 
 // DELETE
 // =================
+// ## Delete by name or id?/ I'm thinking by id since the user is logged in ##
+// ## OR should we not delete at all? ##
+// ## schema --> 'on delete cascade' to foreign key ##
 
 // *************************************************
 // ITEMS -CRUD
@@ -51,6 +55,7 @@ users.getUserbyId(1)
 
 // CREATE
 // =================
+// ## add items ##
 
 // RETRIEVE
 // =================
@@ -59,8 +64,13 @@ users.getUserbyId(1)
 //         console.log(itemObject);
 //     })
 
-    // UPDATE 
+// ## get items by item/names/keywords ##
+
+// UPDATE 
 // =================
+// ## update items by id ##
 
 // DELETE
 // =================
+// ## delete items by id ##
+// ## 'on delete cascade'
