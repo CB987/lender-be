@@ -10,15 +10,15 @@ const saltRounds = 10;
 
 // CREATE
 // =================
-function addUser(name, username, email, city, state){
-    return db.one(`
-    INSERT INTO users
-	    (name, username, email, city, state)
-    VALUES
-        ($1, $2, $3, $4, $5)
-    returning id
-    `, [name, username, email, city, state]);
-};
+// function addUser(name, username, email, city, state){
+//     return db.one(`
+//     INSERT INTO users
+// 	    (name, username, email, city, state)
+//     VALUES
+//         ($1, $2, $3, $4, $5)
+//     returning id
+//     `, [name, username, email, city, state]);
+// };
 
 // RETRIEVE
 // =================
@@ -59,6 +59,6 @@ function addUser(name, username, email, city, state){
 
 
 module.exports = {
-    getAll,
+    // getAll
     addUser
 }

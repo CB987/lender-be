@@ -20,10 +20,10 @@ const users = require('./models/users');
 
 // CREATE
 // =================
-users.addUser('asdf', 'jk;', 'asdf@email.com', 'asdfjkl;', 'qweruiop')
-    .then((newUser) =>{
-        console.log(newUser);
-    })
+// users.addUser('asdf', 'jk', 'asdf@email.com', 'asdf', 'qw')
+//     .then((newUser) =>{
+//         console.log(newUser);
+//     })
 
 // RETRIEVE
 // =================
