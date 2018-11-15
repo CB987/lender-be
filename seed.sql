@@ -9,10 +9,10 @@ values
     ('yard tools'),
     ('kitchen electric appliances'),
     ('kitchen gadgets, non-electric'),
-    ('booze')
+    ('booze'),
     ('craft items'),
     ('halloween costumes'),
-    ('decorations/ holiday items'),
+    ('decorations/ holiday items');
 
     insert into users
         (name, username, email, city, state)
