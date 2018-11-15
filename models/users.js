@@ -78,6 +78,24 @@ updateUserInfo(name, username, email, city, state){
     `, [this.id, this.name, this.username, this.email, this.city, this.state]);
 };
 
+
+
+updateItemStatus(borrower, id) {
+   return db.result(`
+   UPDATE items
+   SET available = false, borrower = $1
+   WHERE (id = $2 and owner=$3)
+   `, [borrower, id, this.id])
+};
+// //User instance method for updating item info
+updateItemInfo(id, category_id, name, keyword) {
+   return db.result(`
+       UPDATE items
+       SET category_id = $2, name =$3, keyword = $4
+       WHERE (id = $1 and owner= $5)
+   `, [id, category_id, name, keyword, this.id]);
+};
+
 // / DELETE
 // =================
 delete(){

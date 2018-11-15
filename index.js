@@ -25,7 +25,16 @@ const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX
 //         console.log(result)
 //     });
 
-beyonce.getItems()
+// beyonce.getItems()
+//     .then(result => {
+//         console.log(result)
+//     });
+
+// beyonce.updateItemStatus(2, 31)
+//     .then(result =>
+//         console.log(result));
+
+beyonce.updateItemInfo(31, 1, 'Harry Potter and the Goblet of Fire', 'JK Rowling fiction magic sci fi')
     .then(result => {
         console.log(result)
     });
