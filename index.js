@@ -20,7 +20,7 @@ const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX
 //     })
 
 
-beyonce.addItem(1, 'Harry Potter and the Goblet of Fire', 'JK Rowling fiction magic wizards', true) 
+beyonce.addItem(1, 'Harry Potter and the Chamber of Secrets', 'JK Rowling fiction magic wizards', true) 
     .then(result => {
         console.log(result)
     });

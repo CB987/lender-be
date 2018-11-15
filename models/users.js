@@ -37,6 +37,7 @@ addItem(category_id, name, keyword, available,){
                 (category_id, name, keyword, owner, available)
             VALUES
                 ($1, $2, $3, $4, $5)
+            returning id
             `, [category_id, name, keyword, this.id, available]);
          };    
 
