@@ -16,7 +16,7 @@ class User {
 
 // CREATE
 // =================
-
+// Register
 static add(name, username, email, city, state){
         return db.one(`
         INSERT INTO users
@@ -87,7 +87,7 @@ updateItemStatus(borrower, id) {
    WHERE (id = $2 and owner=$3)
    `, [borrower, id, this.id])
 };
-// //User instance method for updating item info
+
 updateItemInfo(id, category_id, name, keyword) {
    return db.result(`
        UPDATE items
@@ -105,39 +105,7 @@ delete(){
     `, [this.id]);
 };
 
-// *************************************************
-// USERS - CRUD
-// =================
 
-
-
-
-// *************************************************
-// ITEMS -CRUD
-// =================
-
-// CREATE
-// =================
-// ## add items ##
-
-// RETRIEVE
-// =================
-// function getAll(){
-//     return db.any(`
-//         SELECT * FROM items;
-//     `);
-// };
-
-// ## get items by item/names/keywords ##
-
-// UPDATE 
-// =================
-// ## update items by id ##
-
-// DELETE
-// =================
-// ## delete items by id ##
-// ## 'on delete cascade'
 }
 
 module.exports = User;
