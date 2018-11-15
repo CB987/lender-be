@@ -30,6 +30,13 @@ const saltRounds = 10;
 //     `);
 // };
 
+function getUserbyId(id){
+    return db.one(`
+        SELECT * FROM users
+	        WHERE id = $1
+    `, [id]);
+};
+
 // UPDATE 
 // =================
 
@@ -59,6 +66,7 @@ const saltRounds = 10;
 
 
 module.exports = {
-    // getAll
-    addUser
+    // getAll,
+    // addUser,
+    getUserbyId
 }

@@ -34,6 +34,11 @@ const users = require('./models/users');
 //         console.log(userObject);
 //     })
 
+users.getUserbyId(1)
+    .then((theUser) =>{
+        console.log(theUser);
+    })
+
     // UPDATE 
 // =================
 
