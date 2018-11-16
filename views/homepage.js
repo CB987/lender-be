@@ -2,7 +2,7 @@
 
 function homepage() {
     return `
-  
+
         <h2>What would you like to borrow?</h2>
         <br>
         <div class="dropdown">

@@ -5,7 +5,7 @@ const { header, footer } = require('./helper');
 function page(content) {
     return `
     <!DOCTYPE html>
-    <html lang="en" class="homepage" >
+    <html lang="en">
     
 
     <head>

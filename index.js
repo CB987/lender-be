@@ -15,7 +15,7 @@ const User = require('./models/User');
 const page = require('./views/page');
 const homepage = require('./views/homepage');
 const books = require('./views/books');
-
+const registrationForm = require('./views/registrationForm');
 
 
 const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
@@ -112,6 +112,26 @@ app.get('/books', (req, res) => {
     const thePage = page(books());
     res.send(thePage);
 })
+
+
+// ====================================================
+// User Registration
+// ====================================================
+
+app.get('/register', (req, res) => {
+    const theForm = registrationForm();
+    const thePage = page(theForm);
+    res.send(thePage);
+})
+
+app.post('register', (req, res) => {
+    const newName = req.body.name;
+    const newUsername = req.body.username;
+    const newPassword = req.body.password;
+    
+})
+
+
 
 app.listen(4000, () => {
     console.log('you in');

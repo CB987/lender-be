@@ -14,23 +14,26 @@ html, body {
     height: 100%;
     width: 100%;
     font-family: 'Source Sans Pro', sans-serif;
+    background: url(../images/handshake-laptop.jpg);
+    /* background: #3e8e41; */
     
 }
+
 
 html { 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    
 }
 
-.homepage {
-    background: url(../images/handshake-laptop.jpg) no-repeat center center fixed; 
-}
+/* .homepage {
+    background: url(/images/handshake-laptop.jpg) no-repeat center center fixed; 
+} */
 
 header, body, footer {
     text-align: center;
-    /* color: white; */
     justify-content: center;
     /* outline: 1px solid orangered; */
 }
