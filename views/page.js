@@ -13,6 +13,7 @@ function page(content, className = "handshake") {
     <link rel="stylesheet" href="/stylesheets/index.css">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Source+Sans+Pro" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+
     </head>
     <body>
         ${header()}
