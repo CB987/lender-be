@@ -1,5 +1,5 @@
 function header() {
-return `
+    return `
 <header>
 
 <h1>Lender-Be</h1>
@@ -21,4 +21,4 @@ function footer() {
 module.exports = {
     header,
     footer
-}
+};

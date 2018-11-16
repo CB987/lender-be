@@ -49,7 +49,7 @@ values
         ('Melon', 'mh89', 'melon@email.com', 'Austell', 'GA');
 
 insert into items
-    (category_id, name, keyword, owner, available)
+    (category_id, name, keyword, owner_id, available)
 values
     (1, 'The Rosie Effect', 'Graeme Simsion 2014 fiction comedy romance romcom', 1, true),
     (1, 'Committed', 'Elizabeth Gilbert 2010 memoir marriage', 2, true),

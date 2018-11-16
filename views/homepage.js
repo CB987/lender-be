@@ -1,18 +1,23 @@
+// function backgroundImage() {
+//     document.body.style.backgroundImage = 'url(images/books-home.jpg)'
+// }
+
 function homepage() {
+    // backgroundImage();
     return `
-        <html class="homepage">
-        <h2>What would you like to borrow?</h2>
-        <br>
+
+<h2>What would you like to borrow?</h2>
+    <br>
         <div class="dropdown">
             <button class="dropbtn">Dropdown</button>
             <div class="dropdown-content">
-                <a href="#">'./books'</a>
-                <a href="#">'./movies'</a>
-                <a href="#">'./handTools'</a>
+                <a href="./books">books</a>
+                <a href="./books">movies</a>
+                <a href="./tools">hand tools</a>
             </div>
         </div>
-    
-    `;
+
+        `;
 }
 
-module.exports = homepage;
+module.exports = homepage; 

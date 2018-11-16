@@ -77,10 +77,7 @@ const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX
 
 // RETRIEVE
 // =================
-Item.getAllItems()
-    .then((allBooks) => {
-        console.log(allBooks);
-    })
+
 // app.get('/books', (req, res) => {
 //     Item.getAllItems()
 //         .then((allBooks) => {
@@ -104,14 +101,32 @@ Item.getAllItems()
 // ## delete items by id ##
 // ## 'on delete cascade'
 app.get('/', (req, res) => {
-    const thePage = page(homepage);
+    const thePage = page(homepage());
     res.send(thePage);
 })
 
 app.get('/books', (req, res) => {
+    Item.getAllItems()
+        .then((allBooks) => {
+            console.log(allBooks);
+        })
     const thePage = page(books);
-    res.send(thePage(books));
+
+    res.send(thePage);
 })
+
+// app.get('/:itemsInCategory', (req, res) => {
+//     category_id = req.params.itemsInCategory
+//     Item.getAllItemsfromCategory(category_id)
+//         .then(itemArray => {
+//             console.log(itemArray)
+//         })
+//     if (category_id = 1 || category_id = 2) {
+//     res.send('/books')
+// } if (category_id = ) {
+//     res.send('books')
+// }
+
 
 app.listen(4000, () => {
     console.log('you in');
