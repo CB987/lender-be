@@ -104,13 +104,13 @@ Item.getAllItems()
 // ## delete items by id ##
 // ## 'on delete cascade'
 app.get('/', (req, res) => {
-    const thePage = page(homepage);
+    const thePage = page(homepage());
     res.send(thePage);
 })
 
 app.get('/books', (req, res) => {
-    const thePage = page(books);
-    res.send(thePage(books));
+    const thePage = page(books());
+    res.send(thePage);
 })
 
 app.listen(4000, () => {
