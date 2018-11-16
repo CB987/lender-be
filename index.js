@@ -164,7 +164,7 @@ app.post('/register', (req, res) => {
     User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
         .then(newUser => {
             res.redirect('/welcome');
-        });
+        })
 });
 
 app.get('/welcome', (req, res) => {
