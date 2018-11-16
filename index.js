@@ -106,7 +106,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/books', (req, res) => {
-    Item.getCategoryItems()
+    Item.getCategoryItems(1)
         .then((allBooks) => {
             console.log(allBooks);
             const thePage = page(books(allBooks), "books");
