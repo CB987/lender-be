@@ -124,13 +124,36 @@ app.get('/register', (req, res) => {
     res.send(thePage);
 })
 
-app.post('register', (req, res) => {
+app.post('/register', (req, res) => {
     const newName = req.body.name;
     const newUsername = req.body.username;
     const newPassword = req.body.password;
-    
-})
+    const newEmail = req.body.email;
+    const newCity = req.body.city;
+    const newState = req.body.state;
+    console.log(newName);
+    console.log(newUsername);
+    console.log(newPassword);
+    console.log(newEmail);
+    console.log(newCity);
+    console.log(newState);
 
+    User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
+        .then(newUser => {
+            res.redirect('/welcome');
+        });
+});
+
+app.get('/welcome', (req, res) => {
+    // send them to welcome page
+    res.send(page('<h1>hey buddy</h1>'));
+    // let visitorName = 'Person of the World';
+    // if (req.session.user) {
+    //     visitorName = req.session.user.username;
+    // }
+    // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
+    // req.session.user));
+})
 
 
 app.listen(4000, () => {

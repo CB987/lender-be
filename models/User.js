@@ -14,16 +14,16 @@ class User {
     }
 
     // Register
-    static add(name, username, email, city, state) {
+    static add(name, username, password, email, city, state) {
         return db.one(`
         INSERT INTO users
-    	    (name, username, email, city, state)
+    	    (name, username, password, email, city, state)
         VALUES
-            ($1, $2, $3, $4, $5)
+            ($1, $2, $3, $4, $5, $6)
         returning id
-        `, [name, username, email, city, state])
+        `, [name, username, password, email, city, state])
             .then(data => {
-                const u = new User(data.id, name, username, email, city, state)
+                const u = new User(data.id, name, username, password, email, city, state)
                 return u;
             })
     };
