@@ -10,7 +10,7 @@ create table users (
 
 create table categories (
     id serial primary key,
-    categoryName text
+    categoryname text
 );
 
 create table items (

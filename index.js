@@ -77,10 +77,7 @@ const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX
 
 // RETRIEVE
 // =================
-Item.getAllItems()
-    .then((allBooks) => {
-        console.log(allBooks);
-    })
+
 // app.get('/books', (req, res) => {
 //     Item.getAllItems()
 //         .then((allBooks) => {
@@ -109,9 +106,35 @@ app.get('/', (req, res) => {
 })
 
 app.get('/books', (req, res) => {
-    const thePage = page(books());
-    res.send(thePage);
+    Item.getCategoryItems()
+        .then((allBooks) => {
+            console.log(allBooks);
+            const thePage = page(books(allBooks), "books");
+            res.send(thePage);
+        })
 })
+
+app.post('/books', (req, res) => {
+    const search = req.body.search;
+    Item.getFilteredItems(1, search)
+        .then((allBooks) => {
+            console.log(allBooks);
+            const thePage = page(books(allBooks), "books");
+            res.send(thePage);
+        })
+})
+
+// app.get('/:itemsInCategory', (req, res) => {
+//     category_id = req.params.itemsInCategory
+//     Item.getAllItemsfromCategory(category_id)
+//         .then(itemArray => {
+//             console.log(itemArray)
+//         })
+//     if (category_id = 1 || category_id = 2) {
+//     res.send('/books')
+// } if (category_id = ) {
+//     res.send('books')
+// }
 
 
 // ====================================================
@@ -154,6 +177,7 @@ app.get('/welcome', (req, res) => {
     // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
     // req.session.user));
 })
+
 
 
 app.listen(4000, () => {
