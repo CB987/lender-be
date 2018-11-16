@@ -17,21 +17,29 @@ function getAllBooks() {
         });
 };
 
+function singleBook(book) {
+    // console.log(book[0]);
+    return `
+    <li>${book.name
+        }</li >
+        `;
+}
+
 function books(allBooks) {
     return `
-    <h2>Books and Movies</h2>
-    <br>
-    <h3>What would you like to borrow? </h3>
-    <form action="" method="GET">
-    <input type="text" name="search" placeholder="moby dick" id="">
-    <input type="submit" value="Find">
+        < h2 > Books and Movies</h2 >
+            <br>
+                <h3>What would you like to borrow? </h3>
+                <form action="" method="POST">
+                    <input type="text" name="search" placeholder="moby dick" id="">
+                        <input type="submit" value="Find">
     </form>
-    <ul>Books
-        <li>${allBooks}</li>
-    </ul>
+                        <ul>
+                            ${allBooks.map(singleBook)}
+                        </ul>
 
-    <div>
-    `
+                        <div>
+                            `
 }
 
 module.exports = books;

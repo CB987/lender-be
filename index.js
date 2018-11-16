@@ -106,13 +106,22 @@ app.get('/', (req, res) => {
 })
 
 app.get('/books', (req, res) => {
-    Item.getAllItems()
+    Item.getCategoryItems()
         .then((allBooks) => {
             console.log(allBooks);
+            const thePage = page(books(allBooks), "books");
+            res.send(thePage);
         })
-    const thePage = page(books);
+})
 
-    res.send(thePage);
+app.post('/books', (req, res) => {
+    const search = req.body.search;
+    Item.getFilteredItems(1, search)
+        .then((allBooks) => {
+            console.log(allBooks);
+            const thePage = page(books(allBooks), "books");
+            res.send(thePage);
+        })
 })
 
 // app.get('/:itemsInCategory', (req, res) => {
