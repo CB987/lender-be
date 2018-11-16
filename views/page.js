@@ -16,11 +16,11 @@ function page(content) {
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Source+Sans+Pro" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 </head>
-<body>
 ${header()}
+<body>
 ${content}
-${footer()}
 </body>
+${footer()}
 </html>
 `
 }

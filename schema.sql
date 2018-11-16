@@ -13,11 +13,11 @@ create table categories (
 );
 
 create table items (
-   id serial primary key,
-   category_id integer references categories (id),
-   name text,
-   keyword text,
-   owner integer references users (id) on delete cascade,
-   available boolean,
-   borrower integer references users (id)
+    id serial primary key,
+    category_id integer references categories (id),
+    name text,
+    keyword text,
+    owner_id integer references users (id) on delete cascade,
+    available boolean,
+    borrower_id integer references users (id)
 );

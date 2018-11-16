@@ -1,22 +1,25 @@
 require('dotenv').config();
-
 const express = require('express');
 const app = express();
-app.use(express.static('public'));
-
 const bodyParser = require('body-parser');
+
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const db = require('./models/db');
+const Item = require('./models/Item');
+const Category = require('./models/Category');
+const User = require('./models/User');
+
 const page = require('./views/page');
+const homepage = require('./views/homepage');
+const books = require('./views/books');
 
-const Categories = require('./models/categories');
-const books = new Categories(1, 'books');
 
-const User = require('./models/users');
+
 const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
 
-const bookPage = require('./views/books');
 
 // User.add('beyonce', 'queenb', 'queen@me.com', 'houston', 'TX')
 //     .then(result => {
@@ -74,17 +77,17 @@ const bookPage = require('./views/books');
 
 // RETRIEVE
 // =================
-// books.getAllItems()
-//     .then((allBooks) => {
-//         console.log(allBooks);
-//     })
-app.get('/books', (req, res) => {
-    books.getAllItems()
-        .then((allBooks) => {
-            console.log('i got all the books')
-            // res.send(page(allBooks));
-        });
-});
+Item.getAllItems()
+    .then((allBooks) => {
+        console.log(allBooks);
+    })
+// app.get('/books', (req, res) => {
+//     Item.getAllItems()
+//         .then((allBooks) => {
+//             console.log('i got all the books')
+//             // res.send(page(allBooks));
+//         });
+// });
 // books.getFilteredItems('%ros%')
 //     .then((results) => {
 //         console.log(results);
@@ -101,9 +104,15 @@ app.get('/books', (req, res) => {
 // ## delete items by id ##
 // ## 'on delete cascade'
 app.get('/', (req, res) => {
-    const thePage = page('helllooooo');
+    const thePage = page(homepage);
     res.send(thePage);
 })
+
+app.get('/books', (req, res) => {
+    const thePage = page(books);
+    res.send(thePage(books));
+})
+
 app.listen(4000, () => {
     console.log('you in');
 })
