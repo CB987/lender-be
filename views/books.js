@@ -1,23 +1,31 @@
-// const db = require('./db');
+const db = require('../models/db');
+const Item = require('../models/Item');
 
-function getAllBooks() {
+function getAllBooks(id) {
+    Item.getAllItems(id);
     return db.any(`
     SELECT i.name, i.keyword, i.available, u.city, u.state
     FROM items i
     INNER JOIN users u
     ON i.owner = u.id
     WHERE category_id = $1
-    ` [1]).then(resultsArray => {
+    ` [id]).then(resultsArray => {
             //transform array of objects into array of User instances
             let itemsArray = resultsArray.map(itemObj => {
                 let b = (itemObj.name, itemObj.keyword, itemObj.available, itemObj.city, itemObj.state);
                 return u;
-            });
-            return itemsArray;
+            })
+            return (itemsArray)
+                .then(itemsArray => {
+                    return `
+                <li>${itemsArray}</li>
+                `;
+
+                })
         });
 };
 
-function singleBook(book) {
+function singleObj(itemsArray) {
     // console.log(book[0]);
     return `
     <li>${book.name
@@ -25,9 +33,9 @@ function singleBook(book) {
         `;
 }
 
-function books(allBooks) {
+function books(itemsArray) {
     return `
-        < h2 > Books and Movies</h2 >
+        <h2>Books and Movies</h2>
             <br>
                 <h3>What would you like to borrow? </h3>
                 <form action="" method="POST">
@@ -35,11 +43,11 @@ function books(allBooks) {
                         <input type="submit" value="Find">
     </form>
                         <ul>
-                            ${allBooks.map(singleBook)}
+                            ${getAllBooks(1)}
                         </ul>
 
                         <div>
-                            `
+                            `;
 }
 
 module.exports = books;

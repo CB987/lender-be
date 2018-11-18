@@ -14,11 +14,10 @@ html, body {
     height: 100%;
     width: 100%;
     font-family: 'Source Sans Pro', sans-serif;
-    background: url(../images/handshake-laptop.jpg);
+    /* background: url(../images/handshake-laptop.jpg); */
     /* background: #3e8e41; */
     
 }
-
 
 html { 
     -webkit-background-size: cover;
@@ -29,11 +28,11 @@ html {
 }
 
 .handshake {
-    background-image: url("/images/handshake-laptop.jpg") no-repeat center center fixed; 
+    background-image: url("/images/handshake-laptop.jpg"); 
 }
 
 .books {
-    background-image: url("/images/book.jpg") no-repeat center center fixed; 
+    background-image: url("/images/book.jpg"); 
 }
 
 header, body, footer {

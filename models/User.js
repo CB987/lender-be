@@ -53,11 +53,12 @@ class User {
     };
 
 
-    getItems() {
+    getItems(id) {
         return db.any(`
-        SELECT * FROM items
-            WHERE owner = $1
-    `, [this.id]);
+        SELECT * 
+        FROM items
+        WHERE owner = $1
+    `, [id])
     };
 
     // UPDATE

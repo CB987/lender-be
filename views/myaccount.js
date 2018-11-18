@@ -1,30 +1,34 @@
-function getOwnerItems(id) {
-    User.getItems
-        .then(resultsArray => {
-            let myOwnerItems = resultsArray.map(itemObj => {
-                let i = new Item(itemObj.id, itemObj.category_id, itemObj.name, itemObj.keyword, itemObj.owner_id, itemObj.available, itemObj.borrower_id);
-                return i;
-            });
-            return myOwnerItems;
-        })
-};
+const Item = require('../models/Item');
 
-function myAccountPage(userId) {
+function item(object) {
     return `
-    <h2>My Account</h2>
-    <br><br>
-    <h4>My Lendable Items</h4>
-    <ul action='' method='GET'>
-        ${getOwnerItems(userId)}
-    </ul>
-    <br>
-    <h4>Items I'm Borrowing</h4>
-    <br>
-    <h4>Add An Item To My Lendable Items</h4>
-    <br>
-    <h4>Update Item Info</h4>
-    <br>
-    <h4>Update Personal Info</h4>
-    <br>
+    <li>
+    ${[object.id, object.category_id, object.name, object.keyword, object.owner_id, object.available, object.borrower_id]}
+    </li>
     `;
 }
+
+
+function myAccountPage(myOwnerItems) {
+
+    const myItems = myOwnerItems.map(item).join('');
+    return `
+    <h2><u>My Account</u></h2>
+    <br>
+    <h4>My Lendable Items</h4>
+    <ul action='' method='GET'>
+        ${myItems}
+    </ul>
+    
+    <h4>Items I'm Borrowing</h4>
+    
+    <h4>Add An Item To My Lendable Items</h4>
+    
+    <h4>Update Item Info</h4>
+  
+    <h4>Update Personal Info</h4>
+   
+    `
+}
+
+module.exports = myAccountPage;

@@ -16,7 +16,7 @@ const page = require('./views/page');
 const homepage = require('./views/homepage');
 const books = require('./views/books');
 const registrationForm = require('./views/registrationForm');
-
+const myAccount = require('./views/myaccount');
 
 const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
 
@@ -64,19 +64,7 @@ const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX
 //     })
 
 
-// UPDATE 
-// =================
 
-// DELETE
-// =================
-
-// *************************************************
-// ITEMS -CRUD
-// =================
-
-
-// RETRIEVE
-// =================
 
 // app.get('/books', (req, res) => {
 //     Item.getAllItems()
@@ -90,57 +78,24 @@ const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX
 //         console.log(results);
 //     })
 
-// ## get items by item/names/keywords ##
+// ====================================================
+// Serving
+// ====================================================
+app.listen(4000, () => {
+    console.log('you in');
+})
 
-// UPDATE 
-// =================
-// ## update items by id ##
-
-// DELETE
-// =================
-// ## delete items by id ##
-// ## 'on delete cascade'
+// ====================================================
+// Home Page
+// ====================================================
 app.get('/', (req, res) => {
     const thePage = page(homepage());
     res.send(thePage);
 })
 
-app.get('/books', (req, res) => {
-    Item.getCategoryItems(1)
-        .then((allBooks) => {
-            console.log(allBooks);
-            const thePage = page(books(allBooks), "books");
-            res.send(thePage);
-        })
-})
-
-app.post('/books', (req, res) => {
-    const search = req.body.search;
-    Item.getFilteredItems(1, search)
-        .then((allBooks) => {
-            console.log(allBooks);
-            const thePage = page(books(allBooks), "books");
-            res.send(thePage);
-        })
-})
-
-// app.get('/:itemsInCategory', (req, res) => {
-//     category_id = req.params.itemsInCategory
-//     Item.getAllItemsfromCategory(category_id)
-//         .then(itemArray => {
-//             console.log(itemArray)
-//         })
-//     if (category_id = 1 || category_id = 2) {
-//     res.send('/books')
-// } if (category_id = ) {
-//     res.send('books')
-// }
-
-
 // ====================================================
 // User Registration
 // ====================================================
-
 app.get('/register', (req, res) => {
     const theForm = registrationForm();
     const thePage = page(theForm);
@@ -178,8 +133,39 @@ app.get('/welcome', (req, res) => {
     // req.session.user));
 })
 
+// ====================================================
+// My Account
+// ====================================================
+app.get('/myaccount', (req, res) => {
+    Item.getItemsByOwner(1)
+        .then(myOwnerItems => {
+            // const myItems = myOwnerItems.map(item).join('');
+            console.log(myOwnerItems);
+            const thePage = page(myAccount(myOwnerItems));
+            res.send(thePage);
+
+        })
+});
 
 
-app.listen(4000, () => {
-    console.log('you in');
-})
+// ====================================================
+// Books Page; List and Search
+// ====================================================
+app.get('/books', (req, res) => {
+    Item.getAllItems(1)
+        .then((allBooks) => {
+            // console.log(allBooks);
+            const thePage = page(books(allBooks), "books");
+            res.send(thePage);
+        })
+});
+
+app.post('/books', (req, res) => {
+    const search = req.body.search;
+    Item.getFilteredItems(1, search)
+        .then((allBooks) => {
+            console.log(allBooks);
+            const thePage = page(books(allBooks), "books");
+            res.send(thePage);
+        })
+});
