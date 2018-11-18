@@ -19,6 +19,7 @@ const registrationForm = require('./views/registrationForm');
 const myAccount = require('./views/myaccount');
 const owned = require('./views/owned');
 const borrowing = require('./views/borrowing');
+const addItemForm = require('./views/addItem');
 
 const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
 
@@ -160,6 +161,21 @@ app.get('/myaccount/borrowing', (req, res) => {
             const thePage = page(borrowing(myBorrowedItems));
             res.send(thePage);
         })
+})
+
+app.get('/myaccount/addItem', (req, res) => {
+    const theForm = addItemForm();
+    const thePage = page(theForm);
+    res.send(thePage);
+})
+
+app.post('/myaccount/addItem', (req, res) => {
+    const category_id = req.body.category_id;
+    const name = req.body.name;
+    const keyword = req.body.keyword;
+    const available = req.body.available;
+
+    User.addItem(category_id, name, keyword, available)
 })
 
 

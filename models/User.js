@@ -28,14 +28,14 @@ class User {
             })
     };
 
-    addItem(category_id, name, keyword, available, ) {
+    static addItem(category_id, name, keyword, available) {
         return db.one(`
             INSERT INTO items
                 (category_id, name, keyword, owner, available)
             VALUES
                 ($1, $2, $3, $4, $5)
             returning id
-            `, [category_id, name, keyword, this.id, available]);
+            `, [category_id, name, keyword, owner_id, available]);
     };
 
 
