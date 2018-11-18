@@ -1,6 +1,8 @@
 const { header, footer } = require('./helper');
 
 
+
+
 function page(content, className = "handshake") {
     return `
     <!DOCTYPE html>
@@ -13,12 +15,14 @@ function page(content, className = "handshake") {
     <link rel="stylesheet" href="/stylesheets/index.css">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Source+Sans+Pro" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
-
+    <link href="./clusterize.css" rel="stylesheet">
     </head>
     <body>
         ${header()}
         ${content}
         ${footer()}
+   
+    <script src="/index.js"></script>
     </body>
     </html>
     `;
