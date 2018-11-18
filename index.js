@@ -17,6 +17,8 @@ const homepage = require('./views/homepage');
 const books = require('./views/books');
 const registrationForm = require('./views/registrationForm');
 const myAccount = require('./views/myaccount');
+const owned = require('./views/owned');
+const borrowing = require('./views/borrowing');
 
 const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
 
@@ -137,15 +139,28 @@ app.get('/welcome', (req, res) => {
 // My Account
 // ====================================================
 app.get('/myaccount', (req, res) => {
+    const thePage = page(myAccount());
+    res.send(thePage);
+})
+
+
+app.get('/myaccount/owned', (req, res) => {
     Item.getItemsByOwner(1)
         .then(myOwnerItems => {
             // const myItems = myOwnerItems.map(item).join('');
             console.log(myOwnerItems);
-            const thePage = page(myAccount(myOwnerItems));
+            const thePage = page(owned(myOwnerItems));
             res.send(thePage);
-
         })
 });
+
+app.get('/myaccount/borrowing', (req, res) => {
+    Item.getItemsBorrowed(1)
+        .then(myBorrowedItems => {
+            const thePage = page(borrowing(myBorrowedItems));
+            res.send(thePage);
+        })
+})
 
 
 // ====================================================

@@ -71,6 +71,20 @@ class Item {
 
             })
     };
+
+    static getItemsBorrowed(id) {
+        return db.any(`
+        SELECT name, owner_id
+        FROM items
+        WHERE borrower_id = $1
+        `, [id]).then(resultsArray => {
+                let myBorrowedItems = resultsArray.map(itemObj => {
+                    let i = new Item(itemObj.id, itemObj.category_id, itemObj.name, itemObj.keyword, itemObj.owner_id, itemObj.available, itemObj.borrower_id);
+                    return i;
+                });
+                return myBorrowedItems;
+            })
+    };
 }
 
 module.exports = Item;
