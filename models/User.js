@@ -4,10 +4,11 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 class User {
-    constructor(id, name, username, email, city, state) {
+    constructor(id, name, username, pwhash, email, city, state) {
         this.id = id;
         this.name = name;
         this.username = username;
+        this.pwhash = pwhash;
         this.email = email;
         this.city = city;
         this.state = state;
@@ -54,6 +55,19 @@ class User {
             })
     };
 
+    static getByUsername(username) {
+        return db.one(`
+            select * from users
+            where username ilike '%$1:raw%'          
+        `, [username]).then(result => {
+            return new User(result.id, result.name, result.username,result.pwhash, result.email, result.city, result.state);
+        })
+    }
+
+    passwordDoesMatch(thePassword) {
+        const didMatch = bcrypt.compareSync(thePassword, this.pwhash);
+        return didMatch;
+    }
 
     getItems() {
         return db.any(`

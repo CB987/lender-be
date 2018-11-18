@@ -17,13 +17,14 @@ const page = require('./views/page');
 const homepage = require('./views/homepage');
 const books = require('./views/books');
 const registrationForm = require('./views/registrationForm');
+const loginForm = require('./views/loginForm');
 
 
 
 
 
 
-  const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
+// const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
 
 
 // User.add('beyonce', 'queenb', 'queen@me.com', 'houston', 'TX')
@@ -184,7 +185,35 @@ app.get('/welcome', (req, res) => {
 })
 
 
+// ====================================================
+// User Login
+// ====================================================
 
+app.get('/login', (req, res) => {
+    const theForm = loginForm();
+    const thePage = page(theForm);
+    res.send(thePage);
+})
+
+app.post('/login', (req, res) => {
+    // grab values from form
+    const theUsername = req.body.username;
+    const thePassword = req.body.password;
+
+    // find the user who's name matches 'theUsername'
+    User.getByUsername(theUsername)
+        .catch(err => {
+            console.log(err);
+            res.redirect('/login');
+        })
+        .then(theUser => {
+            if(theUser.passwordDoesMatch(thePassword)) {
+                res.redirect('/welcome');
+            } else {
+                res.redirect('/login');
+            }
+        })
+})
 app.listen(4000, () => {
     console.log('you in');
 })
