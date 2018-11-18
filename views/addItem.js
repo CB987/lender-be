@@ -5,7 +5,7 @@ function addItemForm() {
             <button class="dropbtn">I want to...</button>
             <div class="dropdown-content">
                 <a href="./owned">see all my items</a>
-                <a href="../borrowing">see items I'm borrowing</a>
+                <a href="./borrowing">see items I'm borrowing</a>
                 <a href="./addItem">add an item</a>
                 <a href="./updateItem">update item info</a>
                 <a href="./updateMyInfo">update my personal info</a>
