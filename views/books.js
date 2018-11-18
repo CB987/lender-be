@@ -1,8 +1,9 @@
 const db = require('../models/db');
 const Item = require('../models/Item');
 
-function getAllBooks(id) {
-    Item.getAllItems(id);
+
+function getAllBooks() {
+
     return db.any(`
     SELECT i.name, i.keyword, i.available, u.city, u.state
     FROM items i
@@ -35,19 +36,22 @@ function singleObj(itemsArray) {
 
 function books(itemsArray) {
     return `
+
         <h2>Books and Movies</h2>
+
             <br>
                 <h3>What would you like to borrow? </h3>
                 <form action="" method="POST">
                     <input type="text" name="search" placeholder="moby dick" id="">
                         <input type="submit" value="Find">
     </form>
-                        <ul>
-                            ${getAllBooks(1)}
+                        
+                        
+                            ${allBooks.map(singleBook)}
                         </ul>
-
-                        <div>
-                            `;
+                        
+                        </div>
+                            `
 }
 
 module.exports = books;
