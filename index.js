@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
+
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,7 +19,11 @@ const books = require('./views/books');
 const registrationForm = require('./views/registrationForm');
 
 
-const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
+
+
+
+
+  const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
 
 
 // User.add('beyonce', 'queenb', 'queen@me.com', 'houston', 'TX')
