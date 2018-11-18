@@ -2,13 +2,13 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
+const db = require('./models/db');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const db = require('./models/db');
+
 const Item = require('./models/Item');
 const Category = require('./models/Category');
 const User = require('./models/User');
@@ -19,9 +19,17 @@ const books = require('./views/books');
 const registrationForm = require('./views/registrationForm');
 const loginForm = require('./views/loginForm');
 
+// session modules
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 
-
-
+app.use(session({
+    store: new pgSession({
+        pgPromise: db
+    }),
+    secret: 'abc123kasfsdbukbfrkqwuehnfioaebgfskdfhgcniw3y4fto7scdghlusdhbv',
+    saveUninitialized: false
+}));
 
 
 // const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
@@ -51,38 +59,7 @@ const loginForm = require('./views/loginForm');
 //     .then(result => {
 //         console.log(result)
 //     });
-// *************************************************
-// USERS - CRUD
-// =================
 
-// CREATE
-// =================
-// users.addUser('asdf', 'jk', 'asdf@email.com', 'asdf', 'qw')
-//     .then((newUser) =>{
-//         console.log(newUser);
-//     })
-
-// RETRIEVE
-// =================
-// users.getUserById(1)
-//     .then((theUser) =>{
-//         console.log(theUser);
-//     })
-
-
-// UPDATE 
-// =================
-
-// DELETE
-// =================
-
-// *************************************************
-// ITEMS -CRUD
-// =================
-
-
-// RETRIEVE
-// =================
 
 // app.get('/books', (req, res) => {
 //     Item.getAllItems()
@@ -169,13 +146,15 @@ app.post('/register', (req, res) => {
 
     User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
         .then(newUser => {
+            req.session.user = newUser;
             res.redirect('/welcome');
         })
 });
 
 app.get('/welcome', (req, res) => {
     // send them to welcome page
-    res.send(page('<h1>hey buddy</h1>'));
+    console.log(req.session.user);
+    res.send(page(`<h1>Hey ${req.session.user.username}</h1>`))
     // let visitorName = 'Person of the World';
     // if (req.session.user) {
     //     visitorName = req.session.user.username;
@@ -208,9 +187,11 @@ app.post('/login', (req, res) => {
         })
         .then(theUser => {
             if(theUser.passwordDoesMatch(thePassword)) {
+                req.session.user = theUser;
                 res.redirect('/welcome');
             } else {
                 res.redirect('/login');
+                
             }
         })
 })
