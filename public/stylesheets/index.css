@@ -19,7 +19,6 @@ html, body {
     
 }
 
-
 html { 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -28,7 +27,7 @@ html {
     
 }
 
-.handshake, .register {
+.handshake {
     background-image: url("/images/handshake-laptop.jpg"); 
 }
 

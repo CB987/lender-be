@@ -31,14 +31,14 @@ class User {
             })
     };
 
-    addItem(category_id, name, keyword, available, ) {
+    static addItem(category_id, name, keyword, available) {
         return db.one(`
             INSERT INTO items
                 (category_id, name, keyword, owner, available)
             VALUES
                 ($1, $2, $3, $4, $5)
             returning id
-            `, [category_id, name, keyword, this.id, available]);
+            `, [category_id, name, keyword, owner_id, available]);
     };
 
 
@@ -69,11 +69,12 @@ class User {
         return didMatch;
     }
 
-    getItems() {
+    getItems(id) {
         return db.any(`
-        SELECT * FROM items
-            WHERE owner = $1
-    `, [this.id]);
+        SELECT * 
+        FROM items
+        WHERE owner = $1
+    `, [id])
     };
 
     // UPDATE

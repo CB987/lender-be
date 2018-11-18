@@ -17,6 +17,10 @@ const page = require('./views/page');
 const homepage = require('./views/homepage');
 const books = require('./views/books');
 const registrationForm = require('./views/registrationForm');
+const myAccount = require('./views/myaccount');
+const owned = require('./views/owned');
+const borrowing = require('./views/borrowing');
+const addItemForm = require('./views/addItem');
 const loginForm = require('./views/loginForm');
 
 // session modules
@@ -31,99 +35,24 @@ app.use(session({
     saveUninitialized: false
 }));
 
+// ====================================================
+// Serving
+// ====================================================
+app.listen(4000, () => {
+    console.log('you in');
+})
 
-// const beyonce = new User(31, 'beyonce', 'queenb', 'queen@me.com', 'houston', 'TX');
-
-
-// User.add('beyonce', 'queenb', 'queen@me.com', 'houston', 'TX')
-//     .then(result => {
-//         console.log(result)
-//     })
-
-
-// beyonce.addItem(1, 'Harry Potter and the Sorcerers Stone', 'JK Rowling fiction magic wizards', true) 
-//     .then(result => {
-//         console.log(result)
-//     });
-
-// beyonce.getItems()
-//     .then(result => {
-//         console.log(result)
-//     });
-
-// beyonce.updateItemStatus(2, 31)
-//     .then(result =>
-//         console.log(result));
-
-// beyonce.updateItemInfo(31, 1, 'Harry Potter and the Goblet of Fire', 'JK Rowling fiction magic sci fi')
-//     .then(result => {
-//         console.log(result)
-//     });
-
-
-// app.get('/books', (req, res) => {
-//     Item.getAllItems()
-//         .then((allBooks) => {
-//             console.log('i got all the books')
-//             // res.send(page(allBooks));
-//         });
-// });
-// books.getFilteredItems('%ros%')
-//     .then((results) => {
-//         console.log(results);
-//     })
-
-// ## get items by item/names/keywords ##
-
-// UPDATE 
-// =================
-// ## update items by id ##
-
-// DELETE
-// =================
-// ## delete items by id ##
-// ## 'on delete cascade'
+// ====================================================
+// Home Page
+// ====================================================
 app.get('/', (req, res) => {
     const thePage = page(homepage());
     res.send(thePage);
 })
 
-app.get('/books', (req, res) => {
-    Item.getCategoryItems(1)
-        .then((allBooks) => {
-            console.log(allBooks);
-            const thePage = page(books(allBooks), "books");
-            res.send(thePage);
-        })
-})
-
-app.post('/books', (req, res) => {
-    const search = req.body.search;
-    Item.getFilteredItems(1, search)
-        .then((allBooks) => {
-            console.log(allBooks);
-            const thePage = page(books(allBooks), "books");
-            res.send(thePage);
-        })
-})
-
-// app.get('/:itemsInCategory', (req, res) => {
-//     category_id = req.params.itemsInCategory
-//     Item.getAllItemsfromCategory(category_id)
-//         .then(itemArray => {
-//             console.log(itemArray)
-//         })
-//     if (category_id = 1 || category_id = 2) {
-//     res.send('/books')
-// } if (category_id = ) {
-//     res.send('books')
-// }
-
-
 // ====================================================
 // User Registration
 // ====================================================
-
 app.get('/register', (req, res) => {
     const theForm = registrationForm();
     const thePage = page(theForm);
@@ -164,10 +93,10 @@ app.get('/welcome', (req, res) => {
 })
 
 
+
 // ====================================================
 // User Login
 // ====================================================
-
 app.get('/login', (req, res) => {
     const theForm = loginForm();
     const thePage = page(theForm);
@@ -195,6 +124,65 @@ app.post('/login', (req, res) => {
             }
         })
 })
-app.listen(4000, () => {
-    console.log('you in');
+// ====================================================
+// My Account
+// ====================================================
+app.get('/myaccount', (req, res) => {
+    const thePage = page(myAccount());
+    res.send(thePage);
 })
+app.get('/myaccount/owned', (req, res) => {
+    Item.getItemsByOwner(1)
+        .then(myOwnerItems => {
+            // const myItems = myOwnerItems.map(item).join('');
+            console.log(myOwnerItems);
+            const thePage = page(owned(myOwnerItems));
+            res.send(thePage);
+        })
+});
+
+app.get('/myaccount/borrowing', (req, res) => {
+    Item.getItemsBorrowed(1)
+        .then(myBorrowedItems => {
+            const thePage = page(borrowing(myBorrowedItems));
+            res.send(thePage);
+        })
+})
+
+app.get('/myaccount/addItem', (req, res) => {
+    const theForm = addItemForm();
+    const thePage = page(theForm);
+    res.send(thePage);
+})
+
+app.post('/myaccount/addItem', (req, res) => {
+    const category_id = req.body.category_id;
+    const name = req.body.name;
+    const keyword = req.body.keyword;
+    const available = req.body.available;
+
+    User.addItem(category_id, name, keyword, available)
+})
+
+
+// ====================================================
+// Books Page; List and Search
+// ====================================================
+app.get('/books', (req, res) => {
+    Item.getAllItems(1)
+        .then((allBooks) => {
+            // console.log(allBooks);
+            const thePage = page(books(allBooks), "books");
+            res.send(thePage);
+        })
+});
+
+app.post('/books', (req, res) => {
+    const search = req.body.search;
+    Item.getFilteredItems(1, search)
+        .then((allBooks) => {
+            console.log(allBooks);
+            const thePage = page(books(allBooks), "books");
+            res.send(thePage);
+        })
+});

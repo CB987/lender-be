@@ -57,6 +57,34 @@ class Item {
     `, [category_id, searchTerm])
     };
 
+    static getItemsByOwner(id) {
+        return db.any(`
+        SELECT * 
+        FROM items
+        WHERE owner_id = $1
+    `, [id]).then(resultsArray => {
+                let myOwnerItems = resultsArray.map(itemObj => {
+                    let i = new Item(itemObj.id, itemObj.category_id, itemObj.name, itemObj.keyword, itemObj.owner_id, itemObj.available, itemObj.borrower_id);
+                    return i;
+                });
+                return myOwnerItems;
+
+            })
+    };
+
+    static getItemsBorrowed(id) {
+        return db.any(`
+        SELECT name, owner_id
+        FROM items
+        WHERE borrower_id = $1
+        `, [id]).then(resultsArray => {
+                let myBorrowedItems = resultsArray.map(itemObj => {
+                    let i = new Item(itemObj.id, itemObj.category_id, itemObj.name, itemObj.keyword, itemObj.owner_id, itemObj.available, itemObj.borrower_id);
+                    return i;
+                });
+                return myBorrowedItems;
+            })
+    };
 }
 
 module.exports = Item;

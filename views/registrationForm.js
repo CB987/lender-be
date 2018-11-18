@@ -1,5 +1,5 @@
 function registrationForm() {
-    return `
+	return `
     <form action="" method="POST">
         <label> Your name:
             <input type="text" name="name">
