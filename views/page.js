@@ -1,4 +1,4 @@
-const { header, footer } = require('./helper');
+const { header, footer, nav } = require('./helper');
 
 
 
@@ -18,6 +18,7 @@ function page(content, className = "handshake") {
     <link href="./clusterize.css" rel="stylesheet">
     </head>
     <body>
+        ${nav()}
         ${header()}
         ${content}
         ${footer()}

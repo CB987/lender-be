@@ -11,7 +11,7 @@ function lendItemForm() {
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
-        h4><a href="./owned">My Lendable Items</a></h4>
+        <h4><a href="./owned">My Lendable Items</a></h4>
         <h4><a href="./borrowing">Items I'm Borrowing</a></h4>
         <h4><a href="./addItem">Add An Item To My Collection</a></h4>
     <h4>Lend Item</h4>

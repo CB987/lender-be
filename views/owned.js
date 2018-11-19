@@ -23,10 +23,10 @@ function owned(myOwnerItems) {
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
-        h4>My Lendable Items</h4>
-    <ol action='' method='GET'>
+        <h4>My Lendable Items</h4>
+    <ul action='' method='GET'>
         ${myItems} 
-    </ol>
+    </ul>
     <h4><a href="./borrowing">Items I'm Borrowing</a></h4>
     </ul>
     <h4><a href="./addItem">Add An Item To My Collection</a></h4>
