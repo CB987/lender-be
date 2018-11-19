@@ -23,8 +23,10 @@ const owned = require('./views/owned');
 const borrowing = require('./views/borrowing');
 const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
+const updateMyInfo = require('./views/updateMyInfo');
+const logout = require('./views/logout');
 const updateItemForm = require('./views/updateItem');
-// const updateUserInfo = require('views/updateUserInfo)')
+
 
 // session modules
 const session = require('express-session');
@@ -53,6 +55,15 @@ app.get('/', (req, res) => {
     res.send(thePage);
 })
 
+
+function protectRoute(req, res, next) {
+    let isLoggedIn = req.session.user ? true : false;
+    if (isLoggedIn) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
 // ====================================================
 // User Registration
 // ====================================================
@@ -167,7 +178,6 @@ app.get('/myaccount', (req, res) => {
     res.send(thePage);
 })
 app.get('/myaccount/owned', (req, res) => {
-    // console.log(req.params);
     Item.getItemsByOwner(req.session.user.id)
         .then(myOwnerItems => {
             // const myItems = myOwnerItems.map(item).join('');
@@ -203,13 +213,13 @@ app.post('/myaccount/addItem', (req, res) => {
             res.send(page(`<h2>success! thanks for contributing ${name} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
 
         })
-})
+});
 
 app.get('/myaccount/lendItem', (req, res) => {
     const theForm = lendItemForm();
     const thePage = page(theForm);
     res.send(thePage);
-})
+});
 
 app.post('/myaccount/lendItem', (req, res) => {
     const item_id = req.body.item_id;
@@ -217,10 +227,29 @@ app.post('/myaccount/lendItem', (req, res) => {
     // const owner_id = req.session.user.id;
     Item.updateItemStatus(borrower_id, item_id)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for sharing your stuff!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/lendItem">lend another item</a></h4>`));
-
+            res.send(page(`<h2>success! thanks for sharing your stuff!</h2><br><h4><a href="../myaccount">return to my account</a></h4><br><h4><a href="../myaccount/lendItem">lend another item</a></h4>`));
         })
+});
+
+app.get('/myaccount/updateMyInfo', (req, res) => {
+    const theForm = updateMyInfo();
+    const thePage = page(theForm);
+    res.send(thePage);
+});
+
+app.post('/myaccount/updateMyInfo', (req, res) => {
+    const name = req.body.item;
+    const username = req.body.username;
+    const email = req.body.email;
+    const city = req.body.city;
+    const state = req.body.state;
+    User.updateUserInfo(name, username, email, city, state)
+        .then(newUser => {
+            res.send(page(`<h2>success! you have successfully updated your info, ${username}!</h2><br><h4><a href="../myaccount">return to my account</a></h4>`));
+        })
+});
 })
+
 // UPDATE ITEM
 app.get('/myaccount/updateItemInfo', (req, res) => {
     const theForm = updateItemForm();
@@ -235,6 +264,7 @@ app.post('/myaccount/updateItemInfo', (req, res) =>{
     
 
 })
+
 
 // ====================================================
 // Books Page; List and Search
@@ -256,4 +286,14 @@ app.post('/books', (req, res) => {
             const thePage = page(books(allBooks), "books");
             res.send(thePage);
         })
+});
+
+// ====================================================
+// Logout
+// ====================================================
+app.post('/logout', (req, res) => {
+    req.session.destroy(() => {
+        req.session = null
+    });
+    res.send(page(`<h2>Thank you for being part of the Lender-Be community!</h2><br><h4><a href="../">return to search</a></h4><h4><a href="./login">return to login</a></h4>`));
 });

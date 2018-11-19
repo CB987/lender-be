@@ -33,6 +33,7 @@ function owned(myOwnerItems) {
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
+
     <h4>My Lendable Items</h4>
     <action='' method='GET'>
         <div id="my_items">
@@ -48,12 +49,15 @@ function owned(myOwnerItems) {
         </div>
     
     <h4>Items I'm Borrowing</h4>
+
     </ul>
-    <h4>Add An Item To My Lendable Items</h4>
+    <h4><a href="./borrowing">Items I'm Borrowing</a></h4>
+    </ul>
+    <h4><a href="./addItem">Add An Item To My Collection</a></h4>
     
-    <h4>Lend Item</h4>
+    <h4><a href="./lendItem">Lend Item</a></h4>
   
-    <h4>Update Personal Info</h4>
+    <h4><a href="./updateMyInfo">Update Personal Info</a></h4>
    
     `
 }

@@ -1,4 +1,3 @@
-/* border-box hack */
 html {
     box-sizing: border-box;
 }
@@ -6,17 +5,12 @@ html {
     box-sizing: inherit;
 }
 
-
-/* chef aquino's special sauce */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
     font-family: 'Source Sans Pro', sans-serif;
-    /* background: url(../images/handshake-laptop.jpg); */
-    /* background: #3e8e41; */
-    
 }
 
 html { 
@@ -24,13 +18,12 @@ html {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    
 }
 
+/* BACKGROUND IMAGES */
 .handshake {
     background-image: url("/images/handshake-laptop.jpg"); 
 }
-
 .books {
     background-image: url("/images/books-home.jpg"); 
 }
@@ -38,44 +31,81 @@ html {
 header, body, footer {
     text-align: center;
     justify-content: center;
-    /* outline: 1px solid orangered; */
     color: white;
 }
 
-header {
-    height: 20%;
-    width: 100%;
-    padding-top: 2%;
+/* NAVIGATION */
+nav {
+    overflow: hidden;
+    height: 5%;
 }
 
-h1 {
+nav a {
+    color: rgba(245, 245, 245, 0.5) !important;
+    float: right;
+    text-align: center;
+    padding: 0 1% 0 1%;
+    font-size: 15px;
+}
+
+nav a:hover {
+    background-color: aqua;
+    color: black !important;
+}
+
+/* HEADER */
+header {
+    height: 10%;
+    width: 100%;
+}
+
+header h1 {
     font-family: 'Abril Fatface', cursive;
     font-size: 42px; 
     color: white;
 }
 
-/* footer {
-    bottom:0;
-    position: fixed;    
-    width:100%;  
-    height: 10%;
-} */
-table{
+ul {
+    list-style-type: none;
+}
+body h2, h4{
+    color: white;
+    text-decoration: none;
+}
+
+body a {
+    color: white;
+    text-decoration: none;
+}
+body a:hover {
+    background-color: aqua;
+    color: black;
+}
+
+table {
     color:cornsilk;
 }
-.footer{
+#footer {
     position: fixed;
     width: 100%;
     height: 10%;
     bottom: 0;
     margin: 10px;
 }
+
+/* MY ACCOUNT: DROPDOWN BUTTON */
+.dropbtn, button[type="submit"] {
+    background-color: aqua;
+    color: black;
+    padding: 5px 50px;
+
 /* Dropdown Button */
 .dropbtn {
     background-color: #4CAF50;
     color: white;
     padding: 16px;
     font-size: 16px;
+    min-width: 160px;
     border: none;
     margin: 16px;
 }
@@ -92,26 +122,25 @@ table{
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
 /* Links inside the dropdown */ 
 .dropdown-content a {
     color: black;
-    padding: 12px 16px;
+    padding: 5px 16px;
     text-decoration: none;
     display: block;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {background-color: aqua;}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: darkcyan;}
 
 #table_results{
     padding: 175px
