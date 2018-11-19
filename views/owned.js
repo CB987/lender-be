@@ -7,10 +7,20 @@ function item(object) {
     `;
 }
 
+function itemRow(object){
+    return `
+    <tr>
+    <td>${object.id}</td>
+    <td>${object.name}</td>
+    <td>${object.keyword}</td>
+    <td>${object.available}</td>
+    <td><button><a href="./updateItemInfo">update this item</a></button>
+    </tr>`
+}
 
 function owned(myOwnerItems) {
     // const myBorrowingItems = borrowingItems.map(item).join('');
-    const myItems = myOwnerItems.map(item).join('');
+    // const myItems = myOwnerItems.map(item).join('');
     return `
     <h2><a href="../myaccount">My Account</a></h2>
     <div class="dropdown">
@@ -24,9 +34,19 @@ function owned(myOwnerItems) {
             </div>
         </div>
     <h4>My Lendable Items</h4>
-    <ol action='' method='GET'>
-        ${myItems} 
-    </ol>
+    <action='' method='GET'>
+        <div id="my_items">
+        <table>
+        <tr>
+        <th>Item no</th>
+        <th>Book Name</th>
+        <th>Keywords</th>
+        <th>Available</th>
+        <th>Update</th>
+            ${myOwnerItems.map(oneItem => {return itemRow(oneItem)}).join('')} 
+        </table>
+        </div>
+    
     <h4>Items I'm Borrowing</h4>
     </ul>
     <h4>Add An Item To My Lendable Items</h4>

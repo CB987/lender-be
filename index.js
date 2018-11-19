@@ -23,6 +23,7 @@ const owned = require('./views/owned');
 const borrowing = require('./views/borrowing');
 const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
+const updateItemForm = require('./views/updateItem');
 // const updateUserInfo = require('views/updateUserInfo)')
 
 // session modules
@@ -196,9 +197,10 @@ app.post('/myaccount/addItem', (req, res) => {
     const keyword = req.body.keyword;
     const owner_id = req.body.owner_id;
     const available = req.body.available;
+    
     Item.addItem(category_id, name, keyword, owner_id, available)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for contributing ${newItem[name]} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
+            res.send(page(`<h2>success! thanks for contributing ${name} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
 
         })
 })
@@ -219,7 +221,20 @@ app.post('/myaccount/lendItem', (req, res) => {
 
         })
 })
+// UPDATE ITEM
+app.get('/myaccount/updateItemInfo', (req, res) => {
+    const theForm = updateItemForm();
+    const thePage = page(theForm);
+    res.send(thePage);
+})
 
+app.post('/myaccount/updateItemInfo', (req, res) =>{
+    const category_id = req.body.category_id;
+    const name = req.body.name;
+    const keyword = req.body.keyword;
+    
+
+})
 
 // ====================================================
 // Books Page; List and Search
