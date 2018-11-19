@@ -17,11 +17,13 @@ const page = require('./views/page');
 const homepage = require('./views/homepage');
 const books = require('./views/books');
 const registrationForm = require('./views/registrationForm');
+const loginForm = require('./views/loginForm');
 const myAccount = require('./views/myaccount');
 const owned = require('./views/owned');
 const borrowing = require('./views/borrowing');
 const addItemForm = require('./views/addItem');
-const loginForm = require('./views/loginForm');
+const lendItemForm = require('./views/lendItem');
+// const updateUserInfo = require('views/updateUserInfo)')
 
 // session modules
 const session = require('express-session');
@@ -108,19 +110,19 @@ app.post('/login', (req, res) => {
     const theUsername = req.body.username;
     const thePassword = req.body.password;
 
-    // find the user who's name matches 'theUsername'
+    // find the user whose name matches 'theUsername'
     User.getByUsername(theUsername)
         .catch(err => {
             console.log(err);
             res.redirect('/login');
         })
         .then(theUser => {
-            if(theUser.passwordDoesMatch(thePassword)) {
+            if (theUser.passwordDoesMatch(thePassword)) {
                 req.session.user = theUser;
                 res.redirect('/welcome');
             } else {
                 res.redirect('/login');
-                
+
             }
         })
 })
@@ -159,9 +161,30 @@ app.post('/myaccount/addItem', (req, res) => {
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
+    const owner_id = req.body.owner_id;
     const available = req.body.available;
+    Item.addItem(category_id, name, keyword, owner_id, available)
+        .then(newItem => {
+            res.send(page(`<h2>success! thanks for contributing ${newItem[name]} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
 
-    User.addItem(category_id, name, keyword, available)
+        })
+})
+
+app.get('/myaccount/lendItem', (req, res) => {
+    const theForm = lendItemForm();
+    const thePage = page(theForm);
+    res.send(thePage);
+})
+
+app.post('/myaccount/lendItem', (req, res) => {
+    const item_id = req.body.item_id;
+    const borrower_id = req.body.borrower_id;
+    // const owner_id = req.session.user.id;
+    Item.updateItemStatus(borrower_id, item_id)
+        .then(newItem => {
+            res.send(page(`<h2>success! thanks for sharing your stuff!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/lendItem">lend another item</a></h4>`));
+
+        })
 })
 
 
@@ -169,9 +192,9 @@ app.post('/myaccount/addItem', (req, res) => {
 // Books Page; List and Search
 // ====================================================
 app.get('/books', (req, res) => {
-    Item.getAllItems(1)
+    Category.getItemsWithLocation(1)
         .then((allBooks) => {
-            // console.log(allBooks);
+            console.log(allBooks);
             const thePage = page(books(allBooks), "books");
             res.send(thePage);
         })

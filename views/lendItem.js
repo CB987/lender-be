@@ -1,19 +1,7 @@
-
-function item(object) {
-    return `
-    <li>
-    ${[object.name, object.owner_id]}
-    </li>
-    `;
-}
-
-
-function borrowing(myBorrowedItems) {
-    // const myBorrowingItems = borrowingItems.map(item).join('');
-    const myItems = myBorrowedItems.map(item).join('');
+function lendItemForm() {
     return `
     <h2><a href="../myaccount">My Account</a></h2>
-    <div class="dropdown">
+        <div class="dropdown">
             <button class="dropbtn">I want to...</button>
             <div class="dropdown-content">
             <a href="./owned">see all my items</a>
@@ -24,18 +12,22 @@ function borrowing(myBorrowedItems) {
             </div>
         </div>
     <h4>My Lendable Items</h4>
-    
     <h4>Items I'm Borrowing</h4>
-    <ul action='' method='GET'>
-        ${myItems}
-    </ul>
     <h4>Add An Item To My Lendable Items</h4>
-    
     <h4>Lend Item</h4>
-  
+    <form action="" method="POST">
+    <label> Item Id number:
+        <input type="integer" name="item_id">
+    </label>
+    <label> Borrower Id number:
+        <input type="integer" name="borrower_id">
+    </label>
+    <label>
+    <input type="submit" value="lend item!">
+    </label>
+</form>
     <h4>Update Personal Info</h4>
-   
-    `
+    `;
 }
 
-module.exports = borrowing;
+module.exports = lendItemForm;
