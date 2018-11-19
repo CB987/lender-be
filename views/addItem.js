@@ -17,7 +17,7 @@ function addItemForm() {
         <form action="" method="POST">
             <label> Category:
             <select>
-                <option value="1">books</option>
+                <option value=1>books</option>
                 <option value="2">movies</option>
                 <option value="3">power tools</option>
                 <option value="4">hand tools</option>

@@ -25,7 +25,7 @@ const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
 const updateMyInfo = require('./views/updateMyInfo');
 const logout = require('./views/logout');
-const updateItemForm = require('./views/updateItem');
+// const updateItemForm = require('./views/updateItem');
 
 
 // session modules
@@ -172,11 +172,12 @@ app.post('/login', (req, res) => {
 // ====================================================
 // My Account
 // ====================================================
-app.get('/myaccount', (req, res) => {
+app.get('/myaccount', protectRoute, (req, res) => {
     // console.log(req.session.user.id);
     const thePage = page(myAccount());
     res.send(thePage);
 })
+
 app.get('/myaccount/owned', (req, res) => {
     Item.getItemsByOwner(req.session.user.id)
         .then(myOwnerItems => {
@@ -290,6 +291,11 @@ app.post('/books', (req, res) => {
 // ====================================================
 // Logout
 // ====================================================
+app.get('/logout', (req, res) => {
+    const thePage = logout();
+    res.send(page(thePage));
+})
+
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
         req.session = null
