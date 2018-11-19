@@ -26,7 +26,7 @@ class User {
         returning id
         `, [name, username, hash, email, city, state])
             .then(data => {
-                const u = new User(data.id, name, username, email, city, state)
+                const u = new User(data.id, name, username, hash, email, city, state)
                 return u;
             })
     };
@@ -48,9 +48,10 @@ class User {
         return db.one(`
             select * from users
             where username ilike '%$1:raw%'          
-        `, [username]).then(result => {
-                return new User(result.id, result.name, result.username, result.pwhash, result.email, result.city, result.state);
-            })
+        `, [username])
+        .then(result => {
+            return new User(result.id, result.name, result.username, result.pwhash, result.email, result.city, result.state);
+        })
     }
 
     passwordDoesMatch(thePassword) {

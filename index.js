@@ -68,31 +68,39 @@ app.post('/register', (req, res) => {
     const newEmail = req.body.email;
     const newCity = req.body.city;
     const newState = req.body.state;
-    console.log(newName);
-    console.log(newUsername);
-    console.log(newPassword);
-    console.log(newEmail);
-    console.log(newCity);
-    console.log(newState);
+    // console.log(req.body);
+    // console.log(newName);
+    // console.log(newUsername);
+    // console.log(newPassword);
+    // console.log(newEmail);
+    // console.log(newCity);
+    // console.log(newState);
 
     User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
-        .then(newUser => {
-            req.session.user = newUser;
+    .then((newUser) => {
+        req.session.user = newUser;
+        req.session.save(() =>{
             res.redirect('/welcome');
         })
+    })
 });
 
 app.get('/welcome', (req, res) => {
     // send them to welcome page
-    console.log(req.session.user);
-    res.send(page(`<h1>Hey ${req.session.user.username}</h1>`))
+    // console.log(req.session.user);
+    // User.getByUsername(req.session.user.username)
+        // .then((registeredUser) =>{
+            // console.log(registeredUser);
+            // if (registeredUser === username){
+                res.send(page(`<h1>Hey ${req.session.user.username}</h1>`));
+            // }
+    })
     // let visitorName = 'Person of the World';
     // if (req.session.user) {
     //     visitorName = req.session.user.username;
     // }
     // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
     // req.session.user));
-})
 
 
 
@@ -114,6 +122,7 @@ app.post('/login', (req, res) => {
     User.getByUsername(theUsername)
         .catch(err => {
             console.log(err);
+            // alert("Invalid Username, please enter in correct Username");
             res.redirect('/login');
         })
         .then(theUser => {
