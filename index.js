@@ -89,13 +89,13 @@ app.post('/register', (req, res) => {
     // console.log(newState);
 
     User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
-    .then((newUser) => {
-        // console.log(newUser);
-        User.getByUsername(newUser.username)
-            .catch((err) =>{
-                console.log(err);
-                res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
-            })
+        .then((newUser) => {
+            // console.log(newUser);
+            User.getByUsername(newUser.username)
+                .catch((err) => {
+                    console.log(err);
+                    res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
+                })
             // .then(user =>{
             //     console.log(user);
             // })
@@ -107,33 +107,33 @@ app.post('/register', (req, res) => {
             // .then(username =>{
             //     console.log(username);
             // })
-            
-        // if(newUser.username === username){
-        //     console.log("there is a double");
-        // }
-        req.session.user = newUser;
-        req.session.save(() =>{
-            res.redirect('/welcome');
+
+            // if(newUser.username === username){
+            //     console.log("there is a double");
+            // }
+            req.session.user = newUser;
+            req.session.save(() => {
+                res.redirect('/welcome');
+            })
         })
-    })
 });
 
 app.get('/welcome', (req, res) => {
     // send them to welcome page
     // console.log(req.session.user);
     // User.getByUsername(req.session.user.username)
-        // .then((registeredUser) =>{
-            // console.log(registeredUser);
-            // if (registeredUser === username){
-                res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
-            // }
-    })
-    // let visitorName = 'Person of the World';
-    // if (req.session.user) {
-    //     visitorName = req.session.user.username;
+    // .then((registeredUser) =>{
+    // console.log(registeredUser);
+    // if (registeredUser === username){
+    res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
     // }
-    // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
-    // req.session.user));
+})
+// let visitorName = 'Person of the World';
+// if (req.session.user) {
+//     visitorName = req.session.user.username;
+// }
+// res.send(page(`<h1>Hey ${visitorName}</h1>`, 
+// req.session.user));
 
 
 
@@ -207,7 +207,7 @@ app.post('/myaccount/addItem', (req, res) => {
     const keyword = req.body.keyword;
     const owner_id = req.body.owner_id;
     const available = req.body.available;
-    
+
     Item.addItem(category_id, name, keyword, owner_id, available)
         .then(newItem => {
             res.send(page(`<h2>success! thanks for contributing ${name} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
@@ -248,7 +248,6 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
             res.send(page(`<h2>success! you have successfully updated your info, ${username}!</h2><br><h4><a href="../myaccount">return to my account</a></h4>`));
         })
 });
-})
 
 // UPDATE ITEM
 app.get('/myaccount/updateItemInfo', (req, res) => {
@@ -257,11 +256,11 @@ app.get('/myaccount/updateItemInfo', (req, res) => {
     res.send(thePage);
 })
 
-app.post('/myaccount/updateItemInfo', (req, res) =>{
+app.post('/myaccount/updateItemInfo', (req, res) => {
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
-    
+
 
 })
 
