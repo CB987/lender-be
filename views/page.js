@@ -21,7 +21,9 @@ function page(content, className = "handshake") {
         ${nav()}
         ${header()}
         ${content}
+        <div class="footer">
         ${footer()}
+        </div>
     <script src="/index.js"></script>
     </body>
     </html>
