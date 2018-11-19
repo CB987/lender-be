@@ -69,31 +69,60 @@ app.post('/register', (req, res) => {
     const newEmail = req.body.email;
     const newCity = req.body.city;
     const newState = req.body.state;
-    console.log(newName);
-    console.log(newUsername);
-    console.log(newPassword);
-    console.log(newEmail);
-    console.log(newCity);
-    console.log(newState);
+    // console.log(req.body);
+    // console.log(newName);
+    // console.log(newUsername);
+    // console.log(newPassword);
+    // console.log(newEmail);
+    // console.log(newCity);
+    // console.log(newState);
 
     User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
-        .then(newUser => {
-            req.session.user = newUser;
+    .then((newUser) => {
+        // console.log(newUser);
+        User.getByUsername(newUser.username)
+            .catch((err) =>{
+                console.log(err);
+                res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
+            })
+            // .then(user =>{
+            //     console.log(user);
+            // })
+            // .catch(duplicate =>{
+            //     if (duplicate.username === newUser.username){
+            //         console.log("double");
+            //     }
+            // })
+            // .then(username =>{
+            //     console.log(username);
+            // })
+            
+        // if(newUser.username === username){
+        //     console.log("there is a double");
+        // }
+        req.session.user = newUser;
+        req.session.save(() =>{
             res.redirect('/welcome');
         })
+    })
 });
 
 app.get('/welcome', (req, res) => {
     // send them to welcome page
-    console.log(req.session.user);
-    res.send(page(`<h1>Hey ${req.session.user.username}</h1>`))
+    // console.log(req.session.user);
+    // User.getByUsername(req.session.user.username)
+        // .then((registeredUser) =>{
+            // console.log(registeredUser);
+            // if (registeredUser === username){
+                res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
+            // }
+    })
     // let visitorName = 'Person of the World';
     // if (req.session.user) {
     //     visitorName = req.session.user.username;
     // }
     // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
     // req.session.user));
-})
 
 
 
@@ -115,15 +144,17 @@ app.post('/login', (req, res) => {
     User.getByUsername(theUsername)
         .catch(err => {
             console.log(err);
-            res.redirect('/login');
+            // const theForm = loginForm();
+            // const thePage = page(theForm);
+            res.send(page(`<h2>Incorrect Username. Please enter in correct Username</h2><br><h4><a href="/login">Return to Login</a></h2>`));
         })
         .then(theUser => {
             if (theUser.passwordDoesMatch(thePassword)) {
                 req.session.user = theUser;
                 res.redirect('/welcome');
             } else {
-                res.redirect('/login');
-
+                res.send(page(`<h2>Incorrect Password. Please enter in correct Password</h2><br><h4><a href="/login">Return to Login</a></h2>`));
+                // res.redirect('/login');
             }
         })
 })
@@ -131,11 +162,13 @@ app.post('/login', (req, res) => {
 // My Account
 // ====================================================
 app.get('/myaccount', (req, res) => {
+    // console.log(req.session.user.id);
     const thePage = page(myAccount());
     res.send(thePage);
 })
 app.get('/myaccount/owned', (req, res) => {
-    Item.getItemsByOwner(1)
+    // console.log(req.params);
+    Item.getItemsByOwner(req.session.user.id)
         .then(myOwnerItems => {
             // const myItems = myOwnerItems.map(item).join('');
             console.log(myOwnerItems);

@@ -22,7 +22,7 @@ function registrationForm() {
         </label>
         <br> <br> 
         <label> State:
-            <input type="text" name"state">
+            <input type="text" name="state">
         </label>	
         <br> <br>			
         <label>

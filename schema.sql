@@ -5,7 +5,8 @@ create table users (
     pwhash varchar(100),
     email varchar(100),
     city text,
-    state varchar(2)
+    state varchar(2),
+        UNIQUE(email)
 );
 
 create table categories (
