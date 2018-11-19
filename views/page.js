@@ -22,7 +22,6 @@ function page(content, className = "handshake") {
         ${header()}
         ${content}
         ${footer()}
-   
     <script src="/index.js"></script>
     </body>
     </html>

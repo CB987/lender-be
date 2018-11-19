@@ -24,7 +24,7 @@ function addItemForm() {
                 <option value="5">yard tools</option>
                 <option value="6">kitchen electric appliances</option>
                 <option value="7">kitchen gadgets, non-electric</option>
-                <option value="8">booz</option>
+                <option value="8">booze</option>
                 <option value="9">craft items</option>
                 <option value="10">costumes, halloween or other</option>
                 <option value="11">decorations/ holiday items</option>
@@ -49,8 +49,8 @@ function addItemForm() {
             <input type="submit" value="add item!">
             </label>
         </form>
-        <h4><a href="./myaccount/lendItem">Lend Item</a></h4>
-    <h4><a href="./myaccount/updateMyInfo">Update Personal Info</a></h4>
+        <h4><a href="./lendItem">Lend Item</a></h4>
+    <h4><a href="./updateMyInfo">Update Personal Info</a></h4>
     `;
 }
 

@@ -24,6 +24,7 @@ const borrowing = require('./views/borrowing');
 const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
 const updateMyInfo = require('./views/updateMyInfo');
+const logout = require('./views/logout');
 
 // session modules
 const session = require('express-session');
@@ -52,6 +53,15 @@ app.get('/', (req, res) => {
     res.send(thePage);
 })
 
+
+function protectRoute(req, res, next) {
+    let isLoggedIn = req.session.user ? true : false;
+    if (isLoggedIn) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
 // ====================================================
 // User Registration
 // ====================================================
@@ -134,7 +144,7 @@ app.get('/myaccount', (req, res) => {
     res.send(thePage);
 })
 app.get('/myaccount/owned', (req, res) => {
-    Item.getItemsByOwner(1)
+    Item.getItemsByOwner(id)
         .then(myOwnerItems => {
             // const myItems = myOwnerItems.map(item).join('');
             console.log(myOwnerItems);
@@ -204,7 +214,6 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
         })
 });
 
-
 // ====================================================
 // Books Page; List and Search
 // ====================================================
@@ -225,4 +234,14 @@ app.post('/books', (req, res) => {
             const thePage = page(books(allBooks), "books");
             res.send(thePage);
         })
+});
+
+// ====================================================
+// Logout
+// ====================================================
+app.post('/logout', (req, res) => {
+    req.session.destroy(() => {
+        req.session = null
+    });
+    res.send(page(`<h2>Thank you for being part of the Lender-Be community!</h2><br><h4><a href="../">return to search</a></h4><h4><a href="./login">return to login</a></h4>`));
 });

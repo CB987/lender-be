@@ -31,9 +31,9 @@ function owned(myOwnerItems) {
     </ul>
     <h4><a href="./addItem">Add An Item To My Collection</a></h4>
     
-    <h4><a href="./myaccount/lendItem">Lend Item</a></h4>
+    <h4><a href="./lendItem">Lend Item</a></h4>
   
-    <h4><a href="./myaccount/updateMyInfo">Update Personal Info</a></h4>
+    <h4><a href="./updateMyInfo">Update Personal Info</a></h4>
    
     `
 }

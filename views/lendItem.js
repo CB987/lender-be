@@ -26,7 +26,7 @@ function lendItemForm() {
     <input type="submit" value="lend item!">
     </label>
 </form>
-    <h4><a href="./myaccount/updateMyInfo">Update Personal Info</a></h4>
+    <h4><a href="/updateMyInfo">Update Personal Info</a></h4>
     `;
 }
 
