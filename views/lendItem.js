@@ -11,9 +11,9 @@ function lendItemForm() {
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
-    <h4>My Lendable Items</h4>
-    <h4>Items I'm Borrowing</h4>
-    <h4>Add An Item To My Lendable Items</h4>
+        h4><a href="./owned">My Lendable Items</a></h4>
+        <h4><a href="./borrowing">Items I'm Borrowing</a></h4>
+        <h4><a href="./addItem">Add An Item To My Collection</a></h4>
     <h4>Lend Item</h4>
     <form action="" method="POST">
     <label> Item Id number:
@@ -26,7 +26,7 @@ function lendItemForm() {
     <input type="submit" value="lend item!">
     </label>
 </form>
-    <h4>Update Personal Info</h4>
+    <h4><a href="./myaccount/updateMyInfo">Update Personal Info</a></h4>
     `;
 }
 

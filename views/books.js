@@ -5,7 +5,7 @@ function singleBook(book) {
 }
 function books(allBooks) {
     return `
-        < h2 > Books and Movies</h2 >
+        <h2>Books and Movies</h2 >
             <br>
                 <h3>What would you like to borrow? </h3>
                 <form action="" method="POST">
