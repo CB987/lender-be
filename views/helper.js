@@ -1,10 +1,10 @@
 function nav() {
     return `
     <nav>
-    <a href="./logout">Logout</a>
-    <a href="./myaccount">My Account</a>
-    <a href="./login">Login</a>
-    <a class = "active" href="./myaccount">Register</a>
+    <a href="http://localhost:4000/logout">Logout</a>
+    <a href="http://localhost:4000/myaccount">My Account</a>
+    <a href="http://localhost:4000/login">Login</a>
+    <a href="http://localhost:4000/register">Register</a>
     </nav>
     `;
 };
