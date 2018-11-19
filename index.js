@@ -23,7 +23,7 @@ const owned = require('./views/owned');
 const borrowing = require('./views/borrowing');
 const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
-// const updateUserInfo = require('views/updateUserInfo)')
+const updateMyInfo = require('./views/updateMyInfo');
 
 // session modules
 const session = require('express-session');
@@ -165,16 +165,16 @@ app.post('/myaccount/addItem', (req, res) => {
     const available = req.body.available;
     Item.addItem(category_id, name, keyword, owner_id, available)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for contributing ${newItem[name]} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
+            res.send(page(`<h2>success! thanks for contributing ${name} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
 
         })
-})
+});
 
 app.get('/myaccount/lendItem', (req, res) => {
     const theForm = lendItemForm();
     const thePage = page(theForm);
     res.send(thePage);
-})
+});
 
 app.post('/myaccount/lendItem', (req, res) => {
     const item_id = req.body.item_id;
@@ -182,10 +182,27 @@ app.post('/myaccount/lendItem', (req, res) => {
     // const owner_id = req.session.user.id;
     Item.updateItemStatus(borrower_id, item_id)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for sharing your stuff!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/lendItem">lend another item</a></h4>`));
-
+            res.send(page(`<h2>success! thanks for sharing your stuff!</h2><br><h4><a href="../myaccount">return to my account</a></h4><br><h4><a href="../myaccount/lendItem">lend another item</a></h4>`));
         })
-})
+});
+
+app.get('/myaccount/updateMyInfo', (req, res) => {
+    const theForm = updateMyInfo();
+    const thePage = page(theForm);
+    res.send(thePage);
+});
+
+app.post('/myaccount/updateMyInfo', (req, res) => {
+    const name = req.body.item;
+    const username = req.body.username;
+    const email = req.body.email;
+    const city = req.body.city;
+    const state = req.body.state;
+    User.updateUserInfo(name, username, email, city, state)
+        .then(newUser => {
+            res.send(page(`<h2>success! you have successfully updated your info, ${username}!</h2><br><h4><a href="../myaccount">return to my account</a></h4>`));
+        })
+});
 
 
 // ====================================================

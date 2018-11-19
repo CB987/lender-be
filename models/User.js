@@ -68,17 +68,12 @@ class User {
 
     // UPDATE
     // =================
-    updateUserInfo(name, username, email, city, state) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.city = city;
-        this.state = state;
+    static updateUserInfo(id, name, username, email, city, state) {
         return db.result(`
         UPDATE users
             SET name = $2, username = $3, email = $4, city =  $5, state = $6
             WHERE id = $1;
-    `, [this.id, this.name, this.username, this.email, this.city, this.state]);
+    `, [id, name, username, email, city, state]);
     };
 
 
