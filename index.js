@@ -25,7 +25,7 @@ const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
 const updateMyInfo = require('./views/updateMyInfo');
 const logout = require('./views/logout');
-const updateItemForm = require('./views/updateItem');
+// const updateItemForm = require('./views/updateItem');
 
 
 // session modules
@@ -89,33 +89,16 @@ app.post('/register', (req, res) => {
     // console.log(newState);
 
     User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
-    .then((newUser) => {
-        // console.log(newUser);
-        User.getByUsername(newUser.username)
-            .catch((err) =>{
-                console.log(err);
-                res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
-            })
-            // .then(user =>{
-            //     console.log(user);
-            // })
-            // .catch(duplicate =>{
-            //     if (duplicate.username === newUser.username){
-            //         console.log("double");
-            //     }
-            // })
-            // .then(username =>{
-            //     console.log(username);
-            // })
-            
-        // if(newUser.username === username){
-        //     console.log("there is a double");
-        // }
-        req.session.user = newUser;
-        req.session.save(() =>{
-            res.redirect('/welcome');
+        .catch((err) =>{
+            console.log(err);
+            res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
         })
-    })
+        .then((newUser) => {
+            req.session.user = newUser;
+            req.session.save(() =>{
+                res.redirect('/welcome');
+            })
+        })
 });
 
 app.get('/welcome', (req, res) => {
@@ -155,8 +138,6 @@ app.post('/login', (req, res) => {
     User.getByUsername(theUsername)
         .catch(err => {
             console.log(err);
-            // const theForm = loginForm();
-            // const thePage = page(theForm);
             res.send(page(`<h2>Incorrect Username. Please enter in correct Username</h2><br><h4><a href="/login">Return to Login</a></h2>`));
         })
         .then(theUser => {
@@ -248,22 +229,22 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
             res.send(page(`<h2>success! you have successfully updated your info, ${username}!</h2><br><h4><a href="../myaccount">return to my account</a></h4>`));
         })
 });
-})
+
 
 // UPDATE ITEM
-app.get('/myaccount/updateItemInfo', (req, res) => {
-    const theForm = updateItemForm();
-    const thePage = page(theForm);
-    res.send(thePage);
-})
+// app.get('/myaccount/updateItemInfo', (req, res) => {
+//     const theForm = updateItemForm();
+//     const thePage = page(theForm);
+//     res.send(thePage);
+// })
 
-app.post('/myaccount/updateItemInfo', (req, res) =>{
-    const category_id = req.body.category_id;
-    const name = req.body.name;
-    const keyword = req.body.keyword;
+// app.post('/myaccount/updateItemInfo', (req, res) =>{
+//     const category_id = req.body.category_id;
+//     const name = req.body.name;
+//     const keyword = req.body.keyword;
     
 
-})
+// })
 
 
 // ====================================================

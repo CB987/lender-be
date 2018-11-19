@@ -10,7 +10,6 @@ function myAccount() {
                 <a href="./myaccount/addItem">add an item</a>
                 <a href="./myaccount/updateItem">update item info</a>
                 <a href="./myaccount/lendItem">lend item</a>
-                <a href="./myaccount/updateMyInfo">update my personal info</a>
             </div>
         </div>
     <h4><a href="./myaccount/owned">My Lendable Items</a></h4>
