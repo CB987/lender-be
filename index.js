@@ -202,7 +202,7 @@ app.get('/books', (req, res) => {
 
 app.post('/books', (req, res) => {
     const search = req.body.search;
-    Item.getFilteredItems(1, search)
+    Category.getFilteredItemsWithLocation(1, search)
         .then((allBooks) => {
             console.log(allBooks);
             const thePage = page(books(allBooks), "books");
