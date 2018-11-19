@@ -12,7 +12,7 @@ function borrowing(myBorrowedItems) {
     // const myBorrowingItems = borrowingItems.map(item).join('');
     const myItems = myBorrowedItems.map(item).join('');
     return `
-    <h2><a href="localhost:4000/myaccount">My Account</a></h2>
+    <h2><a href="../myaccount">My Account</a></h2>
     <div class="dropdown">
             <button class="dropbtn">I want to...</button>
             <div class="dropdown-content">

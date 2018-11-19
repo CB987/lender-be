@@ -17,11 +17,13 @@ const page = require('./views/page');
 const homepage = require('./views/homepage');
 const books = require('./views/books');
 const registrationForm = require('./views/registrationForm');
+const loginForm = require('./views/loginForm');
 const myAccount = require('./views/myaccount');
 const owned = require('./views/owned');
 const borrowing = require('./views/borrowing');
 const addItemForm = require('./views/addItem');
-const loginForm = require('./views/loginForm');
+// const updateItem = require('./views/updateItem');
+// const updateUserInfo = require('views/updateUserInfo)')
 
 // session modules
 const session = require('express-session');
@@ -161,7 +163,11 @@ app.post('/myaccount/addItem', (req, res) => {
     const keyword = req.body.keyword;
     const owner_id = req.body.owner_id;
     const available = req.body.available;
-    Item.addItem(category_id, name, keyword, owner_id, available);
+    Item.addItem(category_id, name, keyword, owner_id, available)
+        .then(newItem => {
+            res.send(page(`<h2>success! thanks for contributing ${Item[name]} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
+
+        })
 })
 
 
