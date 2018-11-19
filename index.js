@@ -23,6 +23,7 @@ const owned = require('./views/owned');
 const borrowing = require('./views/borrowing');
 const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
+const updateItemForm = require('./views/updateItem');
 // const updateUserInfo = require('views/updateUserInfo)')
 
 // session modules
@@ -187,7 +188,20 @@ app.post('/myaccount/lendItem', (req, res) => {
 
         })
 })
+// UPDATE ITEM
+app.get('/myaccount/updateItemInfo', (req, res) => {
+    const theForm = updateItemForm();
+    const thePage = page(theForm);
+    res.send(thePage);
+})
 
+app.post('/myaccount/updateItemInfo', (req, res) =>{
+    const category_id = req.body.category_id;
+    const name = req.body.name;
+    const keyword = req.body.keyword;
+    
+
+})
 
 // ====================================================
 // Books Page; List and Search

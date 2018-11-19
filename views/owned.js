@@ -10,6 +10,7 @@ function item(object) {
 function itemRow(object){
     return `
     <tr>
+    <td>${object.id}</td>
     <td>${object.name}</td>
     <td>${object.keyword}</td>
     <td>${object.available}</td>
@@ -19,7 +20,7 @@ function itemRow(object){
 
 function owned(myOwnerItems) {
     // const myBorrowingItems = borrowingItems.map(item).join('');
-    const myItems = myOwnerItems.map(item).join('');
+    // const myItems = myOwnerItems.map(item).join('');
     return `
     <h2><a href="../myaccount">My Account</a></h2>
     <div class="dropdown">
@@ -37,6 +38,7 @@ function owned(myOwnerItems) {
         <div id="my_items">
         <table>
         <tr>
+        <th>Item no</th>
         <th>Book Name</th>
         <th>Keywords</th>
         <th>Available</th>
