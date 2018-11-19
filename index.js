@@ -163,9 +163,10 @@ app.post('/myaccount/addItem', (req, res) => {
     const keyword = req.body.keyword;
     const owner_id = req.body.owner_id;
     const available = req.body.available;
+    console.log(name);
     Item.addItem(category_id, name, keyword, owner_id, available)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for contributing ${newItem[name]} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
+            res.send(page(`<h2>success! thanks for contributing ${name} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
 
         })
 })
