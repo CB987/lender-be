@@ -31,17 +31,6 @@ class User {
             })
     };
 
-    static addItem(category_id, name, keyword, available) {
-        return db.one(`
-            INSERT INTO items
-                (category_id, name, keyword, owner, available)
-            VALUES
-                ($1, $2, $3, $4, $5)
-            returning id
-            `, [category_id, name, keyword, owner_id, available]);
-    };
-
-
     // RETRIEVE
     // =================
     static getUserById(id) {
@@ -60,8 +49,8 @@ class User {
             select * from users
             where username ilike '%$1:raw%'          
         `, [username]).then(result => {
-            return new User(result.id, result.name, result.username,result.pwhash, result.email, result.city, result.state);
-        })
+                return new User(result.id, result.name, result.username, result.pwhash, result.email, result.city, result.state);
+            })
     }
 
     passwordDoesMatch(thePassword) {
@@ -92,23 +81,6 @@ class User {
     `, [this.id, this.name, this.username, this.email, this.city, this.state]);
     };
 
-
-
-    updateItemStatus(borrower, id) {
-        return db.result(`
-   UPDATE items
-   SET available = false, borrower = $1
-   WHERE (id = $2 and owner=$3)
-   `, [borrower, id, this.id])
-    };
-
-    updateItemInfo(id, category_id, name, keyword) {
-        return db.result(`
-       UPDATE items
-       SET category_id = $2, name =$3, keyword = $4
-       WHERE (id = $1 and owner= $5)
-   `, [id, category_id, name, keyword, this.id]);
-    };
 
     // / DELETE
     // =================

@@ -15,6 +15,18 @@ class Item {
     // ITEMS - CRUD
     // =================
 
+    //CREATE
+    //==================
+    static addItem(category_id, name, keyword, owner_id, available) {
+        return db.one(`
+            INSERT INTO items
+                (category_id, name, keyword, owner_id, available)
+            VALUES
+                ($1, $2, $3, $4, $5)
+            returning id
+            `, [category_id, name, keyword, owner_id, available]);
+    };
+
     // RETRIEVE
     // =================
     //Items category instance method for getting all items in a category
@@ -85,6 +97,35 @@ class Item {
                 return myBorrowedItems;
             })
     };
-}
+
+
+    // UPDATE
+    // =================
+    //Item instance method for setting an item to unavailable
+    static updateItemStatus(borrower_id, id) {
+        return db.result(`
+UPDATE items
+SET available = false, borrower_id = $1
+WHERE id = $2
+`, [borrower_id, id])
+    };
+
+    //     static updateItemStatus(borrower_id, id, owner_id) {
+    //         return db.result(`
+    // UPDATE items
+    // SET available = false, borrower_id = $1
+    // WHERE (id = $2 and owner=$3)
+    // `, [borrower_id, id, owner_id])
+    //     };
+
+    //Item instance method for updating item info
+    updateItemInfo(category_id, name, keyword) {
+        return db.result(`
+   UPDATE items
+   SET category_id = $2, name =$3, keyword = $4
+   WHERE id = $1
+`, [this.id, category_id, name, keyword]);
+    };
+};
 
 module.exports = Item;
