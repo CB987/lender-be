@@ -31,17 +31,6 @@ class User {
             })
     };
 
-    static addItem(category_id, name, keyword, available) {
-        return db.one(`
-            INSERT INTO items
-                (category_id, name, keyword, owner, available)
-            VALUES
-                ($1, $2, $3, $4, $5)
-            returning id
-            `, [category_id, name, keyword, owner_id, available]);
-    };
-
-
     // RETRIEVE
     // =================
     static getUserById(id) {
@@ -60,8 +49,8 @@ class User {
             select * from users
             where username ilike '%$1:raw%'          
         `, [username]).then(result => {
-            return new User(result.id, result.name, result.username,result.pwhash, result.email, result.city, result.state);
-        })
+                return new User(result.id, result.name, result.username, result.pwhash, result.email, result.city, result.state);
+            })
     }
 
     passwordDoesMatch(thePassword) {

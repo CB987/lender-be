@@ -15,6 +15,18 @@ class Item {
     // ITEMS - CRUD
     // =================
 
+    //CREATE
+    //==================
+    static addItem(category_id, name, keyword, owner_id, available) {
+        return db.one(`
+            INSERT INTO items
+                (category_id, name, keyword, owner, available)
+            VALUES
+                ($1, $2, $3, $4, $5)
+            returning id
+            `, [category_id, name, keyword, owner_id, available]);
+    };
+
     // RETRIEVE
     // =================
     //Items category instance method for getting all items in a category

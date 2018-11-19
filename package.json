@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "node --inspect-brk index.js",
     "dev": "nodemon index.js",
-    "reset-db": "dropdb lender-be; createdb lender-be; psql -f schema.sql lender-be; psql -f seed.sql lender-be; psql lender-be < node_modules/connect-pg-simple/table.sql"
+    "reset-db": "dropdb lender-be; createdb lender-be; psql -f schema.sql lender-be; psql -f seed.sql lender-be; psql -f schema2.sql lender-be; psql lender-be < node_modules/connect-pg-simple/table.sql"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "mysql": "^2.16.0",
     "pg-promise": "^8.5.2"
   },
   "devDependencies": {

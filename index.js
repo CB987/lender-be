@@ -108,19 +108,19 @@ app.post('/login', (req, res) => {
     const theUsername = req.body.username;
     const thePassword = req.body.password;
 
-    // find the user who's name matches 'theUsername'
+    // find the user whose name matches 'theUsername'
     User.getByUsername(theUsername)
         .catch(err => {
             console.log(err);
             res.redirect('/login');
         })
         .then(theUser => {
-            if(theUser.passwordDoesMatch(thePassword)) {
+            if (theUser.passwordDoesMatch(thePassword)) {
                 req.session.user = theUser;
                 res.redirect('/welcome');
             } else {
                 res.redirect('/login');
-                
+
             }
         })
 })
@@ -159,9 +159,9 @@ app.post('/myaccount/addItem', (req, res) => {
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
+    const owner_id = req.body.owner_id;
     const available = req.body.available;
-
-    User.addItem(category_id, name, keyword, available)
+    Item.addItem(category_id, name, keyword, owner_id, available);
 })
 
 
