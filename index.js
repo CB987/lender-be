@@ -161,13 +161,13 @@ app.post('/login', (req, res) => {
 // My Account
 // ====================================================
 app.get('/myaccount', (req, res) => {
-    console.log(req.params.id);
+    // console.log(req.session.user.id);
     const thePage = page(myAccount());
     res.send(thePage);
 })
 app.get('/myaccount/owned', (req, res) => {
     // console.log(req.params);
-    Item.getItemsByOwner()
+    Item.getItemsByOwner(req.session.user.id)
         .then(myOwnerItems => {
             // const myItems = myOwnerItems.map(item).join('');
             console.log(myOwnerItems);
