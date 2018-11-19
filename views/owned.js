@@ -41,6 +41,7 @@ function owned(myOwnerItems) {
         <th>Available</th>
             ${myOwnerItems.map(oneItem => {return itemRow(oneItem)}).join('')} 
         </table>
+        </div>
     
     <h4>Items I'm Borrowing</h4>
     </ul>
