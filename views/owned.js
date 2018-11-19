@@ -13,6 +13,7 @@ function itemRow(object){
     <td>${object.name}</td>
     <td>${object.keyword}</td>
     <td>${object.available}</td>
+    <td><button><a href="./updateItemInfo">update this item</a></button>
     </tr>`
 }
 
@@ -39,6 +40,7 @@ function owned(myOwnerItems) {
         <th>Book Name</th>
         <th>Keywords</th>
         <th>Available</th>
+        <th>Update</th>
             ${myOwnerItems.map(oneItem => {return itemRow(oneItem)}).join('')} 
         </table>
         </div>
