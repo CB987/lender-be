@@ -20,8 +20,9 @@ function page(content, className = "handshake") {
     <body>
         ${header()}
         ${content}
+        <div class="footer">
         ${footer()}
-   
+        </div>
     <script src="/index.js"></script>
     </body>
     </html>

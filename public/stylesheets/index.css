@@ -32,7 +32,7 @@ html {
 }
 
 .books {
-    background-image: url("/images/book.jpg"); 
+    background-image: url("/images/books-home.jpg"); 
 }
 
 header, body, footer {
@@ -54,13 +54,22 @@ h1 {
     color: white;
 }
 
-footer {
+/* footer {
     bottom:0;
-    position: absolute;
+    position: fixed;    
     width:100%;  
     height: 10%;
+} */
+table{
+    color:cornsilk;
 }
-
+.footer{
+    position: fixed;
+    width: 100%;
+    height: 10%;
+    bottom: 0;
+    margin: 10px;
+}
 /* Dropdown Button */
 .dropbtn {
     background-color: #4CAF50;
@@ -68,6 +77,7 @@ footer {
     padding: 16px;
     font-size: 16px;
     border: none;
+    margin: 16px;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -86,7 +96,7 @@ footer {
     z-index: 1;
 }
 
-/* Links inside the dropdown */
+/* Links inside the dropdown */ 
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -102,3 +112,11 @@ footer {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+#table_results{
+    padding: 175px
+}
+
+#my_items{
+    margin-left: 175px;
+}
