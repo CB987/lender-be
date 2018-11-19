@@ -46,14 +46,14 @@ class Category {
             })
     }
 
-    static getItemsWithLocation(id, searchTerm) {
+    static getFilteredItemsWithLocation(id, search) {
         return db.any(`
         select i.name, i.keyword, i.available, u.city, u.state
 	from items i
 	inner join users u
 	on i.owner_id = u.id
 	where (i.category_id = $1 and i.name ilike '%$2:raw%' or i.keyword ilike '%$2:raw%')
-        `, [id])
+        `, [id, search])
             .then(resultsArray => {
                 // console.log(resultsArray);
                 //transform array of objects into array of User instances
