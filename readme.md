@@ -8,11 +8,10 @@ People can request to borrow and, if accepted, then there is a record of who has
 <h3>MVP</h3>
 <ul>
   <li>Database of things that people want to borrow/lend. Includes table of users, categories of items, and a table for each category.   </li>
-  <li>Can we make the menu on the landing page (where it says "book" now) a drop down menu representing the categories? First drop-down menu takes you to landing page of that category, and then can search on that page. Or browse?</li>
-  <li>Search function looks through each item-category table </li>
-  <li>contact within the page once you find an item</li>
-  <li>need to be able to search within x miles</li>
-  <li>when matching item(s) found, show on map</li>
+  <li>Category page automatically populates with full list of items</li>
+  <li>Search function filters through each item-category table </li>
+  <li>User can register and login with password</li>
+  <li>On My Account page, user can see the items they own and whether they are loaned or available, can see the items they are currently borrowing, can mark an item 'lent'</li>
 </ul>
 
 <h3>Powered by</h3>
@@ -25,7 +24,8 @@ People can request to borrow and, if accepted, then there is a record of who has
 <ul>
   <li>Have ability for users to rate each other.</li>
   <li>Make it more actually social-- connect with friends + family and be able to search within those connections. </li>
-  <li>Users upload pictures of the item and those are browseable<li>
+  <li>Make items searchable by distance and show up in a map</li>
+  <li>Users upload pictures of the item and those are browseable</li>
 </ul>
 
 Brought to you by Amelia Schultz, Steven Kim, and Clare Barton
