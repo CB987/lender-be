@@ -7,6 +7,6 @@ function logout() {
         </form>
     </div>
     `;
-};
+}
 
 module.exports = logout;
