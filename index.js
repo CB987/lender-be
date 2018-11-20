@@ -264,7 +264,7 @@ app.post('/myaccount/updateItemInfo', (req, res) =>{
     const owner_id = req.body.owner_id;
     const available = req.body.available;
     
-    const updatedItem = (this.id, category_id, name, keyword, owner_id, available)
+    const updatedItem = new Item(this.id, category_id, name, keyword, owner_id, available)
     updatedItem.updateItemInfo(category_id, name, keyword)
         .then(result => {
             console.log(result)
