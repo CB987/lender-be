@@ -262,6 +262,14 @@ app.post('/myaccount/updateItemInfo', (req, res) => {
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
+    const owner_id = req.body.owner_id;
+    const available = req.body.available;
+    
+    const updatedItem = new Item(this.id, category_id, name, keyword, owner_id, available)
+    updatedItem.updateItemInfo(category_id, name, keyword)
+        .then(result => {
+            console.log(result)
+        });
 })
 
 //=================================================
