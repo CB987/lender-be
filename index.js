@@ -248,7 +248,7 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
             res.send(page(`<h2>success! you have successfully updated your info, ${username}!</h2><br><h4><a href="../myaccount">return to my account</a></h4>`));
         })
 });
-})
+
 
 // UPDATE ITEM
 app.get('/myaccount/updateItemInfo', (req, res) => {
@@ -261,6 +261,14 @@ app.post('/myaccount/updateItemInfo', (req, res) =>{
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
+    const owner_id = req.body.owner_id;
+    const available = req.body.available;
+    
+    const updatedItem = (this.id, category_id, name, keyword, owner_id, available)
+    updatedItem.updateItemInfo(category_id, name, keyword)
+        .then(result => {
+            console.log(result)
+        });
     
 
 })
