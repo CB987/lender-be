@@ -1,6 +1,7 @@
+
 function addItemForm() {
     return `
-    <h2><a href="../myaccount">My Account</a></h2>
+    <h2><a href="../myaccount"><span class="shadow">My Account</span></a></h2>
         <div class="dropdown">
             <button class="dropbtn">I want to...</button>
             <div class="dropdown-content">
@@ -11,13 +12,10 @@ function addItemForm() {
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
-        <h4><a href="./owned">My Lendable Items</a></h4>
-        <h4><a href="./borrowing">Items I'm Borrowing</a></h4>
-        <h4>Add An Item To My Collection</h4>
         <form action="" method="POST">
             <label class="shadow"> Category:
-            <select>
-                <option value=1>books</option>
+            <select name="category_id">
+                <option value="1">books</option>
                 <option value="2">movies</option>
                 <option value="3">power tools</option>
                 <option value="4">hand tools</option>
@@ -49,8 +47,6 @@ function addItemForm() {
             <input type="submit" value="add item!">
             </label>
         </form>
-        <h4><a href="./lendItem">Lend Item</a></h4>
-    <h4><a href="./updateMyInfo">Update Personal Info</a></h4>
     `;
 }
 

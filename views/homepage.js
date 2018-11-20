@@ -1,7 +1,6 @@
 function homepage(user) {
     return `
 
-<h2><span class="shadow">${user}</span></h2>
 <h2><span class="shadow">What would you like to borrow?</span></h2>
     <br>
         <div class="dropdown">

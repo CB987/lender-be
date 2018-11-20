@@ -14,7 +14,7 @@ function nav() {
 function header() {
     return `
 <header>
-<h1><span class="shadow">Lender-Be</span></h1>
+<h1><span class="shadow-border">Lender-Be</span></h1>
 </header>
 
 `;
