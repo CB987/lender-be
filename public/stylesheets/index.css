@@ -103,6 +103,14 @@ body a:hover {
     padding: 0 3%;
 }
 
+.shadow-border {
+    text-shadow:
+    -2px -2px 0 rgb(54,32,20),  
+    2px -2px 0 rgb(54,32,20),
+    -2px 2px 0 rgb(54,32,20),
+    2px 2px 0 rgb(54,32,20);
+}
+
 .aqua {
     background-color: darkcyan;
     /* color: rgb(54,32,20);  */
