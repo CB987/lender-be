@@ -41,12 +41,14 @@ app.use(session({
     saveUninitialized: false
 }));
 
+
 // ====================================================
 // Serving
 // ====================================================
 app.listen(4000, () => {
     console.log('you in');
-})
+});
+
 
 // ====================================================
 // Home Page
@@ -54,17 +56,20 @@ app.listen(4000, () => {
 app.get('/', (req, res) => {
     const thePage = page(homepage());
     res.send(thePage);
-})
-
+});
 
 function protectRoute(req, res, next) {
     let isLoggedIn = req.session.user ? true : false;
     if (isLoggedIn) {
+        console.log(req.session.user);
         next();
     } else {
+        console.log('not in');
         res.redirect('/login');
     }
-}
+};
+
+
 // ====================================================
 // User Registration
 // ====================================================
@@ -72,67 +77,43 @@ app.get('/register', (req, res) => {
     const theForm = registrationForm();
     const thePage = page(theForm);
     res.send(thePage);
-})
-
-app.post('/register', (req, res) => {
-    const newName = req.body.name;
-    const newUsername = req.body.username;
-    const newPassword = req.body.password;
-    const newEmail = req.body.email;
-    const newCity = req.body.city;
-    const newState = req.body.state;
-    // console.log(req.body);
-    // console.log(newName);
-    // console.log(newUsername);
-    // console.log(newPassword);
-    // console.log(newEmail);
-    // console.log(newCity);
-    // console.log(newState);
-
-    User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
-    .then((newUser) => {
-        // console.log(newUser);
-        User.getByUsername(newUser.username)
-            .catch((err) =>{
-                console.log(err);
-                res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
-            })
-            // .then(user =>{
-            //     console.log(user);
-            // })
-            // .catch(duplicate =>{
-            //     if (duplicate.username === newUser.username){
-            //         console.log("double");
-            //     }
-            // })
-            // .then(username =>{
-            //     console.log(username);
-            // })
-            
-        // if(newUser.username === username){
-        //     console.log("there is a double");
-        // }
-        req.session.user = newUser;
-        req.session.save(() =>{
-            res.redirect('/welcome');
-        })
-    })
 });
 
-app.get('/welcome', (req, res) => {
-    // send them to welcome page
-    // console.log(req.session.user);
-    // User.getByUsername(req.session.user.username)
-    // .then((registeredUser) =>{
-    // console.log(registeredUser);
-    // if (registeredUser === username){
-    res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
-    req.session.save()
-    // }
-    // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
-    // req.session.user));
+app.post('/register', (req, res) => {
+    const newUsername = req.body.username;
+    // console.log(newUsername);
 
+<<<<<<< HEAD
 })
+=======
+    User.getByUsername(newUsername)
+        .then((doesExist) =>{
+            // console.log(doesExist);
+            res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
+        }) 
+        .catch(() =>{
+            const newPassword = req.body.password;
+            const newEmail = req.body.email;
+            const newCity = req.body.city;
+            const newState = req.body.state;
+            const newName = req.body.name;
+            User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
+                .then((theUser) =>{
+                    // console.log(theUser);
+                    req.session.user = theUser;
+                    req.session.save(() =>{
+                        res.redirect('/welcome');
+                    });
+                })
+        })       
+});  
+
+app.get('/welcome', protectRoute, (req, res) => {
+    // console.log(req.session.user);
+    let isLoggedIn = req.session.user ? true : false;
+    res.send(page(homepage(), isLoggedIn));
+});
+>>>>>>> 4f6b3d288ba25e0a6cca68d590f2aaf0f78876fc
 
 // ====================================================
 // User Login
@@ -141,69 +122,71 @@ app.get('/login', (req, res) => {
     const theForm = loginForm();
     const thePage = page(theForm);
     res.send(thePage);
-})
+});
 
 app.post('/login', (req, res) => {
-    // grab values from form
     const theUsername = req.body.username;
     const thePassword = req.body.password;
 
-    // find the user whose name matches 'theUsername'
     User.getByUsername(theUsername)
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
-            // const theForm = loginForm();
-            // const thePage = page(theForm);
             res.send(page(`<h2><span class="shadow">Uhoh, that wasn't a known username. <br> Please try again, or register for an account.</span></h2><br><h4><span class="aqua"><a href="/login">Return to Login</a></span></h2><h4><span class="aqua"><a href="/register">Register</a></span></h2>`));
         })
         .then(theUser => {
             if (theUser.passwordDoesMatch(thePassword)) {
                 req.session.user = theUser;
-                res.redirect('/');
+                req.session.save(() =>{
+                    res.redirect('/welcome');
+                });
             } else {
                 res.send(page(`<h2><span class="shadow">Oops, that wasn't your password. <br> Please try again, or register for an account.</span></h2><br><h4><span class="aqua"><a href="/login">Return to Login</a></span></h2><h4><span class="aqua"><a href="/register">Register</a></span></h2>`));
-                // res.redirect('/login');
             }
         })
-})
+});
+
+
 // ====================================================
 // My Account
 // ====================================================
 app.get('/myaccount', (req, res) => {
     // console.log(req.session.user.id);
-    const thePage = page(myAccount());
-    res.send(thePage);
+    let isLoggedIn = req.session.user ? true : false;
+    res.send(page(myAccount(), isLoggedIn));
 })
 
 //My Items
-app.get('/myaccount/owned', (req, res) => {
+app.get('/myaccount/owned', protectRoute, (req, res) => {
+    // console.log(req.session.user.id);
     Item.getItemsByOwner(req.session.user.id)
         .then(myOwnerItems => {
-            // const myItems = myOwnerItems.map(item).join('');
             // console.log(myOwnerItems);
-            const thePage = page(owned(myOwnerItems));
-            res.send(thePage);
+            let isLoggedIn = req.session.user ? true : false;
+            res.send(page(owned(myOwnerItems), isLoggedIn));
         })
 });
-
 // Items I'm Borrowing
-app.get('/myaccount/borrowing', (req, res) => {
+app.get('/myaccount/borrowing', protectRoute, (req, res) => {
+    // console.log(req.session.user.id);
     Item.getItemsBorrowed(req.session.user.id)
-        .then(myBorrowedItems => {
-            const thePage = page(borrowing(myBorrowedItems));
-            res.send(thePage);
+        .then((myBorrowedItems) => {
+            let isLoggedIn = req.session.user ? true : false;
+            res.send(page(borrowing(myBorrowedItems), isLoggedIn));
         })
 })
-
 // Add An Item
-app.get('/myaccount/addItem', (req, res) => {
-    const theForm = addItemForm(req.session.user.id);
-    console.log(req.session.user.id);
-    const thePage = page(theForm);
-    res.send(thePage);
+app.get('/myaccount/addItem', protectRoute, (req, res) => {
+    let isLoggedIn = req.session.user ? true : false;
+    res.send(page(theForm(addItemForm), isLoggedIn));
 })
 
-app.post('/myaccount/addItem', (req, res) => {
+
+// ================================================================================
+// ================================================================================
+// ================================================================================
+// ================================================================================
+app.post('/myaccount/addItem', protectRoute, (req, res) => {
+
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
@@ -217,14 +200,16 @@ app.post('/myaccount/addItem', (req, res) => {
         })
 });
 
-//Lend Item
-app.get('/myaccount/lendItem', (req, res) => {
+app.get('/myaccount/lendItem', protectRoute, (req, res) => {
+    let isLoggedIn = req.session.user ? true : false;
+    // res.send(page(theForm(lendItemForm), isLoggedIn));
     const theForm = lendItemForm();
     const thePage = page(theForm);
-    res.send(thePage);
+    res.send(thePage, isLoggedIn);
 });
 
-app.post('/myaccount/lendItem', (req, res) => {
+app.post('/myaccount/lendItem', protectRoute, (req, res) => {
+
     const item_id = req.body.item_id;
     const borrower_id = req.body.borrower_id;
     // const owner_id = req.session.user.id;
@@ -233,16 +218,19 @@ app.post('/myaccount/lendItem', (req, res) => {
             res.send(page(`<h2><span class="shadow">success! thanks for sharing your stuff!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4><br><h4><span class="aqua"><a href="../myaccount/lendItem">lend another item</a></span></h4>`));
         })
 });
-// UPDATE USER
 
 //Update User Info
-app.get('/myaccount/updateMyInfo', (req, res) => {
+
+app.get('/myaccount/updateMyInfo', protectRoute, (req, res) => {
+    let isLoggedIn = req.session.user ? true : false;
+    // res.send(page(theForm(updateMyInfo), isLoggedIn));
     const theForm = updateMyInfo();
     const thePage = page(theForm);
-    res.send(thePage);
+    res.send(thePage, isLoggedIn);
 });
 
-app.post('/myaccount/updateMyInfo', (req, res) => {
+app.post('/myaccount/updateMyInfo', protectRoute, (req, res) => {
+
     const name = req.body.item;
     const username = req.body.username;
     const email = req.body.email;
@@ -255,9 +243,8 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
 });
 
 // Update Item Info
-app.get('/myaccount/updateItemInfo/:id', (req, res) => {
-    
-    const theForm = updateItem(req.params.id, req.body.name);
+app.get('/myaccount/updateItemInfo/:id', protectRoute, (req, res) => { 
+   const theForm = updateItem(req.params.id, req.body.name);
     console.log(req.params.id);
     const thePage = page(theForm);
     res.send(thePage);
@@ -273,35 +260,18 @@ app.post('/myaccount/updateItemInfo/:id', (req, res) =>{
             res.send(page(`<h2>you have successfully updated your item, ${name}!</h2>`))
         })
 
-    
-
 });
-// REQUEST ITEM
-app.get('/requestItem/:id', protectRoute, (req, res) => {
-    
-    const theForm = requestItem(req.params.id);
-    const thePage = page(theForm, "books");
-    res.send(thePage);
-})
 
-app.post('/requestItem', (req, res) => {
-    const requestedItemId = req.body.itemId;
-    Item.getItemById(requestedItemId)
-        .then(owner_id => {
-            User.getUserById(owner_id)
-                .then(u => {
-                    console.log(u.email);
-                })
-        })
-})
 // ====================================================
 // Books Page; List and Search
 // ====================================================
+
 app.get('/books', (req, res) => {
-    Category.getItemsWithLocation(1)
+    console.log(req.params.id)
+    Category.getItemsWithLocation()
         .then((allBooks) => {
             console.log(allBooks);
-            const thePage = page(books(allBooks), "books");
+            const thePage = page(books(allBooks), null, "books");
             res.send(thePage);
         })
 });
@@ -311,29 +281,26 @@ app.post('/books', (req, res) => {
     Category.getFilteredItemsWithLocation(1, search)
         .then((allBooks) => {
             console.log(allBooks);
-            const thePage = page(books(allBooks), "books");
+            const thePage = page(books(allBooks), null, "books");
             res.send(thePage);
         })
 });
 
-app.get('/requestItem/:id/:name', protectRoute, (req, res) => {
-    const theForm = requestItem(req.params.id, req.params.name);
-    const thePage = page(theForm, "books");
-    res.send(thePage);
+app.get('/requestItem/:id', protectRoute, (req, res) => {
+    let isLoggedIn = req.session.user ? true : false;
+    // res.send(page(theForm(requestItem), isLoggedIn));    
+    
+    const theForm = requestItem(req.params.id);
+    const thePage = page(theForm, null, "books");
+    res.send(thePage, isLoggedIn);
 })
 
-app.post('/requestItem/:id', (req, res) => {
+app.post('/requestItem', protectRoute, (req, res) => {
     const requestedItemId = req.body.itemId;
     Item.getItemById(requestedItemId)
         .then(item => {
             res.send(page(`<h2><span class="shadow">yay! you have successfully requested this item.</span></h2><br><h4><span class="aqua"><a href="../myaccount">go to my account</a></span></h4><h4><span class="aqua"><a href="../..">back to search</a></span></h4>`));
         })
-    // .then(owner_id => {
-    //     User.getUserById(owner_id)
-    //         .then(u => {
-    //             console.log(u.email);
-    //         })
-    // })
 })
 
 // ==================================================
@@ -346,7 +313,5 @@ app.get('/logout', (req, res) => {
 
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
-        req.session = null
-    })
     res.send(page(`<h2><span class="shadow">Thank you for being part of the Lender-Be community!</span></h2><br><h4><span class="aqua"><a href="../">return to search</a></span></h4><h4><span class="aqua"><a href="./login">return to login</a></h4>`))
 });

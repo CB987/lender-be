@@ -1,4 +1,4 @@
-function homepage(user) {
+function homepage() {
     return `
 
 <h2><span class="shadow">What would you like to borrow?</span></h2>
