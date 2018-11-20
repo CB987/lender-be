@@ -15,6 +15,7 @@ const User = require('./models/User');
 
 const page = require('./views/page');
 const homepage = require('./views/homepage');
+const noUserHomepage = require('./views/noUserHomepage');
 const books = require('./views/books');
 const registrationForm = require('./views/registrationForm');
 const loginForm = require('./views/loginForm');
@@ -50,9 +51,16 @@ app.listen(4000, () => {
 // ====================================================
 // Home Page
 // ====================================================
+// Title-login/register
 app.get('/', (req, res) => {
     const thePage = page(homepage());
-    res.send(thePage);
+    const noUserPage = page(noUserHomepage());
+    let loggedin = req.session.user ? true : false;
+    if (loggedin){
+        res.send(thePage);
+    }else{
+        res.send(noUserPage);
+    }
 })
 
 
@@ -158,6 +166,8 @@ app.get('/myaccount', (req, res) => {
     const thePage = page(myAccount());
     res.send(thePage);
 })
+
+//-------come back
 app.get('/myaccount/owned', (req, res) => {
     Item.getItemsByOwner(req.session.user.id)
         .then(myOwnerItems => {
@@ -169,7 +179,7 @@ app.get('/myaccount/owned', (req, res) => {
 });
 
 app.get('/myaccount/borrowing', (req, res) => {
-    Item.getItemsBorrowed(1)
+    Item.getItemsBorrowed(req.session.user.id)
         .then(myBorrowedItems => {
             const thePage = page(borrowing(myBorrowedItems));
             res.send(thePage);
@@ -251,7 +261,8 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
 // Books Page; List and Search
 // ====================================================
 app.get('/books', (req, res) => {
-    Category.getItemsWithLocation(1)
+    console.log(req.params.id)
+    Category.getItemsWithLocation()
         .then((allBooks) => {
             console.log(allBooks);
             const thePage = page(books(allBooks), "books");
