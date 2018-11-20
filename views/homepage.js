@@ -1,8 +1,8 @@
 function homepage(user) {
     return `
 
-<h1>${user}</h1>
-<h2>What would you like to borrow?</h2>
+<h2><span class="shadow">${user}</span></h2>
+<h2><span class="shadow">What would you like to borrow?</span></h2>
     <br>
         <div class="dropdown">
             <button class="dropbtn">Borrow</button>

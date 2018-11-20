@@ -26,6 +26,9 @@ const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
 const updateMyInfo = require('./views/updateMyInfo');
 const logout = require('./views/logout');
+
+const requestItem = require('./views/requestItem');
+
 // const updateItemForm = require('./views/updateItem');
 
 
@@ -104,6 +107,7 @@ app.post('/register', (req, res) => {
         .then((newUser) => {
             req.session.user = newUser;
             req.session.save(() =>{
+
                 res.redirect('/welcome');
             })
         })
@@ -113,18 +117,18 @@ app.get('/welcome', (req, res) => {
     // send them to welcome page
     // console.log(req.session.user);
     // User.getByUsername(req.session.user.username)
-        // .then((registeredUser) =>{
-            // console.log(registeredUser);
-            // if (registeredUser === username){
-                res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
-            // }
-    })
-    // let visitorName = 'Person of the World';
-    // if (req.session.user) {
-    //     visitorName = req.session.user.username;
+    // .then((registeredUser) =>{
+    // console.log(registeredUser);
+    // if (registeredUser === username){
+    res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
     // }
-    // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
-    // req.session.user));
+})
+// let visitorName = 'Person of the World';
+// if (req.session.user) {
+//     visitorName = req.session.user.username;
+// }
+// res.send(page(`<h1>Hey ${visitorName}</h1>`, 
+// req.session.user));
 
 
 
@@ -161,13 +165,13 @@ app.post('/login', (req, res) => {
 // ====================================================
 // My Account
 // ====================================================
-app.get('/myaccount', (req, res) => {
+app.get('/myaccount', protectRoute, (req, res) => {
     // console.log(req.session.user.id);
     const thePage = page(myAccount());
     res.send(thePage);
 })
 
-//-------come back
+// comeback
 app.get('/myaccount/owned', (req, res) => {
     Item.getItemsByOwner(req.session.user.id)
         .then(myOwnerItems => {
@@ -198,7 +202,7 @@ app.post('/myaccount/addItem', (req, res) => {
     const keyword = req.body.keyword;
     const owner_id = req.body.owner_id;
     const available = req.body.available;
-    
+
     Item.addItem(category_id, name, keyword, owner_id, available)
         .then(newItem => {
             res.send(page(`<h2>success! thanks for contributing ${name} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
@@ -241,6 +245,7 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
 });
 
 
+
 // UPDATE ITEM
 // app.get('/myaccount/updateItemInfo', (req, res) => {
 //     const theForm = updateItemForm();
@@ -253,13 +258,26 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
 //     const name = req.body.name;
 //     const keyword = req.body.keyword;
     
-
 // })
 
+app.post('/myaccount/updateItemInfo', (req, res) => {
+    const category_id = req.body.category_id;
+    const name = req.body.name;
+    const keyword = req.body.keyword;
+    const owner_id = req.body.owner_id;
+    const available = req.body.available;
+    
+    const updatedItem = new Item(this.id, category_id, name, keyword, owner_id, available)
+    updatedItem.updateItemInfo(category_id, name, keyword)
+        .then(result => {
+            console.log(result)
+        });
+})
 
-// ====================================================
-// Books Page; List and Search
-// ====================================================
+
+//=================================================
+// Books Page; List, Search, Request
+//=================================================
 app.get('/books', (req, res) => {
     console.log(req.params.id)
     Category.getItemsWithLocation()
@@ -280,9 +298,31 @@ app.post('/books', (req, res) => {
         })
 });
 
-// ====================================================
+app.get('/requestItem', (req, res) => {
+    const theForm = requestItem();
+    const thePage = page(theForm, "books");
+    res.send(thePage);
+})
+
+app.post('/requestItem', (req, res) => {
+    const requestedItemId = req.body.itemId;
+    Item.getItemById(requestedItemId)
+        .then(owner_id => {
+            User.getUserById(owner_id)
+                .then(u => {
+                    console.log(u.email);
+                })
+        })
+})
+
+// ==================================================
 // Logout
-// ====================================================
+// ==================================================
+app.get('/logout', (req, res) => {
+    const thePage = logout();
+    res.send(page(thePage));
+})
+
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
         req.session = null
