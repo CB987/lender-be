@@ -25,6 +25,7 @@ const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
 const updateMyInfo = require('./views/updateMyInfo');
 const logout = require('./views/logout');
+const requestItem = require('./views/requestItem');
 // const updateItemForm = require('./views/updateItem');
 
 
@@ -261,14 +262,11 @@ app.post('/myaccount/updateItemInfo', (req, res) => {
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
-
-
 })
 
-
-// ====================================================
-// Books Page; List and Search
-// ====================================================
+//=================================================
+// Books Page; List, Search, Request
+//=================================================
 app.get('/books', (req, res) => {
     Category.getItemsWithLocation(1)
         .then((allBooks) => {
@@ -288,9 +286,20 @@ app.post('/books', (req, res) => {
         })
 });
 
-// ====================================================
+app.get('/requestItem', (req, res) => {
+    const theForm = requestItem();
+    const thePage = page(theForm);
+    res.send(thePage);
+})
+
+app.post('/requestItem', (req, res) => {
+    const requestedItemId = req.body.itemId;
+    Item.getItembyId
+})
+
+// ==================================================
 // Logout
-// ====================================================
+// ==================================================
 app.get('/logout', (req, res) => {
     const thePage = logout();
     res.send(page(thePage));

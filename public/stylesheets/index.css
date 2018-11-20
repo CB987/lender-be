@@ -100,11 +100,11 @@ footer {
 
 
 /* MY ACCOUNT: DROPDOWN BUTTON */
-.dropbtn {
+/* .dropbtn {
     background-color: aqua;
     color: black;
     padding: 5px 50px;
-}
+} */
 /* Dropdown Button */
 .dropbtn {
     background-color: aqua;
@@ -149,7 +149,7 @@ footer {
 .dropdown:hover .dropbtn {background-color: darkcyan;}
 
 #table_results{
-    padding: 175px
+    padding: 5%;
 }
 
 #my_items{

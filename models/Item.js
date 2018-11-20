@@ -1,4 +1,5 @@
 const db = require('./db');
+const User = require('./models/User');
 
 class Item {
     constructor(id, category_id, name, keyword, owner_id, available, borrower_id) {
@@ -97,6 +98,15 @@ class Item {
                 return myBorrowedItems;
             })
     };
+
+    static getItemById(id) {
+        return db.one(`
+        select * from items where id = $1
+        `, [id]).then(itemObj => {
+                const i = new Item(itemObj.id, itemObj.category_id, itemObj.name, itemObj.keyword, itemObj.owner_id, itemObj.available, itemObj.borrower_id);
+                return itemObj.owner_id
+            })
+    }
 
 
     // UPDATE

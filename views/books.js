@@ -6,7 +6,7 @@ function singleBook(book) {
 
 
 
-function bookRow(book){
+function bookRow(book) {
     return `
     <tr>
     <td>${book.name}</td>
@@ -14,6 +14,7 @@ function bookRow(book){
     <td>${book.available}</td>
     <td>${book.city}</td>
     <td>${book.state}</td>
+    <td><button><a href="./requestForm">request</a></button></td>
     </tr>`
 }
 
@@ -24,7 +25,7 @@ function books(allBooks) {
             <br>
                 <h3>What would you like to borrow? </h3>
                 <form action="" method="POST">
-                    <input type="text" name="search" placeholder="moby dick" id="">
+                    <input type="text" name="search" placeholder="title" id="">
                         <input type="submit" value="Find">
                 </form>
                         <div id="table_results">
@@ -37,7 +38,7 @@ function books(allBooks) {
                         <th>City</th>
                         <th>State</th>
                         
-                            ${allBooks.map(oneBook => {return bookRow(oneBook)}).join('')}
+                            ${allBooks.map(oneBook => { return bookRow(oneBook) }).join('')}
                         </table>   
                         </div>
                         <div>
