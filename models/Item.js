@@ -98,6 +98,15 @@ class Item {
             })
     };
 
+    static getItemById(id) {
+        return db.one(`
+        select * from items where id = $1
+        `, [id]).then(itemObj => {
+                const i = new Item(itemObj.id, itemObj.category_id, itemObj.name, itemObj.keyword, itemObj.owner_id, itemObj.available, itemObj.borrower_id);
+                return itemObj.owner_id
+            })
+    }
+
 
     // UPDATE
     // =================

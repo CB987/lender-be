@@ -14,7 +14,7 @@ function nav() {
 function header() {
     return `
 <header>
-<h1>Lender-Be</h1>
+<h1><span class="shadow">Lender-Be</span></h1>
 </header>
 
 `;
@@ -23,7 +23,7 @@ function header() {
 function footer() {
     return `
     <footer>
-    <i>"Lend me some sugar; I am your neighbor"</i> --Andre3000/Outkast
+    <span class="shadow"><i>"Lend me some sugar; I am your neighbor"</i> --Andre3000/Outkast</span> 
     </footer>
     
     

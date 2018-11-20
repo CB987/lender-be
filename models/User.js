@@ -37,8 +37,7 @@ class User {
         return db.one(`
         SELECT * FROM users
 	        WHERE id = $1
-    `, [id])
-            .then(result => {
+    `, [id]).then(result => {
                 const u = new User(result.id, result.name, result.username, result.email, result.city, result.state);
                 return u;
             })
@@ -49,9 +48,9 @@ class User {
             select * from users
             where username = $1          
         `, [username])
-        .then(result => {
-            return new User(result.id, result.name, result.username, result.pwhash, result.email, result.city, result.state);
-        })
+            .then(result => {
+                return new User(result.id, result.name, result.username, result.pwhash, result.email, result.city, result.state);
+            })
     }
 
     passwordDoesMatch(thePassword) {
