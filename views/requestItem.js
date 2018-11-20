@@ -13,7 +13,7 @@ function requestItem(id) {
     return `
     <form action="" method="POST">
         <label>Item ID:
-            <input type="integer" name="itemId" value="${id}">
+            <input type="integer" name="itemId" value="${id}" disabled>
         </label>
         <label>Item name:
             <input type="text" name="name">
