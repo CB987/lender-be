@@ -230,7 +230,7 @@ app.post('/myaccount/lendItem', (req, res) => {
     // const owner_id = req.session.user.id;
     Item.updateItemStatus(borrower_id, item_id)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for sharing your stuff!</h2><br><h4><a href="../myaccount">return to my account</a></h4><br><h4><a href="../myaccount/lendItem">lend another item</a></h4>`));
+            res.send(page(`<h2><span class="shadow">success! thanks for sharing your stuff!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4><br><h4><span class="aqua"><a href="../myaccount/lendItem">lend another item</a></span></h4>`));
         })
 });
 
@@ -248,7 +248,7 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
     const state = req.body.state;
     User.updateUserInfo(name, username, email, city, state)
         .then(newUser => {
-            res.send(page(`<h2>success! you have successfully updated your info, ${username}!</h2><br><h4><a href="../myaccount">return to my account</a></h4>`));
+            res.send(page(`<h2><span class="shadow">success! you have successfully updated your info, ${username}!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4>`));
         })
 });
 
@@ -316,5 +316,5 @@ app.post('/logout', (req, res) => {
     req.session.destroy(() => {
         req.session = null
     });
-    res.send(page(`<h2>Thank you for being part of the Lender-Be community!</h2><br><h4><a href="../">return to search</a></h4><h4><a href="./login">return to login</a></h4>`));
+    res.send(page(`<h2><span class="shadow">Thank you for being part of the Lender-Be community!</span></h2><br><h4><span class="aqua"><a href="../">return to search</a></span></h4><h4><span class="aqua"><a href="./login">return to login</a></h4>`));
 });
