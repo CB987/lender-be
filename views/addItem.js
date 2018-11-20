@@ -1,5 +1,5 @@
 
-function addItemForm() {
+function addItemForm(id) {
     return `
     <h2><a href="../myaccount"><span class="shadow">My Account</span></a></h2>
         <div class="dropdown">
@@ -13,7 +13,7 @@ function addItemForm() {
             </div>
         </div>
         <form action="" method="POST">
-            <label class="shadow"> Category:
+            <label> <span class="shadow">Category:</span>
             <select name="category_id">
                 <option value="1">books</option>
                 <option value="2">movies</option>
@@ -28,23 +28,23 @@ function addItemForm() {
                 <option value="11">decorations/ holiday items</option>
             </select>
             </label>
-            <label class="shadow"> Item name:
+            <label> <span class="shadow">Item name:</span>
                 <input type="text" name="name">
             </label><br>
-            <label class="shadow"> Item keywords (ex. brand, year, author, search terms):
+            <label> <span class="shadow">Item keywords (ex. brand, year, author, search terms):</span>
                 <input type="text" name="keyword">
             </label><br>
-            <label class="shadow"> Your id number:
-                <input type="integer" name="owner_id">
+            <label> <span class="shadow">Your id number:</span>
+                <input type="integer" name="owner_id" value="${id}" readonly>
             </label>
-            <label class="shadow"> Available:
-                <select>
+            <label> <span class="shadow">Available:</span>
+                <select name="available">
                     <option value="true">yes</option>
                     <option value="false">no</option>
                 </select>
             </label>
-            <label class="aqua">
-            <input type="submit" value="add item!">
+            <label>
+            <input class="aqua" type="submit" value="add item!">
             </label>
         </form>
     `;

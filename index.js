@@ -123,15 +123,11 @@ app.get('/welcome', (req, res) => {
     // send them to welcome page
     // console.log(req.session.user);
     // User.getByUsername(req.session.user.username)
-        // .then((registeredUser) =>{
-            // console.log(registeredUser);
-            // if (registeredUser === username){
-                res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
-            // }
-    })
-    // let visitorName = 'Person of the World';
-    // if (req.session.user) {
-    //     visitorName = req.session.user.username;
+    // .then((registeredUser) =>{
+    // console.log(registeredUser);
+    // if (registeredUser === username){
+    res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
+    req.session.save()
     // }
     // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
     // req.session.user));
@@ -158,14 +154,14 @@ app.post('/login', (req, res) => {
             console.log(err);
             // const theForm = loginForm();
             // const thePage = page(theForm);
-            res.send(page(`<h2>Incorrect Username. Please enter in correct Username</h2><br><h4><a href="/login">Return to Login</a></h2>`));
+            res.send(page(`<h2><span class="shadow">Uhoh, that wasn't a known username. <br> Please try again, or register for an account.</span></h2><br><h4><span class="aqua"><a href="/login">Return to Login</a></span></h2><h4><span class="aqua"><a href="/register">Register</a></span></h2>`));
         })
         .then(theUser => {
             if (theUser.passwordDoesMatch(thePassword)) {
                 req.session.user = theUser;
-                res.redirect('/welcome');
+                res.redirect('/');
             } else {
-                res.send(page(`<h2>Incorrect Password. Please enter in correct Password</h2><br><h4><a href="/login">Return to Login</a></h2>`));
+                res.send(page(`<h2><span class="shadow">Oops, that wasn't your password. <br> Please try again, or register for an account.</span></h2><br><h4><span class="aqua"><a href="/login">Return to Login</a></span></h2><h4><span class="aqua"><a href="/register">Register</a></span></h2>`));
                 // res.redirect('/login');
             }
         })
@@ -178,26 +174,31 @@ app.get('/myaccount', (req, res) => {
     const thePage = page(myAccount());
     res.send(thePage);
 })
+
+//My Items
 app.get('/myaccount/owned', (req, res) => {
     Item.getItemsByOwner(req.session.user.id)
         .then(myOwnerItems => {
             // const myItems = myOwnerItems.map(item).join('');
-            console.log(myOwnerItems);
+            // console.log(myOwnerItems);
             const thePage = page(owned(myOwnerItems));
             res.send(thePage);
         })
 });
 
+// Items I'm Borrowing
 app.get('/myaccount/borrowing', (req, res) => {
-    Item.getItemsBorrowed(1)
+    Item.getItemsBorrowed(req.session.user.id)
         .then(myBorrowedItems => {
             const thePage = page(borrowing(myBorrowedItems));
             res.send(thePage);
         })
 })
 
+// Add An Item
 app.get('/myaccount/addItem', (req, res) => {
-    const theForm = addItemForm();
+    const theForm = addItemForm(req.session.user.id);
+    console.log(req.session.user.id);
     const thePage = page(theForm);
     res.send(thePage);
 })
@@ -211,11 +212,12 @@ app.post('/myaccount/addItem', (req, res) => {
     
     Item.addItem(category_id, name, keyword, owner_id, available)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for contributing ${name} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
+            res.send(page(`<h2><span class="shadow">success! thanks for contributing ${name} to the lender-be community!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h2><h4><span class="aqua"><a href="../myaccount/addItem">add another item</a></span></h2>`));
 
         })
 });
 
+//Lend Item
 app.get('/myaccount/lendItem', (req, res) => {
     const theForm = lendItemForm();
     const thePage = page(theForm);
@@ -228,11 +230,12 @@ app.post('/myaccount/lendItem', (req, res) => {
     // const owner_id = req.session.user.id;
     Item.updateItemStatus(borrower_id, item_id)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for sharing your stuff!</h2><br><h4><a href="../myaccount">return to my account</a></h4><br><h4><a href="../myaccount/lendItem">lend another item</a></h4>`));
+            res.send(page(`<h2><span class="shadow">success! thanks for sharing your stuff!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4><br><h4><span class="aqua"><a href="../myaccount/lendItem">lend another item</a></span></h4>`));
         })
 });
 // UPDATE USER
 
+//Update User Info
 app.get('/myaccount/updateMyInfo', (req, res) => {
     const theForm = updateMyInfo();
     const thePage = page(theForm);
@@ -247,16 +250,15 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
     const state = req.body.state;
     User.updateUserInfo(name, username, email, city, state)
         .then(newUser => {
-            res.send(page(`<h2>success! you have successfully updated your info, ${username}!</h2><br><h4><a href="../myaccount">return to my account</a></h4>`));
+            res.send(page(`<h2><span class="shadow">success! you have successfully updated your info, ${username}!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4>`));
         })
 });
 
-
-// UPDATE ITEM
+// Update Item Info
 app.get('/myaccount/updateItemInfo/:id', (req, res) => {
     
     const theForm = updateItem(req.params.id, req.body.name);
-    console.log(req.params.id)
+    console.log(req.params.id);
     const thePage = page(theForm);
     res.send(thePage);
 })
@@ -314,7 +316,27 @@ app.post('/books', (req, res) => {
         })
 });
 
-// ====================================================
+app.get('/requestItem/:id/:name', protectRoute, (req, res) => {
+    const theForm = requestItem(req.params.id, req.params.name);
+    const thePage = page(theForm, "books");
+    res.send(thePage);
+})
+
+app.post('/requestItem/:id', (req, res) => {
+    const requestedItemId = req.body.itemId;
+    Item.getItemById(requestedItemId)
+        .then(item => {
+            res.send(page(`<h2><span class="shadow">yay! you have successfully requested this item.</span></h2><br><h4><span class="aqua"><a href="../myaccount">go to my account</a></span></h4><h4><span class="aqua"><a href="../..">back to search</a></span></h4>`));
+        })
+    // .then(owner_id => {
+    //     User.getUserById(owner_id)
+    //         .then(u => {
+    //             console.log(u.email);
+    //         })
+    // })
+})
+
+// ==================================================
 // Logout
 // ====================================================
 app.get('/logout', (req, res) => {
@@ -326,5 +348,5 @@ app.post('/logout', (req, res) => {
     req.session.destroy(() => {
         req.session = null
     });
-    res.send(page(`<h2>Thank you for being part of the Lender-Be community!</h2><br><h4><a href="../">return to search</a></h4><h4><a href="./login">return to login</a></h4>`));
+    res.send(page(`<h2><span class="shadow">Thank you for being part of the Lender-Be community!</span></h2><br><h4><span class="aqua"><a href="../">return to search</a></span></h4><h4><span class="aqua"><a href="./login">return to login</a></h4>`));
 });

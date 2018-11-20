@@ -14,8 +14,8 @@ function itemRow(object) {
     <td>${object.name}</td>
     <td>${object.keyword}</td>
     <td>${object.available}</td>
-    <td><button><a href="./updateItemInfo/${object.id}">update item</a></button>
-    <td><button><a href="./lendItem">lend item</a></button>
+    <td><button class="aqua"><a href="./updateItemInfo/${object.id}">update item</a></button>
+    <td><button class="aqua"><a href="./lendItem">lend item</a></button>
     </tr>`
 }
 
@@ -23,7 +23,7 @@ function owned(myOwnerItems) {
     // const myBorrowingItems = borrowingItems.map(item).join('');
     // const myItems = myOwnerItems.map(item).join('');
     return `
-    <h2><a href="../myaccount">My Account</a></h2>
+    <h2><span class="shadow"><a href="../myaccount">My Account</a></span></h2>
     <div class="dropdown">
             <button class="dropbtn">I want to...</button>
             <div class="dropdown-content">
@@ -35,7 +35,7 @@ function owned(myOwnerItems) {
             </div>
         </div>
 
-    <h4>My Lendable Items</h4>
+    <h4><span class="shadow">My Lendable Items</span></h4>
     <action='' method='GET'>
         <div id="my_items">
             <table class="shadow">
@@ -48,16 +48,6 @@ function owned(myOwnerItems) {
                 </tr>
             </table>
         </div>
-    
-    </ul>
-    <h4><a href="./borrowing">Items I'm Borrowing</a></h4>
-    </ul>
-    <h4><a href="./addItem">Add An Item To My Collection</a></h4>
-    
-    <h4><a href="./lendItem">Lend Item</a></h4>
-  
-    <h4><a href="./updateMyInfo">Update Personal Info</a></h4>
-   
     `
 }
 
