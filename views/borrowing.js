@@ -1,18 +1,24 @@
 
 function item(object) {
     return `
-    <li>
-    ${[object.name, object.owner_id]}
-    </li>
+    <li> Title: ${object.name}, Owner ID: ${object.owner_id}</li>
     `;
 }
 
+function itemRow(object) {
+    return `
+        <tr>
+            <td>${object.name}</td>
+            <td>${object.owner_id}</td>
+        </tr>
+    `;
+}
 
 function borrowing(myBorrowedItems) {
     // const myBorrowingItems = borrowingItems.map(item).join('');
     const myItems = myBorrowedItems.map(item).join('');
     return `
-    <h2><a href="../myaccount">My Account</a></h2>
+    <h2><span class="shadow"><a href="../myaccount">My Account</a></span></h2>
     <div class="dropdown">
             <button class="dropbtn">I want to...</button>
             <div class="dropdown-content">
@@ -23,18 +29,16 @@ function borrowing(myBorrowedItems) {
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
-    <h4><a href="./owned">My Lendable Items</a></h4>
-    
-    <h4>Items I'm Borrowing</h4>
-    <ul action='' method='GET'>
-        ${myItems}
-    </ul>
-    <h4><a href="./addItem">Add An Item To My Collection</a></h4>
-    
-    <h4><a href="./lendItem">Lend Item</a></h4>
-  
-    <h4><a href="./updateMyInfo">Update Personal Info</a></h4>
-   
+    <h4><span class="shadow">Items I'm Borrowing</span></h4>
+    <div id="table_results">
+        <table class="shadow">
+            <tr>    
+                <th> Item Name </th>
+                <th> Owner ID </th>
+                ${myBorrowedItems.map(oneItem => { return itemRow(oneItem) }).join('')}
+            </tr>
+        </table>
+    </div>
     `
 }
 
