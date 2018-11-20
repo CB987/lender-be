@@ -14,7 +14,7 @@ function itemRow(object) {
     <td>${object.name}</td>
     <td>${object.keyword}</td>
     <td>${object.available}</td>
-    <td><button class="aqua"><a href="./updateItemInfo">update item</a></button>
+    <td><button class="aqua"><a href="./updateItemInfo/${object.id}">update item</a></button>
     <td><button class="aqua"><a href="./lendItem">lend item</a></button>
     </tr>`
 }

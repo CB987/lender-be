@@ -11,6 +11,7 @@ function updateMyInfo() {
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
+    <h4>Update Personal Info</h4>
     <h4><span class="shadow">Update Personal Info</span></h4>
     <form action="" method="POST">
         <label> <span class="shadow">Your name:</span>

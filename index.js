@@ -25,8 +25,8 @@ const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
 const updateMyInfo = require('./views/updateMyInfo');
 const logout = require('./views/logout');
+const updateItem = require('./views/updateItem');
 const requestItem = require('./views/requestItem');
-// const updateItemForm = require('./views/updateItem');
 
 
 // session modules
@@ -90,13 +90,13 @@ app.post('/register', (req, res) => {
     // console.log(newState);
 
     User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
-        .then((newUser) => {
-            // console.log(newUser);
-            User.getByUsername(newUser.username)
-                .catch((err) => {
-                    console.log(err);
-                    res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
-                })
+    .then((newUser) => {
+        // console.log(newUser);
+        User.getByUsername(newUser.username)
+            .catch((err) =>{
+                console.log(err);
+                res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
+            })
             // .then(user =>{
             //     console.log(user);
             // })
@@ -108,15 +108,15 @@ app.post('/register', (req, res) => {
             // .then(username =>{
             //     console.log(username);
             // })
-
-            // if(newUser.username === username){
-            //     console.log("there is a double");
-            // }
-            req.session.user = newUser;
-            req.session.save(() => {
-                res.redirect('/welcome');
-            })
+            
+        // if(newUser.username === username){
+        //     console.log("there is a double");
+        // }
+        req.session.user = newUser;
+        req.session.save(() =>{
+            res.redirect('/welcome');
         })
+    })
 });
 
 app.get('/welcome', (req, res) => {
@@ -129,13 +129,8 @@ app.get('/welcome', (req, res) => {
     res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
     req.session.save()
     // }
-})
-// let visitorName = 'Person of the World';
-// if (req.session.user) {
-//     visitorName = req.session.user.username;
-// }
-// res.send(page(`<h1>Hey ${visitorName}</h1>`, 
-// req.session.user));
+    // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
+    // req.session.user));
 
 
 
@@ -174,7 +169,7 @@ app.post('/login', (req, res) => {
 // ====================================================
 // My Account
 // ====================================================
-app.get('/myaccount', protectRoute, (req, res) => {
+app.get('/myaccount', (req, res) => {
     // console.log(req.session.user.id);
     const thePage = page(myAccount());
     res.send(thePage);
@@ -214,7 +209,7 @@ app.post('/myaccount/addItem', (req, res) => {
     const keyword = req.body.keyword;
     const owner_id = req.body.owner_id;
     const available = req.body.available;
-
+    
     Item.addItem(category_id, name, keyword, owner_id, available)
         .then(newItem => {
             res.send(page(`<h2><span class="shadow">success! thanks for contributing ${name} to the lender-be community!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h2><h4><span class="aqua"><a href="../myaccount/addItem">add another item</a></span></h2>`));
@@ -238,6 +233,7 @@ app.post('/myaccount/lendItem', (req, res) => {
             res.send(page(`<h2><span class="shadow">success! thanks for sharing your stuff!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4><br><h4><span class="aqua"><a href="../myaccount/lendItem">lend another item</a></span></h4>`));
         })
 });
+// UPDATE USER
 
 //Update User Info
 app.get('/myaccount/updateMyInfo', (req, res) => {
@@ -259,29 +255,48 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
 });
 
 // Update Item Info
-app.get('/myaccount/updateItemInfo', (req, res) => {
-    const theForm = updateItemForm();
+app.get('/myaccount/updateItemInfo/:id', (req, res) => {
+    
+    const theForm = updateItem(req.params.id, req.body.name);
+    console.log(req.params.id);
     const thePage = page(theForm);
     res.send(thePage);
 })
 
-app.post('/myaccount/updateItemInfo', (req, res) => {
+app.post('/myaccount/updateItemInfo/:id', (req, res) =>{
+    const updatedItemId = req.body.itemId;
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
-    const owner_id = req.body.owner_id;
-    const available = req.body.available;
+    Item.updateItemInfo(updatedItemId, category_id, name, keyword)
+        .then(updatedItem => {
+            res.send(page(`<h2>you have successfully updated your item, ${name}!</h2>`))
+        })
+
     
-    const updatedItem = new Item(this.id, category_id, name, keyword, owner_id, available)
-    updatedItem.updateItemInfo(category_id, name, keyword)
-        .then(result => {
-            console.log(result)
-        });
+
+});
+// REQUEST ITEM
+app.get('/requestItem/:id', protectRoute, (req, res) => {
+    
+    const theForm = requestItem(req.params.id);
+    const thePage = page(theForm, "books");
+    res.send(thePage);
 })
 
-//=================================================
-// Books Page; List, Search, Request
-//=================================================
+app.post('/requestItem', (req, res) => {
+    const requestedItemId = req.body.itemId;
+    Item.getItemById(requestedItemId)
+        .then(owner_id => {
+            User.getUserById(owner_id)
+                .then(u => {
+                    console.log(u.email);
+                })
+        })
+})
+// ====================================================
+// Books Page; List and Search
+// ====================================================
 app.get('/books', (req, res) => {
     Category.getItemsWithLocation(1)
         .then((allBooks) => {
@@ -323,10 +338,10 @@ app.post('/requestItem/:id', (req, res) => {
 
 // ==================================================
 // Logout
-// ==================================================
+// ====================================================
 app.get('/logout', (req, res) => {
     const thePage = logout();
-    res.send(page(thePage));
+    res.send(page(thePage))
 })
 
 app.post('/logout', (req, res) => {
