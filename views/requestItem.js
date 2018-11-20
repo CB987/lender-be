@@ -9,11 +9,11 @@
 // }
 
 
-function requestItem() {
+function requestItem(id) {
     return `
     <form action="" method="POST">
         <label>Item ID:
-            <input type="integer" name="itemId">
+            <input type="integer" name="itemId" value="${id}">
         </label>
         <label>Item name:
             <input type="text" name="name">

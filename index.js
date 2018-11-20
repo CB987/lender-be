@@ -165,7 +165,7 @@ app.post('/login', (req, res) => {
                 req.session.user = theUser;
                 res.redirect('/welcome');
             } else {
-                res.send(page(`<h2>Incorrect Password. Please enter in correct Password</h2><br><h4><a href="/login">Return to Login</a></h2>`));
+                res.send(page(`<h2>Incorrect Password. Please enter correct Password</h2><br><h4><a href="/login">Return to Login</a></h2>`));
                 // res.redirect('/login');
             }
         })
@@ -286,8 +286,8 @@ app.post('/books', (req, res) => {
         })
 });
 
-app.get('/requestItem', (req, res) => {
-    const theForm = requestItem();
+app.get('/requestItem/:id', protectRoute, (req, res) => {
+    const theForm = requestItem(req.params.id);
     const thePage = page(theForm, "books");
     res.send(thePage);
 })

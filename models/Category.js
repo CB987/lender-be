@@ -27,7 +27,7 @@ class Category {
 
     static getItemsWithLocation(id) {
         return db.any(`
-        select i.name, i.keyword, i.available, u.city, u.state
+        select i.id, i.name, i.keyword, i.available, u.city, u.state
 	from items i
 	inner join users u
 	on i.owner_id = u.id

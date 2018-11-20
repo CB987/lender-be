@@ -1,7 +1,7 @@
 function myAccount() {
     return `
 
-    <h2>My Account</h2>
+    <h2><span class="shadow">My Account</span></h2>
         <div class="dropdown">
             <button class="dropbtn">I want to...</button>
             <div class="dropdown-content">
@@ -13,11 +13,6 @@ function myAccount() {
                 <a href="./myaccount/updateMyInfo">update my personal info</a>
             </div>
         </div>
-    <h4><a href="./myaccount/owned">My Lendable Items</a></h4>
-    <h4><a href="./myaccount/borrowing">Items I'm Borrowing</a></h4>
-    <h4><a href="./myaccount/addItem">Add An Item To My Collection</a></h4>
-    <h4><a href="./myaccount/lendItem">Lend Item</a></h4>
-    <h4><a href="./myaccount/updateMyInfo">Update Personal Info</a></h4>
     `;
 }
 
