@@ -25,8 +25,8 @@ const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
 const updateMyInfo = require('./views/updateMyInfo');
 const logout = require('./views/logout');
+const updateItemForm = require('./views/updateItem');
 const requestItem = require('./views/requestItem');
-// const updateItemForm = require('./views/updateItem');
 
 
 // session modules
@@ -90,13 +90,13 @@ app.post('/register', (req, res) => {
     // console.log(newState);
 
     User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
-        .then((newUser) => {
-            // console.log(newUser);
-            User.getByUsername(newUser.username)
-                .catch((err) => {
-                    console.log(err);
-                    res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
-                })
+    .then((newUser) => {
+        // console.log(newUser);
+        User.getByUsername(newUser.username)
+            .catch((err) =>{
+                console.log(err);
+                res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
+            })
             // .then(user =>{
             //     console.log(user);
             // })
@@ -108,33 +108,33 @@ app.post('/register', (req, res) => {
             // .then(username =>{
             //     console.log(username);
             // })
-
-            // if(newUser.username === username){
-            //     console.log("there is a double");
-            // }
-            req.session.user = newUser;
-            req.session.save(() => {
-                res.redirect('/welcome');
-            })
+            
+        // if(newUser.username === username){
+        //     console.log("there is a double");
+        // }
+        req.session.user = newUser;
+        req.session.save(() =>{
+            res.redirect('/welcome');
         })
+    })
 });
 
 app.get('/welcome', (req, res) => {
     // send them to welcome page
     // console.log(req.session.user);
     // User.getByUsername(req.session.user.username)
-    // .then((registeredUser) =>{
-    // console.log(registeredUser);
-    // if (registeredUser === username){
-    res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
+        // .then((registeredUser) =>{
+            // console.log(registeredUser);
+            // if (registeredUser === username){
+                res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
+            // }
+    })
+    // let visitorName = 'Person of the World';
+    // if (req.session.user) {
+    //     visitorName = req.session.user.username;
     // }
-})
-// let visitorName = 'Person of the World';
-// if (req.session.user) {
-//     visitorName = req.session.user.username;
-// }
-// res.send(page(`<h1>Hey ${visitorName}</h1>`, 
-// req.session.user));
+    // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
+    // req.session.user));
 
 
 
@@ -165,7 +165,7 @@ app.post('/login', (req, res) => {
                 req.session.user = theUser;
                 res.redirect('/welcome');
             } else {
-                res.send(page(`<h2>Incorrect Password. Please enter correct Password</h2><br><h4><a href="/login">Return to Login</a></h2>`));
+                res.send(page(`<h2>Incorrect Password. Please enter in correct Password</h2><br><h4><a href="/login">Return to Login</a></h2>`));
                 // res.redirect('/login');
             }
         })
@@ -173,12 +173,11 @@ app.post('/login', (req, res) => {
 // ====================================================
 // My Account
 // ====================================================
-app.get('/myaccount', protectRoute, (req, res) => {
+app.get('/myaccount', (req, res) => {
     // console.log(req.session.user.id);
     const thePage = page(myAccount());
     res.send(thePage);
 })
-
 app.get('/myaccount/owned', (req, res) => {
     Item.getItemsByOwner(req.session.user.id)
         .then(myOwnerItems => {
@@ -209,7 +208,7 @@ app.post('/myaccount/addItem', (req, res) => {
     const keyword = req.body.keyword;
     const owner_id = req.body.owner_id;
     const available = req.body.available;
-
+    
     Item.addItem(category_id, name, keyword, owner_id, available)
         .then(newItem => {
             res.send(page(`<h2>success! thanks for contributing ${name} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
@@ -251,30 +250,50 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
         })
 });
 
+
 // UPDATE ITEM
-app.get('/myaccount/updateItemInfo', (req, res) => {
-    const theForm = updateItemForm();
+app.get('/myaccount/updateItemInfo/:id', (req, res) => {
+    debugger;
+    const theForm = updateItemForm(req.params.id);
+    console.log(req.params.id)
     const thePage = page(theForm);
     res.send(thePage);
 })
 
-app.post('/myaccount/updateItemInfo', (req, res) => {
+app.post('/myaccount/updateItemInfo', (req, res) =>{
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
-    const owner_id = req.body.owner_id;
-    const available = req.body.available;
+    // const owner_id = req.body.owner_id;
+    // const available = req.body.available;
+    const updatedItemId = req.body.itemId;
+    Item.updateItemInfo(updatedItemId, category_id, name, keyword)
+        
+
     
-    const updatedItem = new Item(this.id, category_id, name, keyword, owner_id, available)
-    updatedItem.updateItemInfo(category_id, name, keyword)
-        .then(result => {
-            console.log(result)
-        });
+
+})
+// REQUEST ITEM
+app.get('/requestItem/:id', protectRoute, (req, res) => {
+    
+    const theForm = requestItem(req.params.id);
+    const thePage = page(theForm, "books");
+    res.send(thePage);
 })
 
-//=================================================
-// Books Page; List, Search, Request
-//=================================================
+app.post('/requestItem', (req, res) => {
+    const requestedItemId = req.body.itemId;
+    Item.getItemById(requestedItemId)
+        .then(owner_id => {
+            User.getUserById(owner_id)
+                .then(u => {
+                    console.log(u.email);
+                })
+        })
+})
+// ====================================================
+// Books Page; List and Search
+// ====================================================
 app.get('/books', (req, res) => {
     Category.getItemsWithLocation(1)
         .then((allBooks) => {
@@ -294,29 +313,12 @@ app.post('/books', (req, res) => {
         })
 });
 
-app.get('/requestItem/:id', protectRoute, (req, res) => {
-    const theForm = requestItem(req.params.id);
-    const thePage = page(theForm, "books");
-    res.send(thePage);
-})
-
-app.post('/requestItem', (req, res) => {
-    const requestedItemId = req.body.itemId;
-    Item.getItemById(requestedItemId)
-        .then(owner_id => {
-            User.getUserById(owner_id)
-                .then(u => {
-                    console.log(u.email);
-                })
-        })
-})
-
-// ==================================================
+// ====================================================
 // Logout
-// ==================================================
+// ====================================================
 app.get('/logout', (req, res) => {
     const thePage = logout();
-    res.send(page(thePage));
+    res.send(page(thePage))
 })
 
 app.post('/logout', (req, res) => {

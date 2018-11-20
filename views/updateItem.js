@@ -1,4 +1,4 @@
-function updateItemForm() {
+function updateItemForm(id) {
     
     
         return `
@@ -17,8 +17,10 @@ function updateItemForm() {
         <h4>Items I'm Borrowing</h4>
         <h4>Add An Item To My Lendable Items</h4>
             <form action="" method="POST">
+                <label> Item ID: 
+                    <input type="integer" name="itemId" value="${id}" >
                 <label> Category:
-                <select>
+                <select name="category_id">
                     <option value="1">books</option>
                     <option value="2">movies</option>
                     <option value="3">power tools</option>
@@ -48,7 +50,7 @@ function updateItemForm() {
                     </select>
                 </label>
                 <label>
-                <input type="submit" value="add item!">
+                <input type="submit" value="update item!">
                 </label>
             </form>
         <h4>Lend Item</h4>

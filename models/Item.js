@@ -128,12 +128,12 @@ WHERE id = $2
     //     };
 
     //Item instance method for updating item info
-    updateItemInfo(category_id, name, keyword) {
+    static updateItemInfo(id, category_id, name, keyword) {
         return db.result(`
    UPDATE items
    SET category_id = $2, name =$3, keyword = $4
    WHERE id = $1
-`, [this.id, category_id, name, keyword]);
+`, [id, category_id, name, keyword]);
     };
 };
 
