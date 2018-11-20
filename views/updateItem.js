@@ -1,4 +1,4 @@
-function updateItemForm(id) {
+function updateItemForm(id, name) {
     
     
         return `
@@ -35,21 +35,11 @@ function updateItemForm(id) {
                 </select>
                 </label>
                 <label> Item name:
-                    <input type="text" name="name">
+                    <input type="text" name="name" value="${name}>
                 </label>
                 <label> Item keywords (ex. brand, year, author, search terms):
                     <input type="text" name="keyword">
                 </label>
-                <label> Your id number:
-                    <input type="integer" name="owner_id">
-                </label>
-                <label> Available:
-                    <select>
-                        <option value="true">yes</option>
-                        <option value="false">no</option>
-                    </select>
-                </label>
-                <label>
                 <input type="submit" value="update item!">
                 </label>
             </form>
@@ -62,3 +52,4 @@ function updateItemForm(id) {
 }
 
 module.exports = updateItemForm;
+

@@ -14,7 +14,7 @@ function updateMyInfo() {
         <h4><a href="./owned">My Lendable Items</a></h4>
         <h4><a href="./borrowing">Items I'm Borrowing</a></h4>
         <h4><a href="./addItem">Add An Item To My Collection</a></h4>
-        <h4><a href="./myaccount/lendItem">Lend Item</a></h4>
+        <h4><a href="./lendItem">Lend Item</a></h4>
     <h4>Update Personal Info</h4>
     <form action="" method="POST">
         <label> Your name:

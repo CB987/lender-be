@@ -231,6 +231,7 @@ app.post('/myaccount/lendItem', (req, res) => {
             res.send(page(`<h2>success! thanks for sharing your stuff!</h2><br><h4><a href="../myaccount">return to my account</a></h4><br><h4><a href="../myaccount/lendItem">lend another item</a></h4>`));
         })
 });
+// UPDATE USER
 
 app.get('/myaccount/updateMyInfo', (req, res) => {
     const theForm = updateMyInfo();
@@ -253,26 +254,26 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
 
 // UPDATE ITEM
 app.get('/myaccount/updateItemInfo/:id', (req, res) => {
-    debugger;
-    const theForm = updateItemForm(req.params.id);
+    
+    const theForm = updateItemForm(req.params.id, req.body.name);
     console.log(req.params.id)
     const thePage = page(theForm);
     res.send(thePage);
 })
 
-app.post('/myaccount/updateItemInfo', (req, res) =>{
+app.post('/myaccount/updateItemInfo/:id', (req, res) =>{
+    const updatedItemId = req.body.itemId;
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
-    // const owner_id = req.body.owner_id;
-    // const available = req.body.available;
-    const updatedItemId = req.body.itemId;
     Item.updateItemInfo(updatedItemId, category_id, name, keyword)
-        
+        .then(updatedItem => {
+            res.send(page(`<h2>you have successfully updated your item, ${name}!</h2>`))
+        })
 
     
 
-})
+});
 // REQUEST ITEM
 app.get('/requestItem/:id', protectRoute, (req, res) => {
     
