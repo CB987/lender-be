@@ -1,14 +1,22 @@
 
-function nav() {
-    return `
-    <nav>
-    <a href="http://localhost:4000/logout">Logout</a>
-    <a href="http://localhost:4000/">Search</a>
-    <a href="http://localhost:4000/myaccount">My Account</a>
-    <a href="http://localhost:4000/login">Login</a>
-    <a href="http://localhost:4000/register">Register</a>
-    </nav>
-    `;
+function nav(isLoggedIn) {
+    if (isLoggedIn){
+        return `
+        <nav>
+        <a href="/logout">Logout</a>
+        <a href="/">Search</a>
+        <a href="/myaccount">My Account</a>
+        </nav>
+        `;
+    }else{
+        return `
+        <nav>
+        <a href="/">Search</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+        </nav>
+        `;
+    }
 }
 
 function header() {

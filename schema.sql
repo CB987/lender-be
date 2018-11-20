@@ -1,12 +1,11 @@
 create table users (
     id serial primary key,
     name varchar(100),
-    username varchar(20),
+    username varchar(20) ,
     pwhash varchar(100),
     email varchar(100),
     city text,
-    state varchar(2),
-        UNIQUE(email)
+    state varchar(2)
 );
 
 create table categories (

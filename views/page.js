@@ -3,7 +3,7 @@ const { header, footer, nav } = require('./helper');
 
 
 
-function page(content, className = "handshake") {
+function page(content, isLoggedIn = false, className = "handshake") {
     return `
     <!DOCTYPE html>
     <html lang="en" class="${className}">
@@ -17,7 +17,7 @@ function page(content, className = "handshake") {
     <link href="./clusterize.css" rel="stylesheet">
     </head>
     <body>
-        ${nav()}
+        ${nav(isLoggedIn)}
         ${header()}
         ${content}
         <div class="footer">
