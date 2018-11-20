@@ -24,7 +24,11 @@ class Item {
             VALUES
                 ($1, $2, $3, $4, $5)
             returning id
-            `, [category_id, name, keyword, owner_id, available]);
+            `, [category_id, name, keyword, owner_id, available])
+            .then((newItem) =>{
+                const theItem = new Item (newItem.id, category_id, name, keyword, owner_id, available)
+                return theItem;
+            })
     };
 
     // RETRIEVE
