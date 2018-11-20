@@ -35,7 +35,7 @@ function updateItem(id, name) {
                 </select>
                 </label>
                 <label> Item name:
-                    <input type="text" name="name" placeholder="${name}>
+                    <input type="text" name="name" placeholder="${name}">
                 </label>
                 <label> Item keywords (ex. brand, year, author, search terms):
                     <input type="text" name="keyword">

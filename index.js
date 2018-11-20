@@ -132,7 +132,7 @@ app.get('/welcome', (req, res) => {
     // res.send(page(`<h1>Hey ${visitorName}</h1>`, 
     // req.session.user));
 
-
+})
 
 // ====================================================
 // User Login
