@@ -31,7 +31,7 @@ function books(allBooks) {
                     <div id="table_results">
                         <table class="shadow">
                             <tr>
-                                <th>Book Name</th>
+                                <th>Book Title</th>
                                 <th>Keywords</th>
                                 <th>Available</th>
                                 <th>City</th>

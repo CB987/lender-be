@@ -2,17 +2,17 @@ function loginForm() {
     return `
     <form action="/login" method="POST">
         <label>
-            Username:
+        <span class="shadow">Username:</span>
             <input type="text" name="username">
         </label>
         <br> <br>
         <label>
-            Password:
+        <span class="shadow">Password:</span>
             <input type="password" name="password">
         </label>
         <br> <br>
-        <input type="submit" value="Login">
+        <input class="aqua" type="submit" value="Login">
     </form>    
     `;
 }
- module.exports = loginForm; 
+module.exports = loginForm; 

@@ -127,6 +127,7 @@ app.get('/welcome', (req, res) => {
     // console.log(registeredUser);
     // if (registeredUser === username){
     res.send(page(homepage(`<h3>Hey ${req.session.user.username}</h3>`)));
+    req.session.save()
     // }
 })
 // let visitorName = 'Person of the World';
