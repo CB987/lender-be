@@ -1,12 +1,12 @@
-const User = require('./models/User');
+// const User = require('./models/User');
 
-function getEmailforItemRequest() {
-    Item.getItemById(id)
-        .then(owner_id => {
-            User.getUserById(owner_id)
-            return u.email;
-        })
-}
+// function getEmailforItemRequest() {
+//     Item.getItemById(id)
+//         .then(owner_id => {
+//             User.getUserById(owner_id)
+//             return u.email;
+//         })
+// }
 
 
 function requestItem() {
@@ -17,6 +17,9 @@ function requestItem() {
         </label>
         <label>Item name:
             <input type="text" name="name">
+        </label>
+        <label>
+            <input type="submit" value="request item!">
         </label>
     </form>
     `;

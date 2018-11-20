@@ -288,13 +288,19 @@ app.post('/books', (req, res) => {
 
 app.get('/requestItem', (req, res) => {
     const theForm = requestItem();
-    const thePage = page(theForm);
+    const thePage = page(theForm, "books");
     res.send(thePage);
 })
 
 app.post('/requestItem', (req, res) => {
     const requestedItemId = req.body.itemId;
-    Item.getItembyId
+    Item.getItemById(requestedItemId)
+        .then(owner_id => {
+            User.getUserById(owner_id)
+                .then(u => {
+                    console.log(u.email);
+                })
+        })
 })
 
 // ==================================================

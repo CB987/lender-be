@@ -1,5 +1,4 @@
 const db = require('./db');
-const User = require('./models/User');
 
 class Item {
     constructor(id, category_id, name, keyword, owner_id, available, borrower_id) {

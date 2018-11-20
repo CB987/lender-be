@@ -15,7 +15,7 @@ function addItemForm() {
         <h4><a href="./borrowing">Items I'm Borrowing</a></h4>
         <h4>Add An Item To My Collection</h4>
         <form action="" method="POST">
-            <label> Category:
+            <label class="shadow"> Category:
             <select>
                 <option value=1>books</option>
                 <option value="2">movies</option>
@@ -30,22 +30,22 @@ function addItemForm() {
                 <option value="11">decorations/ holiday items</option>
             </select>
             </label>
-            <label> Item name:
+            <label class="shadow"> Item name:
                 <input type="text" name="name">
-            </label>
-            <label> Item keywords (ex. brand, year, author, search terms):
+            </label><br>
+            <label class="shadow"> Item keywords (ex. brand, year, author, search terms):
                 <input type="text" name="keyword">
-            </label>
-            <label> Your id number:
+            </label><br>
+            <label class="shadow"> Your id number:
                 <input type="integer" name="owner_id">
             </label>
-            <label> Available:
+            <label class="shadow"> Available:
                 <select>
                     <option value="true">yes</option>
                     <option value="false">no</option>
                 </select>
             </label>
-            <label>
+            <label class="aqua">
             <input type="submit" value="add item!">
             </label>
         </form>

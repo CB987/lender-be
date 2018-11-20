@@ -38,19 +38,16 @@ function owned(myOwnerItems) {
     <h4>My Lendable Items</h4>
     <action='' method='GET'>
         <div id="my_items">
-        <table>
+        <table class="shadow">
         <tr>
         <th>Item no</th>
         <th>Book Name</th>
         <th>Keywords</th>
         <th>Available</th>
-        <th>Update</th>
             ${myOwnerItems.map(oneItem => { return itemRow(oneItem) }).join('')} 
         </table>
         </div>
     
-    <h4>Items I'm Borrowing</h4>
-
     </ul>
     <h4><a href="./borrowing">Items I'm Borrowing</a></h4>
     </ul>
