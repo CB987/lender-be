@@ -9,17 +9,18 @@
 // }
 
 
-function requestItem(id) {
+function requestItem(id, name) {
     return `
+    <h2><span class="shadow"> Confirm your request for: </span></h2>
     <form action="" method="POST">
-        <label>Item ID:
-            <input type="integer" name="itemId" value="${id}" disabled>
+        <label> <span class="shadow">Item ID:</span>
+            <input type="integer" name="itemId" value="${id}" readonly>
         </label>
-        <label>Item name:
-            <input type="text" name="name">
+        <label><span class="shadow">Item name:</span>
+            <input type="text" name="name" value=${name}>
         </label>
         <label>
-            <input type="submit" value="request item!">
+            <input class="aqua" type="submit" value="request item!">
         </label>
     </form>
     `;

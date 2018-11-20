@@ -1,5 +1,5 @@
 
-function addItemForm() {
+function addItemForm(id) {
     return `
     <h2><a href="../myaccount"><span class="shadow">My Account</span></a></h2>
         <div class="dropdown">
@@ -35,7 +35,7 @@ function addItemForm() {
                 <input type="text" name="keyword">
             </label><br>
             <label> <span class="shadow">Your id number:</span>
-                <input type="integer" name="owner_id">
+                <input type="integer" name="owner_id" value="${id}" readonly>
             </label>
             <label> <span class="shadow">Available:</span>
                 <select name="available">
