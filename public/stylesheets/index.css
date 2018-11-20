@@ -104,12 +104,18 @@ body a:hover {
 }
 
 .aqua {
-    color: darkcyan;
-    color: rgb(54,32,20);
+    background-color: darkcyan;
+    /* color: rgb(54,32,20);  */
+    color: cornsilk;
     padding: 5px  16px;
     font-size: 16px;
     /* min-width: 160px; */
     border: none;
+}
+
+.aqua:hover {
+    background-color: rgb(54, 32, 20);
+    color: darkcyan;
 }
 
 .dropbtn {
@@ -167,9 +173,18 @@ table {
 
 #table_results{
     padding: 5%;
+    max-width: 90%;
+    margin-left: 5%;
+    /* outline: 1px solid red; */
+    max-height: 50%;
+    overflow: auto;
 }
 
 #my_items{
-    margin-left: 175px;
+    max-width: 70%;
+    margin-left: 15%;
+    /* outline: 1px solid red; */
+    max-height: 50%;
+    overflow: auto;
 }
 
