@@ -1,4 +1,4 @@
-function updateItemForm(id, name) {
+function updateItem(id, name) {
     
     
         return `
@@ -35,7 +35,7 @@ function updateItemForm(id, name) {
                 </select>
                 </label>
                 <label> Item name:
-                    <input type="text" name="name" value="${name}>
+                    <input type="text" name="name" placeholder="${name}>
                 </label>
                 <label> Item keywords (ex. brand, year, author, search terms):
                     <input type="text" name="keyword">
@@ -51,5 +51,5 @@ function updateItemForm(id, name) {
     
 }
 
-module.exports = updateItemForm;
+module.exports = updateItem;
 

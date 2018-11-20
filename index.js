@@ -25,7 +25,7 @@ const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
 const updateMyInfo = require('./views/updateMyInfo');
 const logout = require('./views/logout');
-const updateItemForm = require('./views/updateItem');
+const updateItem = require('./views/updateItem');
 const requestItem = require('./views/requestItem');
 
 
@@ -255,7 +255,7 @@ app.post('/myaccount/updateMyInfo', (req, res) => {
 // UPDATE ITEM
 app.get('/myaccount/updateItemInfo/:id', (req, res) => {
     
-    const theForm = updateItemForm(req.params.id, req.body.name);
+    const theForm = updateItem(req.params.id, req.body.name);
     console.log(req.params.id)
     const thePage = page(theForm);
     res.send(thePage);
