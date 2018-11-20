@@ -347,6 +347,6 @@ app.get('/logout', (req, res) => {
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
         req.session = null
-    });
-    res.send(page(`<h2><span class="shadow">Thank you for being part of the Lender-Be community!</span></h2><br><h4><span class="aqua"><a href="../">return to search</a></span></h4><h4><span class="aqua"><a href="./login">return to login</a></h4>`));
+    })
+    res.send(page(`<h2><span class="shadow">Thank you for being part of the Lender-Be community!</span></h2><br><h4><span class="aqua"><a href="../">return to search</a></span></h4><h4><span class="aqua"><a href="./login">return to login</a></h4>`))
 });
