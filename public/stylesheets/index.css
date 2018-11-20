@@ -170,6 +170,10 @@ table {
 }
 
 #my_items{
-    margin-left: 175px;
+    max-width: 70%;
+    margin-left: 15%;
+    /* outline: 1px solid red; */
+    max-height: 50%;
+    overflow: auto;
 }
 
