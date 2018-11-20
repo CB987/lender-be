@@ -28,21 +28,18 @@ function books(allBooks) {
                     <input type="text" name="search" placeholder="title or keyword" id="">
                         <input class="aqua" type="submit" value="Find">
                 </form>
-                        <div id="table_results">
-                
-                        <table>
-                        <tr>
-                        <th>Book Name</th>
-                        <th>Keywords</th>
-                        <th>Available</th>
-                        <th>City</th>
-                        <th>State</th>
-                        
-                            ${allBooks.map(oneBook => { return bookRow(oneBook) }).join('')}
+                    <div id="table_results">
+                        <table class="shadow">
+                            <tr>
+                                <th>Book Name</th>
+                                <th>Keywords</th>
+                                <th>Available</th>
+                                <th>City</th>
+                                <th>State</th>
+                                ${allBooks.map(oneBook => { return bookRow(oneBook) }).join('')}
+                            </tr>
                         </table>   
-                        </div>
-                        <div>
-
+                    </div>
     `}
 
 

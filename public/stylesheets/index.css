@@ -173,6 +173,11 @@ table {
 
 #table_results{
     padding: 5%;
+    max-width: 90%;
+    margin-left: 5%;
+    /* outline: 1px solid red; */
+    max-height: 50%;
+    overflow: auto;
 }
 
 #my_items{
