@@ -22,10 +22,12 @@ People can request to borrow and, if accepted, then there is a record of who has
 
 <h3>Future Innovations</h3>
 <ul>
-  <li>Have ability for users to rate each other.</li>
+  <li>Make category pages generate dynamically.</li>
   <li>Make it more actually social-- connect with friends + family and be able to search within those connections. </li>
-  <li>Make items searchable by distance and show up in a map</li>
-  <li>Users upload pictures of the item and those are browseable</li>
+  <li>Make items searchable by distance and show up in a map.</li>
+  <li>Users upload pictures of the item and those are browseable.</li>
+  <li>Make "due dates" and reminders that items are "due".</li>
+  <li>Have pending requests table in My Account page</li>
 </ul>
 
 Brought to you by Amelia Schultz, Steven Kim, and Clare Barton

@@ -25,8 +25,8 @@ const addItemForm = require('./views/addItem');
 const lendItemForm = require('./views/lendItem');
 const updateMyInfo = require('./views/updateMyInfo');
 const logout = require('./views/logout');
+const updateItem = require('./views/updateItem');
 const requestItem = require('./views/requestItem');
-// const updateItemForm = require('./views/updateItem');
 
 
 // session modules
@@ -111,7 +111,6 @@ app.get('/welcome', protectRoute, (req, res) => {
     res.send(page(homepage(), isLoggedIn));
 });
 
-
 // ====================================================
 // User Login
 // ====================================================
@@ -128,7 +127,7 @@ app.post('/login', (req, res) => {
     User.getByUsername(theUsername)
         .catch((err) => {
             console.log(err);
-            res.send(page(`<h2>Incorrect Username. Please enter in correct Username</h2><br><h4><a href="/login">Return to Login</a></h2>`));
+            res.send(page(`<h2><span class="shadow">Uhoh, that wasn't a known username. <br> Please try again, or register for an account.</span></h2><br><h4><span class="aqua"><a href="/login">Return to Login</a></span></h2><h4><span class="aqua"><a href="/register">Register</a></span></h2>`));
         })
         .then(theUser => {
             if (theUser.passwordDoesMatch(thePassword)) {
@@ -137,8 +136,8 @@ app.post('/login', (req, res) => {
                     res.redirect('/welcome');
                 });
             } else {
-                res.send(page(`<h2>Incorrect Password. Please enter correct Password</h2><br><h4><a href="/login">Return to Login</a></h2>`));
-            };
+                res.send(page(`<h2><span class="shadow">Oops, that wasn't your password. <br> Please try again, or register for an account.</span></h2><br><h4><span class="aqua"><a href="/login">Return to Login</a></span></h2><h4><span class="aqua"><a href="/register">Register</a></span></h2>`));
+            }
         })
 });
 
@@ -146,12 +145,13 @@ app.post('/login', (req, res) => {
 // ====================================================
 // My Account
 // ====================================================
-app.get('/myaccount', protectRoute, (req, res) => {
+app.get('/myaccount', (req, res) => {
     // console.log(req.session.user.id);
     let isLoggedIn = req.session.user ? true : false;
     res.send(page(myAccount(), isLoggedIn));
 })
 
+//My Items
 app.get('/myaccount/owned', protectRoute, (req, res) => {
     // console.log(req.session.user.id);
     Item.getItemsByOwner(req.session.user.id)
@@ -161,7 +161,7 @@ app.get('/myaccount/owned', protectRoute, (req, res) => {
             res.send(page(owned(myOwnerItems), isLoggedIn));
         })
 });
-
+// Items I'm Borrowing
 app.get('/myaccount/borrowing', protectRoute, (req, res) => {
     // console.log(req.session.user.id);
     Item.getItemsBorrowed(req.session.user.id)
@@ -170,7 +170,7 @@ app.get('/myaccount/borrowing', protectRoute, (req, res) => {
             res.send(page(borrowing(myBorrowedItems), isLoggedIn));
         })
 })
-
+// Add An Item
 app.get('/myaccount/addItem', protectRoute, (req, res) => {
     let isLoggedIn = req.session.user ? true : false;
     res.send(page(theForm(addItemForm), isLoggedIn));
@@ -188,10 +188,10 @@ app.post('/myaccount/addItem', protectRoute, (req, res) => {
     const keyword = req.body.keyword;
     const owner_id = req.body.owner_id;
     const available = req.body.available;
-
+    
     Item.addItem(category_id, name, keyword, owner_id, available)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for contributing ${name} to the lender-be community!</h2><br><h4><a href="../myaccount">return to my account</a></h2><br><h4><a href="../myaccount/addItem">add another item</a></h4>`));
+            res.send(page(`<h2><span class="shadow">success! thanks for contributing ${name} to the lender-be community!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h2><h4><span class="aqua"><a href="../myaccount/addItem">add another item</a></span></h2>`));
 
         })
 });
@@ -199,7 +199,6 @@ app.post('/myaccount/addItem', protectRoute, (req, res) => {
 app.get('/myaccount/lendItem', protectRoute, (req, res) => {
     let isLoggedIn = req.session.user ? true : false;
     // res.send(page(theForm(lendItemForm), isLoggedIn));
-
     const theForm = lendItemForm();
     const thePage = page(theForm);
     res.send(thePage, isLoggedIn);
@@ -212,14 +211,15 @@ app.post('/myaccount/lendItem', protectRoute, (req, res) => {
     // const owner_id = req.session.user.id;
     Item.updateItemStatus(borrower_id, item_id)
         .then(newItem => {
-            res.send(page(`<h2>success! thanks for sharing your stuff!</h2><br><h4><a href="../myaccount">return to my account</a></h4><br><h4><a href="../myaccount/lendItem">lend another item</a></h4>`));
+            res.send(page(`<h2><span class="shadow">success! thanks for sharing your stuff!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4><br><h4><span class="aqua"><a href="../myaccount/lendItem">lend another item</a></span></h4>`));
         })
 });
+
+//Update User Info
 
 app.get('/myaccount/updateMyInfo', protectRoute, (req, res) => {
     let isLoggedIn = req.session.user ? true : false;
     // res.send(page(theForm(updateMyInfo), isLoggedIn));
-
     const theForm = updateMyInfo();
     const thePage = page(theForm);
     res.send(thePage, isLoggedIn);
@@ -234,45 +234,34 @@ app.post('/myaccount/updateMyInfo', protectRoute, (req, res) => {
     const state = req.body.state;
     User.updateUserInfo(name, username, email, city, state)
         .then(newUser => {
-            res.send(page(`<h2>success! you have successfully updated your info, ${username}!</h2><br><h4><a href="../myaccount">return to my account</a></h4>`));
+            res.send(page(`<h2><span class="shadow">success! you have successfully updated your info, ${username}!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4>`));
         })
 });
 
+// Update Item Info
+app.get('/myaccount/updateItemInfo/:id', protectRoute, (req, res) => { 
+   const theForm = updateItem(req.params.id, req.body.name);
+    console.log(req.params.id);
+    const thePage = page(theForm);
+    res.send(thePage);
+})
 
-
-// UPDATE ITEM
-// app.get('/myaccount/updateItemInfo', (req, res) => {
-//     const theForm = updateItemForm();
-//     const thePage = page(theForm);
-//     res.send(thePage);
-// })
-
-// app.post('/myaccount/updateItemInfo', (req, res) =>{
-//     const category_id = req.body.category_id;
-//     const name = req.body.name;
-//     const keyword = req.body.keyword;
-    
-// })
-
-app.post('/myaccount/updateItemInfo', protectRoute, (req, res) => {
-
+app.post('/myaccount/updateItemInfo/:id', (req, res) =>{
+    const updatedItemId = req.body.itemId;
     const category_id = req.body.category_id;
     const name = req.body.name;
     const keyword = req.body.keyword;
-    const owner_id = req.body.owner_id;
-    const available = req.body.available;
-    
-    const updatedItem = new Item(this.id, category_id, name, keyword, owner_id, available)
-    updatedItem.updateItemInfo(category_id, name, keyword)
-        .then(result => {
-            console.log(result)
-        });
-})
+    Item.updateItemInfo(updatedItemId, category_id, name, keyword)
+        .then(updatedItem => {
+            res.send(page(`<h2>you have successfully updated your item, ${name}!</h2>`))
+        })
 
+});
 
-//=================================================
-// Books Page; List, Search, Request
-//=================================================
+// ====================================================
+// Books Page; List and Search
+// ====================================================
+
 app.get('/books', (req, res) => {
     console.log(req.params.id)
     Category.getItemsWithLocation()
@@ -303,27 +292,22 @@ app.get('/requestItem/:id', protectRoute, (req, res) => {
 })
 
 app.post('/requestItem', protectRoute, (req, res) => {
-
     const requestedItemId = req.body.itemId;
     Item.getItemById(requestedItemId)
-        .then(owner_id => {
-            User.getUserById(owner_id)
-                .then(u => {
-                    console.log(u.email);
-                })
+        .then(item => {
+            res.send(page(`<h2><span class="shadow">yay! you have successfully requested this item.</span></h2><br><h4><span class="aqua"><a href="../myaccount">go to my account</a></span></h4><h4><span class="aqua"><a href="../..">back to search</a></span></h4>`));
         })
 })
 
 // ==================================================
 // Logout
-// ==================================================
+// ====================================================
 app.get('/logout', (req, res) => {
     const thePage = logout();
-    res.send(page(thePage));
+    res.send(page(thePage))
 })
 
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
-            res.send(page(`<h2>Thank you for being part of the Lender-Be community!</h2><br><h4><a href="../">return to search</a></h4><h4><a href="./login">return to login</a></h4>`));
-    });
+    res.send(page(`<h2><span class="shadow">Thank you for being part of the Lender-Be community!</span></h2><br><h4><span class="aqua"><a href="../">return to search</a></span></h4><h4><span class="aqua"><a href="./login">return to login</a></h4>`))
 });
