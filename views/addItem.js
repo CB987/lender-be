@@ -12,6 +12,7 @@ function addItemForm(id) {
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
+        <br><br>
         <form action="" method="POST">
             <label> <span class="shadow">Category:</span>
             <select name="category_id">

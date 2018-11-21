@@ -36,8 +36,8 @@ class Item {
     //Items category instance method for getting all items in a category
     static getAllItems() {
         return db.any(`
-    Select * from items
-    `,)
+            Select * from items
+        `,)
             .then(resultsArray => {
                 // console.log(resultsArray);
                 //transform array of objects into array of User instances

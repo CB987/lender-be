@@ -37,7 +37,8 @@ class User {
         return db.one(`
         SELECT * FROM users
 	        WHERE id = $1
-    `, [id]).then(result => {
+        `, [id])
+            .then(result => {
                 const u = new User(result.id, result.name, result.username, result.email, result.city, result.state);
                 return u;
             })
@@ -45,8 +46,8 @@ class User {
 
     static getByUsername(username) {
         return db.one(`
-            select * from users
-            where username = $1          
+        SELECT * FROM users
+            WHERE username = $1          
         `, [username])
             .then(result => {
                 return new User(result.id, result.name, result.username, result.pwhash, result.email, result.city, result.state);
@@ -58,13 +59,12 @@ class User {
         return didMatch;
     }
 
-    getItems(id) {
+    static getItems(id) {
         return db.any(`
-        SELECT * 
-        FROM items
-        WHERE owner = $1
-    `, [id])
-    };
+        SELECT * FROM items
+            WHERE owner = $1
+        `, [id])
+        };
 
     // UPDATE
     // =================
@@ -73,8 +73,8 @@ class User {
         UPDATE users
             SET name = $2, username = $3, email = $4, city =  $5, state = $6
             WHERE id = $1;
-    `, [id, name, username, email, city, state]);
-    };
+        `, [id, name, username, email, city, state]);
+        };
 
 
     // / DELETE
@@ -83,8 +83,8 @@ class User {
         return db.one(`
         DELETE FROM users
             WHERE id = $1;
-    `, [this.id]);
-    };
+        `, [this.id]);
+        };
 
 
 }
