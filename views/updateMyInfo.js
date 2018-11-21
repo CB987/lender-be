@@ -7,11 +7,9 @@ function updateMyInfo() {
             <a href="./owned">see all my items</a>
             <a href="./borrowing">see items I'm borrowing</a>
             <a href="./addItem">add an item</a>
-            <a href="./lendItem">lend item</a>
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
-    <h4>Update Personal Info</h4>
     <h4><span class="shadow">Update Personal Info</span></h4>
     <form action="" method="POST">
         <label> <span class="shadow">Your name:</span>

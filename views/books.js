@@ -14,7 +14,7 @@ function bookRow(book) {
     <td>${book.available}</td>
     <td>${book.city}</td>
     <td>${book.state}</td>
-    <td><button class="aqua"><a href="./requestItem/${book.id}/${book.name}">request</a></button></td>
+    <td><button class="aqua"><a href="./requestItem/${book.id}">request</a></button></td>
     </tr>`
 }
 

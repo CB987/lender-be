@@ -9,7 +9,7 @@
 // }
 
 
-function requestItem(id, name) {
+function requestItem(id) {
     return `
     <h2><span class="shadow"> Confirm your request for: </span></h2>
     <form action="" method="POST">
@@ -17,7 +17,7 @@ function requestItem(id, name) {
             <input type="integer" name="itemId" value="${id}" readonly>
         </label>
         <label><span class="shadow">Item name:</span>
-            <input type="text" name="name" value=${name}>
+            <input type="text" name="name">
         </label>
         <label>
             <input class="aqua" type="submit" value="request item!">

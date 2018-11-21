@@ -30,7 +30,6 @@ function owned(myOwnerItems) {
             <a href="./owned">see all my items</a>
             <a href="./borrowing">see items I'm borrowing</a>
             <a href="./addItem">add an item</a>
-            <a href="./lendItem">lend item</a>
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
@@ -40,8 +39,8 @@ function owned(myOwnerItems) {
         <div id="my_items">
             <table class="shadow">
                 <tr>
-                    <th>Item no</th>
-                    <th>Book Name</th>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
                     <th>Keywords</th>
                     <th>Available</th>
                     ${myOwnerItems.map(oneItem => { return itemRow(oneItem) }).join('')} 

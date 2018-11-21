@@ -35,7 +35,7 @@ class Category {
         `, [id])
             .then(resultsArray => {
                 // console.log(resultsArray);
-                //transform array of objects into array of User instances
+                //transform array of objects into array of Cat instances
                 let itemsArray = resultsArray.map(itemObj => {
                     let i = new Item(itemObj.id, itemObj.category_id, itemObj.name, itemObj.keyword, itemObj.owner_id, itemObj.available, itemObj.borrower_id);
                     i.city = itemObj.city;
@@ -56,7 +56,7 @@ class Category {
         `, [id, search])
             .then(resultsArray => {
                 // console.log(resultsArray);
-                //transform array of objects into array of User instances
+                //transform array of objects into array of Cat instances
                 let itemsArray = resultsArray.map(itemObj => {
                     let i = new Item(itemObj.id, itemObj.category_id, itemObj.name, itemObj.keyword, itemObj.owner_id, itemObj.available, itemObj.borrower_id);
                     i.city = itemObj.city;

@@ -36,7 +36,7 @@ header, body, footer {
 
 /* NAVIGATION */
 nav {
-    overflow: hidden;
+    /* overflow: hidden; */
     height: 5%;
 }
 
