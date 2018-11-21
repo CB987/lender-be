@@ -1,6 +1,6 @@
 function lendItemForm() {
     return `
-    <h2><span class="shadow"><a href="../myaccount">My Account</a><span></h2>
+    <h2><span class="shadow"><a href="../myaccount">My Account</a></span></h2>
         <div class="dropdown">
             <button class="dropbtn">I want to...</button>
             <div class="dropdown-content">
@@ -11,7 +11,7 @@ function lendItemForm() {
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
-    <h4><span class="shadow">Lend Item<span></h4>
+    <h4><span class="shadow">Lend Item</span></h4>
     <form action="" method="POST">
     <label> <span class="shadow">Item Id number:</span>
         <input type="integer" name="item_id">

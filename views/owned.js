@@ -40,8 +40,8 @@ function owned(myOwnerItems) {
         <div id="my_items">
             <table class="shadow">
                 <tr>
-                    <th>Item no</th>
-                    <th>Book Name</th>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
                     <th>Keywords</th>
                     <th>Available</th>
                     ${myOwnerItems.map(oneItem => { return itemRow(oneItem) }).join('')} 
