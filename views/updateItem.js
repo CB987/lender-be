@@ -14,9 +14,9 @@ function updateItem(id) {
             </div><br>
             <h4><span class="shadow">Update Item Info</span></h4><br>
             <form action="" method="POST">
-                <label> Item ID: 
+                <label><span class="shadow"> Item ID: </span>
                     <input type="integer" name="itemId" value="${id}" >
-                <label> Category:
+                <label> <span class="shadow">Category:</span>
                 <select name="category_id">
                     <option value="1">books</option>
                     <option value="2">movies</option>
@@ -31,10 +31,10 @@ function updateItem(id) {
                     <option value="11">decorations/ holiday items</option>
                 </select>
                 </label>
-                <label> Item name:
+                <label> <span class="shadow">Item name:</span>
                     <input type="text" name="name" placeholder="">
                 </label><br>
-                <label> Item keywords (ex. brand, year, author, search terms):
+                <label> <span class="shadow">Item keywords (ex. brand, year, author, search terms):</span>
                     <input type="text" name="keyword">
                 </label>
                 <input class="aqua" type="submit" value="update item!">
