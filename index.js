@@ -85,7 +85,7 @@ app.post('/register', (req, res) => {
     User.getByUsername(newUsername)
         .then((doesExist) => {
             // console.log(doesExist);
-            res.send(page(`<h2>Username already exist. Please enter in another Username</h2><br><h4><a href="/register">Return to register</a></h2>`));
+            res.send(page(`<h2><span class="shadow">Boooooo, someone already has that username. <br> Please choose another and try again.</span></h2><br><h4><span class="aqua"><a href="/login">Return to Login</a></span></h2><h4><span class="aqua"><a href="/register">Register</a></span></h2>`));
         })
         .catch(() => {
             const newPassword = req.body.password;
@@ -251,7 +251,7 @@ app.post('/myaccount/updateItemInfo/:id', (req, res) => {
 
     Item.updateItemInfo(updatedItemId, category_id, name, keyword)
         .then(() => {
-            res.send(page(`<h2>you have successfully updated your item, ${name}!</h2>`))
+            res.send(page(`<h2>you have successfully updated your ${name}!</h2>`))
         })
 });
 
@@ -261,7 +261,7 @@ app.post('/myaccount/updateItemInfo/:id', (req, res) => {
 
 // List of All Books
 app.get('/books', (req, res) => {
-    console.log(req.params.id)
+    // console.log(req.params.id)
     Category.getItemsWithLocation(1)
         .then((allBooks) => {
             console.log(allBooks);
@@ -274,7 +274,7 @@ app.get('/books', (req, res) => {
 // Filtering All Books
 app.post('/books', (req, res) => {
     const search = req.body.search;
-
+    // console.log(req.params.id)npm 
     Category.getFilteredItemsWithLocation(1, search)
         .then((allBooks) => {
             console.log(allBooks);
@@ -283,18 +283,19 @@ app.post('/books', (req, res) => {
             res.send(thePage);
         })
 });
+
+// User's Request for Item
 app.get('/requestItem/:id', protectRoute, (req, res) => {
     // let isLoggedIn = req.session.user ? true : false;
     // res.send(page(theForm(requestItem), isLoggedIn));    
-
+    console.log()
     const theForm = requestItem(req.params.id);
     const thePage = page(theForm, null, "books");
 
     res.send(thePage);
 })
 
-// User's Request for Item
-app.post('/requestItem', protectRoute, (req, res) => {
+app.post('/requestItem/:id', protectRoute, (req, res) => {
     const requestedItemId = req.body.itemId;
 
     Item.getItemById(requestedItemId)

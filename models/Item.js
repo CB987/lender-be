@@ -25,8 +25,8 @@ class Item {
                 ($1, $2, $3, $4, $5)
             returning id
             `, [category_id, name, keyword, owner_id, available])
-            .then((newItem) =>{
-                const theItem = new Item (newItem.id, category_id, name, keyword, owner_id, available)
+            .then((newItem) => {
+                const theItem = new Item(newItem.id, category_id, name, keyword, owner_id, available)
                 return theItem;
             })
     };
@@ -52,13 +52,6 @@ class Item {
     static getCategoryItems(category_id) {
         return db.any(`
     Select * from items where category_id = $1
-    `, [category_id])
-        return db.any(`
-    SELECT i.name, i.keyword, i.available, u.city, u.state 
-        FROM items i 
-    INNER JOIN users u
-        ON i.owner_id = u.id
-        WHERE i.category_id
     `, [category_id])
     }
 

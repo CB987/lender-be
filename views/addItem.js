@@ -8,10 +8,10 @@ function addItemForm(id) {
             <a href="./owned">see all my items</a>
             <a href="./borrowing">see items I'm borrowing</a>
             <a href="./addItem">add an item</a>
-            <a href="./lendItem">lend item</a>
             <a href="./updateMyInfo">update my personal info</a>
             </div>
-        </div>
+        </div><br>
+        <h4><span class="shadow">Add An Item to My Collection</span></h4>
         <form action="" method="POST">
             <label> <span class="shadow">Category:</span>
             <select name="category_id">

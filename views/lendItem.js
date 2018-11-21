@@ -7,7 +7,6 @@ function lendItemForm() {
             <a href="./owned">see all my items</a>
             <a href="./borrowing">see items I'm borrowing</a>
             <a href="./addItem">add an item</a>
-            <a href="./lendItem">lend item</a>
             <a href="./updateMyInfo">update my personal info</a>
             </div>
         </div>
