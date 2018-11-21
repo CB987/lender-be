@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 // Protecting User Account
 function protectRoute(req, res, next) {
     let isLoggedIn = req.session.user ? true : false;
-
+    
     if (isLoggedIn) {
         console.log(req.session.user);
         next();
@@ -74,7 +74,7 @@ function protectRoute(req, res, next) {
 app.get('/register', (req, res) => {
     const theForm = registrationForm();
     const thePage = page(theForm);
-
+ 
     res.send(thePage);
 });
 
@@ -93,7 +93,7 @@ app.post('/register', (req, res) => {
             const newCity = req.body.city;
             const newState = req.body.state;
             const newName = req.body.name;
-
+ 
             User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
                 .then((theUser) => {
                     // console.log(theUser);
@@ -109,9 +109,10 @@ app.post('/register', (req, res) => {
 app.get('/welcome', protectRoute, (req, res) => {
     // console.log(req.session.user);
     let isLoggedIn = req.session.user ? true : false;
-
+ 
     res.send(page(homepage(), isLoggedIn));
 });
+
 
 // ====================================================
 // User Login
@@ -119,7 +120,7 @@ app.get('/welcome', protectRoute, (req, res) => {
 app.get('/login', (req, res) => {
     const theForm = loginForm();
     const thePage = page(theForm);
-
+ 
     res.send(thePage);
 });
 
@@ -147,12 +148,12 @@ app.post('/login', (req, res) => {
 // ====================================================
 // My Account
 // ====================================================
-
+ 
 // User's Account
 app.get('/myaccount', (req, res) => {
     // console.log(req.session.user.id);
     let isLoggedIn = req.session.user ? true : false;
-
+ 
     res.send(page(myAccount(), isLoggedIn));
 })
 
@@ -163,7 +164,7 @@ app.get('/myaccount/owned', protectRoute, (req, res) => {
         .then(myOwnerItems => {
             // console.log(myOwnerItems);
             let isLoggedIn = req.session.user ? true : false;
-
+ 
             res.send(page(owned(myOwnerItems), isLoggedIn));
         })
 });
@@ -174,10 +175,11 @@ app.get('/myaccount/borrowing', protectRoute, (req, res) => {
     Item.getItemsBorrowed(req.session.user.id)
         .then((myBorrowedItems) => {
             let isLoggedIn = req.session.user ? true : false;
-
+ 
             res.send(page(borrowing(myBorrowedItems), isLoggedIn));
         })
 })
+
 
 // User Adding an Item
 app.get('/myaccount/addItem', protectRoute, (req, res) => {
@@ -202,19 +204,22 @@ app.post('/myaccount/addItem', protectRoute, (req, res) => {
 // User Lending Items
 app.get('/myaccount/lendItem', protectRoute, (req, res) => {
     let isLoggedIn = req.session.user ? true : false;
-
+ 
     res.send(page(lendItemForm(), isLoggedIn));
 });
+
 
 app.post('/myaccount/lendItem', protectRoute, (req, res) => {
     const item_id = req.body.item_id;
     const borrower_id = req.body.borrower_id;
     // const owner_id = req.session.user.id;
+
     Item.updateItemStatus(borrower_id, item_id)
         .then(() => {
             res.send(page(`<h2><span class="shadow">success! thanks for sharing your stuff!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4><br><h4><span class="aqua"><a href="../myaccount/lendItem">lend another item</a></span></h4>`));
         })
 });
+
 
 // User Updating User's Info
 app.get('/myaccount/updateMyInfo', protectRoute, (req, res) => {
@@ -229,6 +234,7 @@ app.post('/myaccount/updateMyInfo', protectRoute, (req, res) => {
     const email = req.body.email;
     const city = req.body.city;
     const state = req.body.state;
+
     User.updateUserInfo(name, username, email, city, state)
         .then(() => {
             res.send(page(`<h2><span class="shadow">success! you have successfully updated your info, ${username}!</span></h2><br><h4><span class="aqua"><a href="../myaccount">return to my account</a></span></h4>`));
@@ -236,14 +242,16 @@ app.post('/myaccount/updateMyInfo', protectRoute, (req, res) => {
 });
 
 // User Updating User's Item
-app.get('/myaccount/updateItemInfo/:id', (req, res) => {
+app.get('/myaccount/updateItemInfo/:id', (req, res) => { 
     // const theForm = updateItem(req.params.id, req.body.name);
     console.log(req.params.id);
     // const thePage = page(updateItem(req.params.id, req.body.name), isLoggedIn);
+
     res.send(page(updateItem(req.params.id, req.body.name)));
 })
 
-app.post('/myaccount/updateItemInfo/:id', (req, res) => {
+
+app.post('/myaccount/updateItemInfo/:id', (req, res) =>{
     const updatedItemId = req.body.itemId;
     const category_id = req.body.category_id;
     const name = req.body.name;
@@ -255,18 +263,19 @@ app.post('/myaccount/updateItemInfo/:id', (req, res) => {
         })
 });
 
+
 // ====================================================
 // Books Page; List and Search
 // ====================================================
 
 // List of All Books
 app.get('/books', (req, res) => {
-    // console.log(req.params.id)
+    console.log(req.body.id)
     Category.getItemsWithLocation(1)
         .then((allBooks) => {
-            console.log(allBooks);
+            // console.log(allBooks);
             const thePage = page(books(allBooks), null, "books");
-
+ 
             res.send(thePage);
         })
 });
@@ -274,12 +283,12 @@ app.get('/books', (req, res) => {
 // Filtering All Books
 app.post('/books', (req, res) => {
     const search = req.body.search;
-    // console.log(req.params.id)npm 
+ 
     Category.getFilteredItemsWithLocation(1, search)
         .then((allBooks) => {
             console.log(allBooks);
             const thePage = page(books(allBooks), null, "books");
-
+ 
             res.send(thePage);
         })
 });
@@ -304,6 +313,7 @@ app.post('/requestItem/:id', protectRoute, (req, res) => {
         })
 })
 
+
 // ==================================================
 // Logout
 // ====================================================
@@ -312,6 +322,7 @@ app.get('/logout', (req, res) => {
 
     res.send(page(thePage))
 });
+
 // User Logout
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
