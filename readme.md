@@ -18,6 +18,10 @@ People can request to borrow and, if accepted, then there is a record of who has
 <ul>
   <li>Node.js</li>
   <li>Express</li>
+  <li>Monster Energy Drink (Steven)</li>
+  <li>Diet Dr. Pepper and chocolate (Clare)</li>
+  <li>Coffee (Amelia)</li>
+  <li>Frustrated Rage and the blood of human sacrifice</li>
 </ul>
 
 <h3>Future Innovations</h3>
