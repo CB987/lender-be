@@ -16,8 +16,13 @@ People can request to borrow and, if accepted, then there is a record of who has
 
 <h3>Powered by</h3>
 <ul>
+  <li>postgreSQL</li>
   <li>Node.js</li>
   <li>Express</li>
+  <li>Monster Energy Drink (Steven)</li>
+  <li>Diet Dr. Pepper and chocolate (Clare)</li>
+  <li>"whatever I want" (Amelia)</li>
+  <li>Frustrated Rage</li>
 </ul>
 
 <h3>Future Innovations</h3>
@@ -30,4 +35,4 @@ People can request to borrow and, if accepted, then there is a record of who has
   <li>Have pending requests table in My Account page</li>
 </ul>
 
-Brought to you by Amelia Schultz, Steven Kim, and Clare Barton
+Brought to you by Amelia Schulz, Steven Kim, and Clare Barton
