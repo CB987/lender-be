@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 // Protecting User Account
 function protectRoute(req, res, next) {
     let isLoggedIn = req.session.user ? true : false;
-    
+
     if (isLoggedIn) {
         console.log(req.session.user);
         next();
@@ -74,7 +74,7 @@ function protectRoute(req, res, next) {
 app.get('/register', (req, res) => {
     const theForm = registrationForm();
     const thePage = page(theForm);
- 
+
     res.send(thePage);
 });
 
@@ -93,7 +93,7 @@ app.post('/register', (req, res) => {
             const newCity = req.body.city;
             const newState = req.body.state;
             const newName = req.body.name;
- 
+
             User.add(newName, newUsername, newPassword, newEmail, newCity, newState)
                 .then((theUser) => {
                     // console.log(theUser);
@@ -109,7 +109,7 @@ app.post('/register', (req, res) => {
 app.get('/welcome', protectRoute, (req, res) => {
     // console.log(req.session.user);
     let isLoggedIn = req.session.user ? true : false;
- 
+
     res.send(page(homepage(), isLoggedIn));
 });
 
@@ -120,7 +120,7 @@ app.get('/welcome', protectRoute, (req, res) => {
 app.get('/login', (req, res) => {
     const theForm = loginForm();
     const thePage = page(theForm);
- 
+
     res.send(thePage);
 });
 
@@ -148,12 +148,12 @@ app.post('/login', (req, res) => {
 // ====================================================
 // My Account
 // ====================================================
- 
+
 // User's Account
 app.get('/myaccount', (req, res) => {
     // console.log(req.session.user.id);
     let isLoggedIn = req.session.user ? true : false;
- 
+
     res.send(page(myAccount(), isLoggedIn));
 })
 
@@ -164,7 +164,7 @@ app.get('/myaccount/owned', protectRoute, (req, res) => {
         .then(myOwnerItems => {
             // console.log(myOwnerItems);
             let isLoggedIn = req.session.user ? true : false;
- 
+
             res.send(page(owned(myOwnerItems), isLoggedIn));
         })
 });
@@ -175,7 +175,7 @@ app.get('/myaccount/borrowing', protectRoute, (req, res) => {
     Item.getItemsBorrowed(req.session.user.id)
         .then((myBorrowedItems) => {
             let isLoggedIn = req.session.user ? true : false;
- 
+
             res.send(page(borrowing(myBorrowedItems), isLoggedIn));
         })
 })
@@ -204,7 +204,7 @@ app.post('/myaccount/addItem', protectRoute, (req, res) => {
 // User Lending Items
 app.get('/myaccount/lendItem', protectRoute, (req, res) => {
     let isLoggedIn = req.session.user ? true : false;
- 
+
     res.send(page(lendItemForm(), isLoggedIn));
 });
 
@@ -242,7 +242,7 @@ app.post('/myaccount/updateMyInfo', protectRoute, (req, res) => {
 });
 
 // User Updating User's Item
-app.get('/myaccount/updateItemInfo/:id', (req, res) => { 
+app.get('/myaccount/updateItemInfo/:id', (req, res) => {
     // const theForm = updateItem(req.params.id, req.body.name);
     console.log(req.params.id);
     // const thePage = page(updateItem(req.params.id, req.body.name), isLoggedIn);
@@ -251,7 +251,7 @@ app.get('/myaccount/updateItemInfo/:id', (req, res) => {
 })
 
 
-app.post('/myaccount/updateItemInfo/:id', (req, res) =>{
+app.post('/myaccount/updateItemInfo/:id', (req, res) => {
     const updatedItemId = req.body.itemId;
     const category_id = req.body.category_id;
     const name = req.body.name;
@@ -275,7 +275,7 @@ app.get('/books', (req, res) => {
         .then((allBooks) => {
             // console.log(allBooks);
             const thePage = page(books(allBooks), null, "books");
- 
+
             res.send(thePage);
         })
 });
@@ -283,12 +283,12 @@ app.get('/books', (req, res) => {
 // Filtering All Books
 app.post('/books', (req, res) => {
     const search = req.body.search;
- 
+
     Category.getFilteredItemsWithLocation(1, search)
         .then((allBooks) => {
             console.log(allBooks);
             const thePage = page(books(allBooks), null, "books");
- 
+
             res.send(thePage);
         })
 });
