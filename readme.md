@@ -16,7 +16,7 @@ People can request to borrow and, if accepted, then there is a record of who has
 
 <h3>Powered by</h3>
 <ul>
-  <li>pstgreSQL</li>
+  <li>postgreSQL</li>
   <li>Node.js</li>
   <li>Express</li>
   <li>Monster Energy Drink (Steven)</li>
